@@ -1,0 +1,113 @@
+<div class="parallax">
+  <form
+    [formGroup]="crearFormulario"
+    (ngSubmit)="formulario()"
+    class="formulario"
+  >
+    <div class="row g-3 login shadow">
+      <h5 class="text-center mt-5"><strong>Registro de Usuarios</strong></h5>
+      <br />
+      <div class="form-floating col-md-6">
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Nombre"
+          formControlName="nombre"
+        />
+        <label for="floatingInput">Nombre</label>
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Apellido"
+          formControlName="apellido"
+        />
+        <label for="floatingInput">Apellido</label>
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Correo"
+          formControlName="correo"
+        />
+        <label for="floatingInput">Correo</label>
+      </div>
+
+      <div class="form-floating col-md-6">
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Contraseña"
+          formControlName="contraseña"
+        />
+        <label for="floatingInput">Contraseña</label>
+      </div>
+
+      <div class="form-floating col-md-6">
+        <input
+          type="number"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Edad"
+          formControlName="edad"
+        />
+        <label for="floatingInput">Edad</label>
+      </div>
+      <div class="form-floating col-md-6">
+        <input
+          type="number"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Edad"
+          formControlName="telefono"
+        />
+        <label for="floatingInput">Telefono</label>
+      </div>
+      <div class="form-floating col-md-12">
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          placeholder="Dirección"
+          formControlName="direccion"
+        />
+        <label for="floatingInput">Dirección</label>
+      </div>
+
+      <div class="col-cd-6">
+        <select class="form-select" aria-label="Default select example"
+        formControlName="sexo"
+        >
+          <option selected disabled value="">Sexo</option>
+          <option value="1">Hombre</option>
+          <option value="2">Mujer</option>
+        </select>
+      </div>
+
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button
+          class="btn btn-primary mt-3 mb-3  "
+          type="submit"
+          name=""
+          value="Ingresar"
+          [disabled]="btnBlock"
+        >
+          @if (btnEnviar){
+          <span>Registrar</span>
+          } @else{
+          <div class="loader"></div>
+          }
+        </button>
+      </div>
+     
+
+    
+    </div>
+  </form>
+</div>

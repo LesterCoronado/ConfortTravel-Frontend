@@ -1,0 +1,100 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Comfort Travel</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle active"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Tours
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Tours desde Guatemala</a></li>
+            <li><a class="dropdown-item" href="#">Tours desde Petén</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Paquetes de viajes</a></li>
+          </ul>
+        </li>
+        @if(!admin){
+          <li class="nav-item">
+            <a
+              [routerLink]="['/cotizacion']"
+              class="nav-link active"
+              aria-current="page"
+              >Cotizacion</a
+            >
+          </li>
+        }
+       
+        @if(admin){
+          <li class="nav-item">
+            <a
+              [routerLink]="['/listar-cotizacion']"
+              class="nav-link active"
+              aria-current="page"
+              >Listar Cotizaciones</a
+            >
+          </li>
+        }
+       
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Contacto</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#"
+            >Sobre nosotros</a
+          >
+        </li>
+      </ul>
+      <form class="d-flex" role="search">
+        <!-- @if(admin){ -->
+          <!-- <span class="text text-secondary">Admin</span> -->
+
+        <!-- } -->
+        @if(!login){
+          <button
+          class="btn btn-outline-dark"
+          type="submit"
+          [routerLink]="['/login']"
+        >
+          Sign In
+        </button>
+        }
+      
+        @if(login){
+          <button
+          class="btn btn-dark"
+          type="submit"
+          [routerLink]="['/login']"
+        >
+        <i class="bi bi-box-arrow-right"></i> Log Out
+        </button>
+        }
+      </form>
+      <!-- <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form> -->
+    </div>
+  </div>
+</nav>

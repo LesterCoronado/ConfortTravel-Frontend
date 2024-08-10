@@ -1,0 +1,49 @@
+<div class="parallax">
+  <form [formGroup]="crearFormulario" (ngSubmit)="formulario()" class=" formulario">
+<div class="row g-3 login shadow">
+  <h5 class="text-center mt-5"> <strong>LOGIN</strong></h5>
+  <br>
+  <i class="bi bi-person-circle text-center icon"></i>
+  <div class="col-md-6 ">
+    <input
+      class="form-control"
+      type="text"
+      name="usuario"
+      value=""
+      placeholder="Correo"
+      formControlName="correo"
+    />
+  </div>
+  <div class="col-md-6">
+    <input
+      class="form-control"
+      type="password"
+      name="contrasena"
+      value=""
+      placeholder="Contraseña"
+      formControlName="contraseña"
+    />
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto">
+      <button class="btn btn-primary  mt-3" type="submit" name="" value="Ingresar"
+      [disabled]="btnBlock"
+      >
+         @if (btnEnviar){
+          <span >Enviar</span>
+         }
+         @else{
+          <div class="loader"></div>
+         }
+       
+        </button>
+    </div>
+ 
+    <p class="text-center   ">¿No tienes cuenta aún?</p>
+
+  <p class="text-center mt-0 "><button class="btn btn-link" (click)="redirigir()">Registrarse</button></p>
+  <!-- <p class="text-center"><a href="#">Registro de Personal</a></p> -->
+
+</div>
+   
+  </form>
+</div>

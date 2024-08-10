@@ -1,0 +1,22 @@
+.parallax{
+    background-image: url('https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat:repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .lista{
+    background-color: rgba(255, 255, 255, 0.473);
+    
+    margin-top: 10px;
+    border-radius: 15px;
+  }
+
+  .tabla{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+  }

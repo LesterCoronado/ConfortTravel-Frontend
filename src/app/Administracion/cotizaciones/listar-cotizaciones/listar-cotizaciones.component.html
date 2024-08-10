@@ -1,0 +1,131 @@
+<div class="parallax">
+    <br>
+    
+    <div class="table-responsive mat-elevation-z8 tabla ">
+        <strong><h2 class="text-center text-primary">LISTA DE COTIZACIONES</h2></strong>
+        <table mat-table [dataSource]="dataSource" class="lista">
+          <ng-container matColumnDef="Cliente">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.nombreUsuario
+              }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="Destino">
+            <th mat-header-cell *matHeaderCellDef>Destino</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.destino }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="LugarSalida">
+            <th mat-header-cell *matHeaderCellDef>Lugar de Salida</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.saliendoDesde }}
+            </td>
+          </ng-container>
+    
+          <ng-container matColumnDef="FechaSalida">
+            <th mat-header-cell *matHeaderCellDef>Fecha Salida</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.fechaSalida | date : 'dd/MM/yyyy' }} 
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="FechaRetorno">
+            <th mat-header-cell *matHeaderCellDef>Fecha Retorno</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.fechaRetorno | date : 'dd/MM/yyyy' }} 
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="TotalDias">
+            <th mat-header-cell *matHeaderCellDef>Total Dias</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.totalDias 
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Adultos">
+            <th mat-header-cell *matHeaderCellDef>Adultos</th>
+            <td mat-cell *matCellDef="let element">
+              {{
+                element.totalAdultos 
+              }}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Ninos">
+            <th mat-header-cell *matHeaderCellDef>Niños</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.totalNinos}}
+             
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="PrecioCotizacion">
+            <th mat-header-cell *matHeaderCellDef>Precio Cotizacion</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.precioCotizacion | currency:'Q'}}
+             
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="ValidoHasta">
+            <th mat-header-cell *matHeaderCellDef>Valido Hasta</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.validoHasta | date : 'dd/MM/yyyy'}}
+            </td>
+          </ng-container>
+          <ng-container matColumnDef="Estado">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let element">
+              {{ element.estado}}
+            </td>
+          </ng-container>
+    
+          <!-- Acciones Column -->
+          <ng-container matColumnDef="Acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+                <button
+                (click)="
+                openDialog(
+                  element.idCotizacion
+                )
+              "
+                mat-icon-button
+                matTooltip="Editar"
+                color="primary"
+                aria-label="Example icon button with a edit icon"
+              >
+                <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+                  >edit</mat-icon
+                >
+              </button>
+              <!-- <button
+                (click)="
+                  eliminarProductoCartilla(
+                    element.idCartillaProducto,
+                    element.idCartillaMedica
+                  )
+                "
+                mat-icon-button
+                matTooltip="Eliminar"
+                color="warn"
+                aria-label="Example icon button with a delete icon"
+              >
+                <mat-icon>delete</mat-icon>
+              </button> -->
+            </td>
+          </ng-container>
+    
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+    
+        <mat-paginator
+          [pageSizeOptions]="[5, 10, 20, 50]"
+          showFirstLastButtons
+          aria-label="Select page of periodic elements"
+        >
+        </mat-paginator>
+      </div>
+</div>

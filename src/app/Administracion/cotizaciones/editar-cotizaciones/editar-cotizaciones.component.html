@@ -1,0 +1,172 @@
+<div class="parallax">
+  <form
+    [formGroup]="crearFormulario"
+    (ngSubmit)="formulario()"
+    class="formulario "
+    
+  >
+  
+    <div class="row g-3 login shadow m-2 data">
+    
+      <h5 class="text-center mt-5">
+        <strong>EDITAR COTIZACIÓN</strong>
+      </h5>
+      <br />
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Cliente
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="idUsuario"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option *ngFor="let usuario of Usuarios" [value]="usuario.idUsuario">
+            {{ usuario.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Destino
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="idDestino"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option *ngFor="let destino of Destinos" [value]="destino.idDestino">
+            {{ destino.nombre }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Saliendo desde
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="idSalidaDestino"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option
+            *ngFor="let salida of Salidas"
+            [value]="salida.idSalidaDestino"
+          >
+            {{ salida.salida }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Fecha de Salida
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="date" formControlName="fechaSalida" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Fecha de Retorno
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+          type="date"
+          formControlName="fechaRetorno"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Adultos
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+          type="number"
+          formControlName="totalAdultos"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Niños
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+          type="number"
+          formControlName="totalNinos"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Precio Cotización
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+          type="number"
+          formControlName="precioCotizacion"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Valido Hasta
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="date" formControlName="validoHasta" class="form-control" />
+      </div>
+
+      <!-- Botones -->
+      <div class="d-grid gap-2 col-12 mx-auto">
+        
+        <button
+          class="btn btn-primary mt-3 mb-3"
+          type="submit"
+          name=""
+          value="Ingresar"
+          [disabled]="btnBlock"
+        
+        >
+          @if (btnEnviar){
+          <span>Aceptar</span>
+          } @else{
+          <div class="loader"></div>
+          }
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
