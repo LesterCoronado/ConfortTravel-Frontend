@@ -6,7 +6,7 @@ import { environment } from '../environments/environments.prod';
 import { Router } from '@angular/router';
 import { DTOService } from '../services/dto.service';
 import { NotificacionesService } from '../services/notificaciones.service';
-
+import {CookieService} from 'ngx-cookie-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,7 +25,8 @@ export class LoginComponent implements OnInit {
     private routerprd: Router,
     private ngZone: NgZone,
     private DTO: DTOService,
-    private notificaciones : NotificacionesService
+    private notificaciones : NotificacionesService,
+    private cookie : CookieService
   ) {
     this.crearFormulario = this.fb.group({
       correo: ['', Validators.required],
@@ -53,6 +54,7 @@ export class LoginComponent implements OnInit {
             this.SendUserDTO(data.idUsuario);
             this.notificaciones.notificarNuevoLogin();
             sessionStorage.setItem('cookie', data.idRol);
+            this.cookie.set('cookie', data.idRol);
 
             console.log(data.rol)
             if(data.rol == "Administrador"){

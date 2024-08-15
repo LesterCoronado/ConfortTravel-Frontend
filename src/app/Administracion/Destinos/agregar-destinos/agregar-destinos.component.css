@@ -1,0 +1,62 @@
+.loader {
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 20px;
+    animation: l1 1s linear infinite alternate;
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l1 {to{opacity: 0}}
+  .data{
+    background-color: rgba(255, 255, 255, 0.473);
+    
+    margin-top: 10px;
+    border-radius: 15px;
+  }
+
+  img {
+    max-width: 300px;
+  }
+  .previsualizacion {
+    display: grid;
+    place-items: center;
+  }
+
+  .loader {
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 20px;
+    animation: l1 1s linear infinite alternate;
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l1 {to{opacity: 0}}
+
+  .imagenMascota {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Esto hará que la imagen tenga bordes redondeados y parezca un círculo */
+    object-fit: cover; /* Esto ayuda a ajustar la imagen dentro del círculo */
+  }
+
+  @media (max-width: 768px) {
+    .imagenMascota {
+      width: 80px; /* Ajusta el tamaño para dispositivos móviles */
+      height: 80px;
+    }
+  }
+
+  .icono{
+    font-size: 24px; /* Tamaño más grande */
+    font-weight: bold; /* Grosor más fuerte */
+    cursor:pointer;
+  }
+
+  .spiner{
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

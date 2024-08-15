@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    api:'https://localhost:7171/api'
+    api:'https://localhost:7096/api'
     //Yossi URL
-    // api:'http://localhost:5272/api'
+    // api:'http://localhost:7096/api'
   }

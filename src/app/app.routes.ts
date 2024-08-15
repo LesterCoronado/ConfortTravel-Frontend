@@ -8,6 +8,7 @@ import { AgregarCotizacionesComponent } from './Administracion/cotizaciones/agre
 import { ListarCotizacionesComponent } from './Administracion/cotizaciones/listar-cotizaciones/listar-cotizaciones.component';
 import { VigilanteGuard } from './guards/vigilante.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { ListaDestinosComponent } from './Administracion/Destinos/lista-destinos/lista-destinos.component';
 
 export const routes: Routes = [
     {
@@ -29,6 +30,10 @@ export const routes: Routes = [
 
     {
         path: 'listar-cotizacion', component: ListarCotizacionesComponent,
+        canActivate:  [AdminGuard] 
+    },
+    {
+        path: 'listar-destinos', component: ListaDestinosComponent,
         canActivate:  [AdminGuard] 
     },
 

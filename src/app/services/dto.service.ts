@@ -6,6 +6,7 @@ import { Subject, BehaviorSubject } from 'rxjs';
 export class DTOService {
   private userSubject = new BehaviorSubject<any>(null);
   private idCotizacion = new BehaviorSubject<any>(null);
+  private idDestino = new BehaviorSubject<any>(null);
   private adminSubject = new BehaviorSubject<any>(null);
 
 
@@ -30,6 +31,14 @@ export class DTOService {
   getIdCotizacion() {
     return this.idCotizacion.asObservable();
   }
+
+     //Para Editar y Agregar Destinos
+     setIdDestino(id: any) {
+      this.idDestino.next(id);
+    }
+    getIdDestino() {
+      return this.idDestino.asObservable();
+    }
 
   setAdmin(user: any) {
     this.userSubject.next(user);

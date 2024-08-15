@@ -1,0 +1,100 @@
+<div class="parallax">
+  <br />
+
+  <div class="table-responsive mat-elevation-z8 tabla">
+    <strong><h2 class="text-center text-primary">LISTA DE DESTINOS</h2></strong>
+    <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
+        <button class="btn btn-dark"  (click)="openAgregarDialog()"><i class="bi bi-plus-lg"></i> Agregar</button>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="lista">
+      <ng-container matColumnDef="Destino">
+        <th mat-header-cell *matHeaderCellDef>Destino</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.nombre }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Pais">
+        <th mat-header-cell *matHeaderCellDef>País</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.pais }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Departamento">
+        <th mat-header-cell *matHeaderCellDef>Departamento</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.depto }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Direccion">
+        <th mat-header-cell *matHeaderCellDef>Direccion</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.direccion }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Imagen">
+        <th mat-header-cell *matHeaderCellDef>Imagen</th>
+        <td mat-cell *matCellDef="let element">
+          <img
+          class="foto img-thumbnail "
+          [src]="element.imagen"
+          alt="Imagen"
+          *ngIf="element.imagen"
+        />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          @if(element.estado == 1){
+          <span class="activo text-success">Activo</span> } @else{
+          <span class="inactivo text-danger">Inactivo </span> }
+        </td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="Acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            (click)="openEditarDialog(element.idDestino)"
+            mat-icon-button
+            matTooltip="Editar"
+            color="primary"
+            aria-label="Example icon button with a edit icon"
+          >
+            <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+              >edit</mat-icon
+            >
+          </button>
+          <button
+                (click)="
+                  deleteDestinos(
+                    element.idDestino
+                  )
+                "
+                mat-icon-button
+                matTooltip="Eliminar"
+                color="warn"
+                aria-label="Example icon button with a delete icon"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+        </td>
+        
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+    >
+    </mat-paginator>
+  </div>
+</div>

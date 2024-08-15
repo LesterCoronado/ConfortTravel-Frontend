@@ -1,0 +1,46 @@
+.parallax{
+    background-image: url('https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat:repeat;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .lista{
+    background-color: rgba(255, 255, 255, 0.473);
+    
+    margin-top: 10px;
+    border-radius: 15px;
+  }
+
+  .tabla{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 15px;
+  }
+  .activo, .inactivo {
+    display: inline-block; /* Asegúrate de que el elemento respete el ancho */
+    width: 100px; /* Ajusta el valor según sea necesario */
+    text-align: center; /* Centra el texto dentro del span */
+  }
+
+  .activo{
+    background-color: #41f50a69;
+    border-radius: 50px;
+    padding: 5px;
+  }
+
+  .inactivo{
+    background-color: #f5350a69;
+    border-radius: 50px;
+    padding: 5px;
+  }
+
+  .foto{
+    width: 100px;
+    height: 100px;
+     /* Esto hará que la imagen tenga bordes redondeados y parezca un círculo */
+    object-fit: cover; /* Esto ayuda a ajustar la imagen dentro del círculo */
+  }
