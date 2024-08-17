@@ -59,4 +59,13 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .formulario{
+   
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+    
+   
+}
   

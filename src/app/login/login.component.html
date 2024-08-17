@@ -4,7 +4,7 @@
   <h5 class="text-center mt-5"> <strong>LOGIN</strong></h5>
   <br>
   <i class="bi bi-person-circle text-center icon"></i>
-  <div class="col-md-6 ">
+  <div class="col-md-6  input-group-lg">
     <input
       class="form-control"
       type="text"
@@ -15,14 +15,8 @@
     />
   </div>
   <div class="col-md-6">
-    <input
-      class="form-control"
-      type="password"
-      name="contrasena"
-      value=""
-      placeholder="Contraseña"
-      formControlName="contraseña"
-    />
+    <p-password  formControlName="contraseña" placeholder="Contraseña"  [toggleMask]="true" [feedback]="false"/>
+    
   </div>
   <div class="d-grid gap-2 col-6 mx-auto">
       <button class="btn btn-primary  mt-3" type="submit" name="" value="Ingresar"

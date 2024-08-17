@@ -1,0 +1,5 @@
+/* Ajusta el z-index del diálogo de confirmación */
+.confirm-dialog {
+    z-index: 1000000000; /* Elije un valor alto para asegurarte de que esté por encima del modal principal */
+  }
+  

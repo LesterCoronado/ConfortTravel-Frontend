@@ -2,55 +2,27 @@
   <br />
 
   <div class="table-responsive mat-elevation-z8 tabla">
-    <strong><h2 class="text-center text-primary">LISTA DE DESTINOS</h2></strong>
+    <strong><h2 class="text-center text-primary mt-3">LISTA DE SALIDAS</h2></strong>
     <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
       <button class="btn btn-dark" (click)="openAgregarDialog()">
         <i class="bi bi-plus-lg"></i> Agregar
       </button>
     </div>
     <table mat-table [dataSource]="dataSource" class="lista">
-      <ng-container matColumnDef="Destino">
-        <th mat-header-cell *matHeaderCellDef>Destino</th>
+      <ng-container matColumnDef="No">
+        <th mat-header-cell *matHeaderCellDef>No</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.nombre }}
+          {{ element.idSalida }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="Pais">
-        <th mat-header-cell *matHeaderCellDef>País</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.pais }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Departamento">
-        <th mat-header-cell *matHeaderCellDef>Departamento</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.depto }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="Direccion">
-        <th mat-header-cell *matHeaderCellDef>Direccion</th>
+      <ng-container matColumnDef="Salida">
+        <th mat-header-cell *matHeaderCellDef>Salida</th>
         <td mat-cell *matCellDef="let element">
           {{ element.direccion }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="Imagen">
-        <th mat-header-cell *matHeaderCellDef>Imagen</th>
-        <td mat-cell *matCellDef="let element">
-          <div class="container p-3">
-            <p-image
-            [src]="element.imagen"
-            alt="Image"
-            width="150"
-            [preview]="true"
-            *ngIf="element.imagen"
-          />
-          </div>
-          
-        </td>
-      </ng-container>
+
       <ng-container matColumnDef="Estado">
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let element">
@@ -65,18 +37,18 @@
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element">
           <button
-            (click)="openEditarDialog(element.idDestino)"
-            mat-icon-button
-            matTooltip="Editar"
-            color="primary"
-            aria-label="Example icon button with a edit icon"
+          (click)="openEditarDialog(element.idSalida)"
+          mat-icon-button
+          matTooltip="Editar"
+          color="primary"
+          aria-label="Example icon button with a edit icon"
+        >
+          <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+            >edit</mat-icon
           >
-            <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
-              >edit</mat-icon
-            >
-          </button>
+        </button>
           <button
-            (click)="deleteDestinos(element.idDestino)"
+            (click)="deleteSalidas(element.idSalida)"
             mat-icon-button
             matTooltip="Eliminar"
             color="warn"

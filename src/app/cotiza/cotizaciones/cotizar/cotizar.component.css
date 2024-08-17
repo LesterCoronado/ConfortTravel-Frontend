@@ -7,16 +7,14 @@
     
    
 }
+
 .login{
-  background-color:rgba(255, 255, 255, 0.608);
+  background-color: rgba(255, 255, 255, 0.473);
   
   margin-top: 10px;
   border-radius: 15px;
 }
 
-a{
-  color: white;
-}
 
 .parallax{
   background-image: url('https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg');
@@ -27,23 +25,13 @@ a{
   height: 100vh;
 }
 
-.icon{
-  font-size: 50px;
-  color: white;
-}
-
-/* HTML: <div class="loader"></div> */
 .loader {
-  font-weight: bold;
-  font-family: sans-serif;
-  font-size: 20px;
-  animation: l1 1s linear infinite alternate;
-}
-.loader:before {
-  content:"Loading..."
-}
-@keyframes l1 {to{opacity: 0}}
-
-.form-floating-label-height{
-    height: 1px;
-}
+    font-weight: bold;
+    font-family: sans-serif;
+    font-size: 20px;
+    animation: l1 1s linear infinite alternate;
+  }
+  .loader:before {
+    content:"Loading..."
+  }
+  @keyframes l1 {to{opacity: 0}}

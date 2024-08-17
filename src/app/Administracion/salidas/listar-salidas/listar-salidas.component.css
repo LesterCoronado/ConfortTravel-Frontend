@@ -15,7 +15,7 @@
   }
 
   .tabla{
-    width: 95%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     border-radius: 15px;
@@ -38,6 +38,3 @@
     padding: 5px;
   }
 
-  .foto{
-    
-  }

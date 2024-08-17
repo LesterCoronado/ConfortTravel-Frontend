@@ -32,10 +32,10 @@ export class ListarCotizacionesComponent {
   displayedColumns: string[] = [
     'Cliente',
     'Destino',
+    'Modalidad',
     'LugarSalida',
     'FechaSalida',
-    'FechaRetorno',
-    'TotalDias',
+    'Comentario',
     'Adultos',
     'Ninos',
     'PrecioCotizacion',
@@ -60,7 +60,7 @@ export class ListarCotizacionesComponent {
     this.notificaciones.nuevaCotizacion$.subscribe(() => {
       this.getCotizaciones();
     });
-    this.getCotizaciones();
+    this.getCotizaciones(); 
 
    
 

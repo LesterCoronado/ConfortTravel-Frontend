@@ -7,7 +7,7 @@
           <ng-container matColumnDef="Cliente">
             <th mat-header-cell *matHeaderCellDef>Cliente</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.nombreUsuario
+              {{ element.usuario
               }}
             </td>
           </ng-container>
@@ -15,14 +15,14 @@
           <ng-container matColumnDef="Destino">
             <th mat-header-cell *matHeaderCellDef>Destino</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.destino }}
+              {{ element.paqueteViaje }}
             </td>
           </ng-container>
     
           <ng-container matColumnDef="LugarSalida">
             <th mat-header-cell *matHeaderCellDef>Lugar de Salida</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.saliendoDesde }}
+              {{ element.salida }}
             </td>
           </ng-container>
     
@@ -32,17 +32,17 @@
               {{ element.fechaSalida | date : 'dd/MM/yyyy' }} 
             </td>
           </ng-container>
-          <ng-container matColumnDef="FechaRetorno">
-            <th mat-header-cell *matHeaderCellDef>Fecha Retorno</th>
+          <ng-container matColumnDef="Modalidad">
+            <th mat-header-cell *matHeaderCellDef>Modalidad</th>
             <td mat-cell *matCellDef="let element">
-              {{ element.fechaRetorno | date : 'dd/MM/yyyy' }} 
+              {{ element.modalidad }} 
             </td>
           </ng-container>
-          <ng-container matColumnDef="TotalDias">
-            <th mat-header-cell *matHeaderCellDef>Total Dias</th>
+          <ng-container matColumnDef="Comentario">
+            <th mat-header-cell *matHeaderCellDef>Comentarios</th>
             <td mat-cell *matCellDef="let element">
               {{
-                element.totalDias 
+                element.comentario
               }}
             </td>
           </ng-container>

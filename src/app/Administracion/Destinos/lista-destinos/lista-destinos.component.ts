@@ -10,6 +10,12 @@ import { DTOService } from '../../../services/dto.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarDestinosComponent } from '../agregar-destinos/agregar-destinos.component';
 import { NotificacionesService } from '../../../services/notificaciones.service';
+import { ImageModule } from 'primeng/image';
+import { DialogoDeleteComponent } from '../../../dialogs/dialogo-delete/dialogo-delete.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 @Component({
   selector: 'app-lista-destinos',
   standalone: true,
@@ -19,7 +25,12 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
+    ImageModule,
+    ToastModule, 
+    ButtonModule, 
+    RippleModule
   ],
+  providers: [MessageService],
   templateUrl: './lista-destinos.component.html',
   styleUrl: './lista-destinos.component.css'
 })
@@ -42,7 +53,8 @@ export class ListaDestinosComponent {
     private backend : BackendService,
     private DTO: DTOService,
     public dialog: MatDialog,
-    private notificaciones: NotificacionesService
+    private notificaciones: NotificacionesService,
+    private messageService: MessageService
   ) {}
 
   ngAfterViewInit() {
@@ -73,20 +85,36 @@ export class ListaDestinosComponent {
   }
 
   deleteDestinos(id: any) {
-    this.backend.delete(`${environment.api}/Destino/${id}`).subscribe(
-      {
-        next: (data : any) => {
-          this.getDestinos();
-          alert('Destino eliminado con éxito');
-        
-        },
-        error: (error) => {
-          console.log(error);
-          alert('Error al eliminar el destino, puede que este destino este siendo utilizado en un registro del sistema');
-          console.error(error);
+    const dialogRef = this.dialog.open(DialogoDeleteComponent, {
+      width: '900px',
+      height: '200px',
+      data: {
+        title: '¿Estás seguro de eliminar?',
+        message: 'Ten en cuenta que este destino será eliminado permanentemente',
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.backend.delete(`${environment.api}/Destino/${id}`).subscribe(
+          {
+            next: (data : any) => {
+              this.getDestinos();
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Destino eliminado correctamente' });
+            
+            },
+            error: (error) => {
+              console.log(error);
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al eliminar el destino, puede que que actualmente se encuentre en uso dentro del sistema' });
+
+           
+              console.error(error);
+          }
+        }
+        )
       }
-    }
-    )
+    });
+
+   
   }
 
   openAgregarDialog() {
@@ -94,6 +122,14 @@ export class ListaDestinosComponent {
     const dialogRef = this.dialog.open(AgregarDestinosComponent, {
       width: '900px',
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Destino creado con éxito' });
+
+      }
+
+    }
+    );
   }
 
   openEditarDialog(id:any) {
@@ -101,6 +137,13 @@ export class ListaDestinosComponent {
     const dialogRef = this.dialog.open(AgregarDestinosComponent, {
       width: '900px',
     });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Se editó el destino con éxito' });
+
+      }
+    }
+    );
   }
 
 }

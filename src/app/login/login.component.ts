@@ -6,13 +6,30 @@ import { environment } from '../environments/environments.prod';
 import { Router } from '@angular/router';
 import { DTOService } from '../services/dto.service';
 import { NotificacionesService } from '../services/notificaciones.service';
-import {CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
+import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { PasswordModule } from 'primeng/password';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    InputTextModule,
+    FloatLabelModule,
+    PasswordModule,
+    ButtonModule,
+    RippleModule,
+    ToastModule,
+  ],
+  providers: [MessageService],
 })
 export class LoginComponent implements OnInit {
   btnEnviar: boolean = true;
@@ -25,8 +42,9 @@ export class LoginComponent implements OnInit {
     private routerprd: Router,
     private ngZone: NgZone,
     private DTO: DTOService,
-    private notificaciones : NotificacionesService,
-    private cookie : CookieService
+    private notificaciones: NotificacionesService,
+    private cookie: CookieService,
+    private messageService: MessageService
   ) {
     this.crearFormulario = this.fb.group({
       correo: ['', Validators.required],
@@ -55,21 +73,20 @@ export class LoginComponent implements OnInit {
             this.notificaciones.notificarNuevoLogin();
             sessionStorage.setItem('cookie', data.idRol);
             this.cookie.set('cookie', data.idRol);
+            this.cookie.set('idUser', data.idUsuario);
+            alert('Bienvenido ' + data.nombre );
 
-            console.log(data.rol)
-            if(data.rol == "Administrador"){
+            console.log(data.rol);
+            if (data.rol == 'Administrador') {
               this.notificaciones.notificarNuevoAdmin();
-              console.log("si es admin")
+              console.log('si es admin');
             }
 
             this.btnBlock = false;
 
             this.ngZone.run(() => {
               this.btnEnviar = true;
-              console.log(data);
-
               this.routerprd.navigate(['/inicio']);
-              alert('Bienvenido ' + data.nombre);
             });
           },
           error: (error) => {
@@ -92,9 +109,9 @@ export class LoginComponent implements OnInit {
 
   SendUserDTO(user: any) {
     this.DTO.setUser(user);
-   
-    let data : any;
+
+    let data: any;
     data = this.DTO.getUser();
-    console.log(this.DTO.getUser())  
+    console.log(this.DTO.getUser());
   }
 }

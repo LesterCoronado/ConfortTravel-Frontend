@@ -11,6 +11,11 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { relativeTimeThreshold } from 'moment';
 
 @Component({
   selector: 'app-agregar-destinos',
@@ -21,7 +26,11 @@ import { MatButtonModule } from '@angular/material/button';
     NgFor,
     MatIconModule,
     MatButtonModule,
+    ToastModule,
+    ButtonModule,
+    RippleModule,
   ],
+  providers: [MessageService],
   templateUrl: './agregar-destinos.component.html',
   styleUrl: './agregar-destinos.component.css',
 })
@@ -29,13 +38,14 @@ export class AgregarDestinosComponent {
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
   btnBlock: boolean = false;
-  tituloModal: string = 'Agregar';
+  tituloModal: string = 'AGREGAR DESTINO';
   idDestino: any;
   uploadedFiles: File[] = [];
   previsualizacion: string = '';
   public archivos: any = [];
   cargandoImagen = false;
   esFotoValida: boolean = true;
+  urlFoto: string = '';
 
   estados = [
     {
@@ -135,7 +145,8 @@ export class AgregarDestinosComponent {
     private DTO: DTOService,
     public dialogRef: MatDialogRef<AgregarDestinosComponent>,
     private notificaciones: NotificacionesService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private messageService: MessageService
   ) {
     this.crearFormulario = this.fb.group({
       idDestino: [0, Validators.required],
@@ -157,19 +168,19 @@ export class AgregarDestinosComponent {
   esEditar() {
     const id = this.idDestino.source._value;
     if (id !== 0) {
-      this.tituloModal = 'Editar';
+      this.tituloModal = 'EDITAR DESTINO';
       this.backend.get(`${environment.api}/Destino/${id}`).subscribe({
         next: (data: any) => {
-          console.log(data);
           this.crearFormulario.setValue({
             idDestino: data.idDestino,
             nombre: data.nombre,
             pais: data.pais,
-            depto: data.depto,
+            depto: data.depto, // Asegúrate de que esto esté configurado correctamente
             direccion: data.direccion,
             imagen: '', // No se establece el valor del campo de archivo
           });
           this.previsualizacion = data.imagen;
+          this.urlFoto = data.imagen;
 
           // Actualiza los departamentos y selecciona el departamento correcto
           this.updateDepartamentos(data.pais);
@@ -187,8 +198,12 @@ export class AgregarDestinosComponent {
       (p) => p.pais === pais
     );
     this.departamentos = selectedCountry ? selectedCountry.departamentos : [];
-    this.crearFormulario.get('depto')?.reset();
+
+    // Restablecer el campo de "Departamento" y el valor seleccionado a "Seleccione"
+    this.crearFormulario.get('depto')?.setValue('');
+    this.crearFormulario.get('depto')?.markAsPristine(); // Opcional: si deseas que se considere sin cambios
   }
+
   formulario() {
     const id = this.idDestino.source._value;
     if (id == 0) {
@@ -202,7 +217,7 @@ export class AgregarDestinosComponent {
   addDestino() {
     console.log(this.crearFormulario.value);
     if (this.crearFormulario.invalid) {
-      alert('Complete el formulario');
+      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Complete el formulario' });
     } else {
       // Convertir idDestino e idSalida a enteros
       this.btnEnviar = false;
@@ -212,27 +227,36 @@ export class AgregarDestinosComponent {
         .subscribe({
           next: (data: any) => {
             this.ngZone.run(() => {
+              this.closeModal();
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Destino agregado correctamente',
+              });
               this.btnBlock = false;
               this.btnEnviar = true;
               console.log(data);
               this.crearFormulario.reset();
               this.notificaciones.notificarNuevoDestino();
-              this.closeModal();
-              alert('Destino creado con éxito');
             });
           },
           error: (error) => {
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Uno o mas campos son incorrectos');
 
             if (error.error == 'El destino ya existe') {
-              alert('Ya existe un destino con este nombre');
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Info',
+                detail: 'Ya existe un destino con este nombre',
+              });
             } else {
-              console.log(
-                'ocurrion un error al crear el destino, intente nuevamente'
-              );
-              console.log(error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail:
+                  'ocurrion un error al crear el destino, intente nuevamente',
+              });
             }
           },
         });
@@ -240,6 +264,10 @@ export class AgregarDestinosComponent {
   }
   editDestino(id: any) {
     console.log(this.crearFormulario.value);
+    // if (this.crearFormulario.value.imagen == '') {
+    //   this.crearFormulario.value.imagen = this.urlFoto;
+    // }
+    this.crearFormulario.value.imagen = this.previsualizacion
     this.backend
       .put(`${environment.api}/Destino/${id}`, this.crearFormulario.value)
       .subscribe({
@@ -247,7 +275,7 @@ export class AgregarDestinosComponent {
           this.ngZone.run(() => {
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Se Editó con Éxito!');
+
             this.notificaciones.notificarNuevoDestino();
           });
           this.closeModal();
@@ -255,21 +283,16 @@ export class AgregarDestinosComponent {
         error: (error) => {
           this.btnBlock = false;
           this.btnEnviar = true;
-          alert('Uno o mas campos son incorrectos');
-
-          if (error.error == 'usuario no encontrado') {
-            alert('Usuario no encontrado');
-          } else {
-            console.log(
-              'Error al tratar de establecer comunicacion con el servidor'
-            );
-            console.log(error);
-          }
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al editar el destino',
+          });
         },
       });
   }
   closeModal() {
-    this.dialogRef.close(); // Cierra el modal
+    this.dialogRef.close(true); // Cierra el modal
   }
   capturarFile(event: any): any {
     if (event.target.files && event.target.files[0]) {

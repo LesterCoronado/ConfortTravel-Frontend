@@ -18,7 +18,7 @@
           <a class="nav-link active" aria-current="page" href="#">Inicio</a>
         </li>
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle active"
             href="#"
@@ -26,7 +26,7 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Tours
+            Paquetes
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Tours desde Guatemala</a></li>
@@ -34,8 +34,16 @@
             <li><hr class="dropdown-divider" /></li>
             <li><a class="dropdown-item" href="#">Paquetes de viajes</a></li>
           </ul>
+        </li> -->
+        <li class="nav-item">
+          <a
+            [routerLink]="['/paquetes']"
+            class="nav-link active"
+            aria-current="page"
+            >Paquetes</a
+          >
         </li>
-        @if(!admin){
+        <!-- @if(!admin){
           <li class="nav-item">
             <a
               [routerLink]="['/cotizacion']"
@@ -44,7 +52,7 @@
               >Cotizacion</a
             >
           </li>
-        }
+        } -->
        
         @if(admin){
           <li class="nav-item">
@@ -61,6 +69,14 @@
               class="nav-link active"
               aria-current="page"
               >Destinos</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              [routerLink]="['/listar-salidas']"
+              class="nav-link active"
+              aria-current="page"
+              >Salidas</a
             >
           </li>
         }
@@ -93,7 +109,7 @@
           <button
           class="btn btn-dark"
           type="submit"
-          [routerLink]="['/login']"
+          (click)="logOut()"
         >
         <i class="bi bi-box-arrow-right"></i> Log Out
         </button>

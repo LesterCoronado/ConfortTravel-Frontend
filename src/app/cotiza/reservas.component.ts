@@ -6,6 +6,7 @@ import { environment } from '../environments/environments.prod';
 import { Router } from '@angular/router';
 import { NgFor } from '@angular/common';
 import { DTOService } from '../services/dto.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reservas',
@@ -21,14 +22,19 @@ export class ReservasComponent {
   destinos: any = [];
   salidas: any = [];
   userDTO: any;
+  idPaquete: any;
 
   constructor(
     public fb: FormBuilder,
     private backend: BackendService,
     private routerprd: Router,
     private ngZone: NgZone,
-    private DTO: DTOService
+    private DTO: DTOService,
+    private route: ActivatedRoute
   ) {
+    this.route.params.subscribe((params) => {
+      this.getPaquete(params['id']);
+    });
     this.crearFormulario = this.fb.group({
       idUsuario: [0, Validators.required],
       idDestino: [0, Validators.required],
@@ -40,31 +46,25 @@ export class ReservasComponent {
     });
   }
   ngOnInit() {
- 
-      this.getDestinos();
-      // Suscribirse a los cambios en el control de selección de destino
-      this.crearFormulario
-        .get('idDestino')
-        ?.valueChanges.subscribe((selectedDestinoId) => {
-          if (selectedDestinoId) {
-            this.getSalidas(selectedDestinoId);
-          }
-        });
-    
-  
+    // this.getDestinos();
+    // this.crearFormulario
+    //   .get('idDestino')
+    //   ?.valueChanges.subscribe((selectedDestinoId) => {
+    //     if (selectedDestinoId) {
+    //       this.getSalidas(selectedDestinoId);
+    //     }
+    //   });
   }
 
   formulario() {
-    console.log(this.crearFormulario.value)
+    console.log(this.crearFormulario.value);
     let data: any;
     data = this.DTO.getUser();
     this.crearFormulario.patchValue({
       idUsuario: data.source._value,
     });
 
-    if (this.crearFormulario.invalid)
-    
-    {
+    if (this.crearFormulario.invalid) {
       alert('Complete el formulario');
     } else {
       // Convertir idDestino e idSalida a enteros
@@ -85,7 +85,6 @@ export class ReservasComponent {
               console.log(data);
               this.crearFormulario.reset();
               alert('Cotización creada con éxito');
-              
             });
           },
           error: (error) => {
@@ -127,6 +126,19 @@ export class ReservasComponent {
       },
       error: (err) => {
         console.log(err);
+      },
+    });
+  }
+
+  getPaquete(id: any) {
+    this.backend.get(`${environment.api}/Paquete/${id}`).subscribe({
+      next: (data: any) => {
+        console.log(data);
+        this.idPaquete = data[0].idPaquete;
+        console.log('El id del paquete es: ' + this.idPaquete);
+      },
+      error: (error: any) => {
+        console.log(error);
       },
     });
   }

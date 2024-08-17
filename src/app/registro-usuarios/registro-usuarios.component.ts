@@ -5,12 +5,22 @@ import { BackendService } from '../services/backend.service';
 import { environment } from '../environments/environments.prod';
 import { Router } from '@angular/router';
 import moment from 'moment';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @Component({
   selector: 'app-registro-usuarios',
   standalone: true,
   imports: [ ReactiveFormsModule,
     FormsModule,
+    PasswordModule,
+    DividerModule,
+    FloatLabelModule,
+    InputTextModule,
+    InputNumberModule 
   ],
   templateUrl: './registro-usuarios.component.html',
   styleUrl: './registro-usuarios.component.css',
@@ -20,6 +30,7 @@ export class RegistroUsuariosComponent {
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
   btnBlock: boolean = false;
+  value!: string;
 
   constructor(
     public fb: FormBuilder, 
