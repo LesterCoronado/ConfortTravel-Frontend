@@ -35,42 +35,92 @@
         <p class="text">Total de días: {{ paquete.totalDias }} días</p>
         <p class="text">Total de noches: {{ paquete.totalNoches }} noches</p>
       </div>
+    </div>
+    @if(lista_noIncluye.length >0) {
+    <div class="col-md-6">
+      <hr class="divider" />
 
-      <div class="d-grid gap-2">
-        <button
-          class="btn btn-outline-dark mb-3"
-          (click)="Cotizar(paquete.idPaquete)"
-        >
-          Cotizar
-        </button>
+      <div class="incule_noIncluye row">
+        <div class="col-md-6 p-3">
+          <p class="text-center">
+            <i class="bi bi-x-circle"></i>
+            <span class="ms-1"> Lo que No está incluido</span>
+          </p>
+        </div>
+      </div>
+      <div class="container p-3">
+        <p class="text" *ngFor="let item of lista_noIncluye">
+          <i class="bi bi-x-circle-fill text-danger"></i> {{ item.noIncluye }}
+        </p>
       </div>
     </div>
+    } @if(lista_incluye.length >0) {
+    <div class="col-md-6">
+      <hr class="divider" />
+      <div class="incule_noIncluye row">
+        <div class="col-md-6 p-3">
+          <p class="text-center">
+            <i class="bi bi-check-circle"></i>
+            <span class="ms-1"> Lo que se Incluye</span>
+          </p>
+        </div>
+      </div>
+      <div class="container p-3">
+        <p class="text" *ngFor="let item of lista_incluye">
+          <i class="bi bi-check-circle-fill text-success"></i>
+          {{ item.incluye }}
+        </p>
+      </div>
+    </div>
+    } @if(paquete.politicaCancelacion != "") {
 
-    <!-- <div class="col-md-6">
-      <img
-        [src]="paquete.portada"
-        class="img-fluid"
-        style="max-width: 50%; max-height: 65%; margin-left: auto; margin-right: auto"
-        *ngIf="paquete.portada"
-      />
-    </div> -->
-    <!-- <div class="col-md-12">
+    <div class="col-md-6">
+      <hr class="divider" />
+      <div class="politicaCancelacion row">
+        <div class="pax1 col-md-6 p-3">
+          <p class="text-center">
+            <i class="bi bi-exclamation-triangle"></i>
+            <span class="ms-1"> Política de Cancelacion</span>
+          </p>
+        </div>
+      </div>
+      <div class="container p-3">
+        <p class="text">
+          {{ paquete.politicaCancelacion }}
+        </p>
+      </div>
+    </div>
+    }
+
+    <div class="d-grid gap-2 col-12 mx-auto">
+      <button
+      style="width: 50%; margin-left: auto; margin-right: auto;"
+        class="btn btn-outline-dark mb-3"
+        (click)="Cotizar(paquete.idPaquete)"
+      >
+        Cotizar Ahora
+      </button>
+    </div>
+
+    @if(itinerario.length > 0){
+    <hr class="divider" />
+    <div class="col-md-12">
       <div class="div titulo bg-light">
         <h3 class="text-center">Itinerario</h3>
       </div>
       <div class="card">
-        <p-timeline [value]="events">
-            <ng-template pTemplate="content" let-event>
-                <small class="p-text-secondary">{{ event.date }}</small>
-            </ng-template>
-            <ng-template pTemplate="opposite" let-event>
-                {{ event.status }}
-            </ng-template>
+        <p-timeline [value]="itinerario">
+          <ng-template pTemplate="content" let-event>
+            <small class="p-text-secondary">{{ event.horario }}</small>
+          </ng-template>
+          <ng-template pTemplate="opposite" let-event>
+            {{ event.descripcion }}
+          </ng-template>
         </p-timeline>
+      </div>
+      <br />
     </div>
-      
-    </div> -->
-
-    
+    <br />
+    }
   </div>
 </div>

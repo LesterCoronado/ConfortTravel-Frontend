@@ -19,7 +19,7 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
 export class EditarCotizacionesComponent {
   idCotizacion: any;
   Usuarios: any = [];
-  Destinos: any = [];
+  Paquetes: any = [];
   Salidas: any = [];
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
@@ -27,64 +27,58 @@ export class EditarCotizacionesComponent {
   constructor(
     public fb: FormBuilder,
     private backend: BackendService,
-    private notificaciones : NotificacionesService,
+    private notificaciones: NotificacionesService,
     private routerprd: Router,
     private ngZone: NgZone,
     private DTO: DTOService,
-    public dialogRef: MatDialogRef<EditarCotizacionesComponent>,
-  
+    public dialogRef: MatDialogRef<EditarCotizacionesComponent>
   ) {
     this.crearFormulario = this.fb.group({
+      idCotizacion: ['', Validators.required],
       idUsuario: ['', Validators.required],
-      idDestino: ['', Validators.required],
-      idSalidaDestino: ['', Validators.required],
+      idPaqueteViaje: ['', Validators.required],
       fechaSalida: ['', Validators.required],
-      fechaRetorno: ['', Validators.required],
       totalAdultos: ['', Validators.required],
       totalNinos: ['', Validators.required],
+      comentario: ['', Validators.required],
       precioCotizacion: ['', Validators.required],
       validoHasta: ['', Validators.required],
     });
   }
   ngOnInit(): void {
     this.esEditar();
-    this.getDestinos();
+    this.getPaquetes();
     this.getUsuarios();
-    
-    
   }
   esEditar() {
     let data: any;
     data = this.DTO.getIdCotizacion();
     let id = data.source._value;
-   
+
     this.backend.get(`${environment.api}/Cotizacion/${id}`).subscribe({
       next: (data: any) => {
-        console.log(data)
-        this.idCotizacion = data.idCotizacion;
+        console.log(data);
+        this.idCotizacion = data[0].idCotizacion;
         this.getSalidas(data.idDestino);
         const datePipe = new DatePipe('en-US');
         const formattedFechaSalida = datePipe.transform(
-          data.fechaSalida,
+          data[0].fechaSalida,
           'yyyy-MM-dd'
         );
-        const formattedFechaRetorno = datePipe.transform(
-          data.fechaRetorno,
-          'yyyy-MM-dd'
-        );
+
         const formattedValidoHasta = datePipe.transform(
-          data.validoHasta,
+          data[0].validoHasta,
           'yyyy-MM-dd'
         );
         this.crearFormulario.setValue({
-          idUsuario: data.idUsuario,
-          idDestino: data.idDestino,
-          idSalidaDestino: data.idSalidaDestino,
+          idCotizacion: data[0].idCotizacion,
+          idUsuario: data[0].idUsuario,
+          idPaqueteViaje: data[0].idPaqueteViaje,
           fechaSalida: formattedFechaSalida,
-          fechaRetorno: formattedFechaRetorno,
-          totalAdultos: data.totalAdultos,
-          totalNinos: data.totalNinos,
-          precioCotizacion: data.precioCotizacion,
+          totalAdultos: data[0].totalAdultos,
+          totalNinos: data[0].totalNinos,
+          comentario: data[0].comentario,
+          precioCotizacion: data[0].precioCotizacion,
           validoHasta: formattedValidoHasta,
         });
       },
@@ -100,13 +94,12 @@ export class EditarCotizacionesComponent {
     });
   }
 
-  getDestinos() {
-    this.backend.get(`${environment.api}/Destino`).subscribe({
+  getPaquetes() {
+    this.backend.get(`${environment.api}/Paquete`).subscribe({
       next: (data: any) => {
-        this.Destinos = data;
+        this.Paquetes = data;
       },
-      error: (err) => {
-      },
+      error: (err) => {},
     });
   }
   getUsuarios() {
@@ -114,16 +107,14 @@ export class EditarCotizacionesComponent {
       next: (data: any) => {
         this.Usuarios = data;
       },
-      error: (err) => {
-      },
+      error: (err) => {},
     });
   }
-  getSalidas(id:any) {
+  getSalidas(id: any) {
     this.backend.get(`${environment.api}/SalidaDestino/${id}`).subscribe({
       next: (data: any) => {
         this.Salidas = data;
-        data.forEach((element:any) => {
-        });
+        data.forEach((element: any) => {});
       },
       error: (err) => {
         console.log(err);
@@ -132,50 +123,46 @@ export class EditarCotizacionesComponent {
   }
 
   formulario() {
-    console.log(this.crearFormulario.value)
+    console.log(this.crearFormulario.value);
     let data: any;
-    data = this.DTO.getUser();
-    this.crearFormulario.patchValue({
-      idUsuario: data.source._value,
-    });
 
-   
-      // Convertir idDestino e idSalida a enteros
-      const formValue = this.crearFormulario.value;
-      formValue.idDestino = parseInt(formValue.idDestino, 10);
-      formValue.idSalida = parseInt(formValue.idSalida, 10);
-      this.btnEnviar = false;
-      this.btnBlock = true;
-      this.backend
-        .put(`${environment.api}/Cotizacion/${this.idCotizacion}`, this.crearFormulario.value)
-        .subscribe({
-          next: (data: any) => {
-            this.ngZone.run(() => {
-              this.btnBlock = false;
-              this.btnEnviar = true;
-              alert('Se Editó con Éxito!');
-              this.notificaciones.notificarNuevaCotizacion();
-
-            });
-            this.closeModal();
-          },
-          error: (error) => {
+    // Convertir idDestino e idSalida a enteros
+    const formValue = this.crearFormulario.value;
+    formValue.idPaqueteViaje = parseInt(formValue.idPaqueteViaje, 10);
+    this.btnEnviar = false;
+    this.btnBlock = true;
+    this.backend
+      .put(
+        `${environment.api}/Cotizacion/${this.idCotizacion}`,
+        this.crearFormulario.value
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.ngZone.run(() => {
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Uno o mas campos son incorrectos');
+            alert('Se Editó con Éxito!');
+            this.notificaciones.notificarNuevaCotizacion();
+          });
+          this.closeModal();
+        },
+        error: (error) => {
+          this.btnBlock = false;
+          this.btnEnviar = true;
+          alert('Uno o mas campos son incorrectos');
 
-            if (error.error == 'usuario no encontrado') {
-              alert('Usuario no encontrado');
-            } else {
-              console.log(
-                'Error al tratar de establecer comunicacion con el servidor'
-              );
-              console.log(error);
-            }
-          },
-        });
-    }
-  
+          if (error.error == 'usuario no encontrado') {
+            alert('Usuario no encontrado');
+          } else {
+            console.log(
+              'Error al tratar de establecer comunicacion con el servidor'
+            );
+            console.log(error);
+          }
+        },
+      });
+  }
+
   closeModal() {
     this.dialogRef.close(); // Cierra el modal
   }

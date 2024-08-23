@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BackendService } from '../../services/backend.service';
 import { environment } from '../../environments/environments.prod';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import {Router} from '@angular/router';
 import { TimelineModule } from 'primeng/timeline';
 
@@ -16,17 +16,21 @@ interface EventItem {
 @Component({
   selector: 'app-info-paquete',
   standalone: true,
-  imports: [CommonModule,TimelineModule],
+  imports: [CommonModule,TimelineModule,NgFor ],
   templateUrl: './info-paquete.component.html',
   styleUrl: './info-paquete.component.css',
 })
 export class InfoPaqueteComponent {
   paquete: any = [];
+  lista_incluye: any = [];
+  lista_noIncluye: any = [];
   itinerario: any = []; 
   events: EventItem[];
   constructor(private route: ActivatedRoute, private backend: BackendService, private router: Router) {
     this.route.params.subscribe((params) => {
       this.getPaquete(params['id']);
+      this.getIncluye(params['id']);
+      this.getNoIncluye(params['id']);
       this.getItinerario(params['id']);
     });
     this.events = [
@@ -68,5 +72,28 @@ export class InfoPaqueteComponent {
 
   Cotizar(id: any) {
     this.router.navigate(['/cotizacion', id]);
+   }
+
+   getIncluye(id: any){
+    this.backend.get(`${environment.api}/PaqueteIncluye/${id}`).subscribe({
+      next: (data: any) => {
+        this.lista_incluye = data;
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+   }
+   getNoIncluye(id: any){
+    this.backend.get(`${environment.api}/PaqueteNoIncluye/${id}`).subscribe({
+      next: (data: any) => {
+        this.lista_noIncluye = data;
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
    }
 }

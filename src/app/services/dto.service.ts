@@ -8,6 +8,10 @@ export class DTOService {
   private idCotizacion = new BehaviorSubject<any>(null);
   private idDestino = new BehaviorSubject<any>(null);
   private idSalida = new BehaviorSubject<any>(null);
+  private idPaquete = new BehaviorSubject<any>(null);
+  private idIncluye = new BehaviorSubject<any>(null);
+  private idNoIncluye = new BehaviorSubject<any>(null);
+  private idItinerario = new BehaviorSubject<any>(null);
   private adminSubject = new BehaviorSubject<any>(null);
 
   constructor() {}
@@ -46,6 +50,36 @@ export class DTOService {
   getIdSalida() {
     return this.idSalida.asObservable();
   }
+
+    //Para Editar y Agregar Paquetes
+    setIdPaquete(id: any) {
+      this.idPaquete.next(id);
+    }
+    getIdPaquete() {
+      return this.idPaquete.asObservable();
+    }
+     //Para Editar y Agregar lista de cosas que Incluye un paquete
+     setIdIncluye(id: any) {
+      this.idIncluye.next(id);
+    }
+    getIdIncluye() {
+      return this.idIncluye.asObservable();
+    }
+     //Para Editar y Agregar lista de cosas que NO Incluye un paquete
+     setIdNoIncluye(id: any) {
+      this.idNoIncluye.next(id);
+    }
+    getIdNoIncluye() {
+      return this.idNoIncluye.asObservable();
+    }
+    //Para Agregar Itinerarios
+    setIdItinerario(id: any) {
+      this.idItinerario.next(id);
+    }
+    getIdItineario() {
+      return this.idItinerario.asObservable();
+    }
+   
 
   setAdmin(user: any) {
     this.userSubject.next(user);

@@ -54,32 +54,7 @@
           </li>
         } -->
        
-        @if(admin){
-          <li class="nav-item">
-            <a
-              [routerLink]="['/listar-cotizacion']"
-              class="nav-link active"
-              aria-current="page"
-              >Listar Cotizaciones</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              [routerLink]="['/listar-destinos']"
-              class="nav-link active"
-              aria-current="page"
-              >Destinos</a
-            >
-          </li>
-          <li class="nav-item">
-            <a
-              [routerLink]="['/listar-salidas']"
-              class="nav-link active"
-              aria-current="page"
-              >Salidas</a
-            >
-          </li>
-        }
+      
        
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Contacto</a>
@@ -89,7 +64,51 @@
             >Sobre nosotros</a
           >
         </li>
+        @if(admin){
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Administración
+            </a>
+            <ul class="dropdown-menu">
+              <li class="nav-item">
+                <a
+                  [routerLink]="['/listar-cotizacion']"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Cotizaciones</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  [routerLink]="['/listar-destinos']"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Destinos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  [routerLink]="['/listar-paquetes']"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Paquetes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  [routerLink]="['/listar-salidas']"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Salidas</a
+                >
+              </li>
+            </ul>
+          </li>
+       
+        }
       </ul>
+   
+
       <form class="d-flex" role="search">
         <!-- @if(admin){ -->
           <!-- <span class="text text-secondary">Admin</span> -->
@@ -104,6 +123,7 @@
           Sign In
         </button>
         }
+        
       
         @if(login){
           <button
@@ -114,6 +134,7 @@
         <i class="bi bi-box-arrow-right"></i> Log Out
         </button>
         }
+
       </form>
       <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

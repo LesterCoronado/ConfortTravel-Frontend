@@ -23,9 +23,30 @@
 .pax {
   background-color: rgb(13, 101, 101);
   margin-left: auto;
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .pax1 > p {
+  color: white;
+}
+
+.incule_noIncluye {
+  background-color: rgba(128, 128, 128, 0.731);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.incule_noIncluye > p {
+ color:black;
+}
+
+.politicaCancelacion {
+  margin-left: auto;
+  margin-right: auto;
+
+  background-color: rgb(252, 156, 21);
+}
+
+.politicaCancelacion > p {
   color: white;
 }

@@ -1,0 +1,50 @@
+<div class="parallax"  >
+    <form
+      [formGroup]="crearFormulario"
+      (ngSubmit)="formulario()"
+      class="formulario" 
+    
+    >
+      <div class="row g-3 login shadow">
+        <h5 class="text-center mt-5">
+          <strong>{{ tituloModal }}</strong>
+        </h5>
+        <br />
+        <div class="col-md-12">
+          <strong>
+            <label for="validationCustom01" class="form-label">
+              Escriba la actividad o servicio que desea incluir al paquete
+              <span class="text-danger">*</span>
+              <i class="bi bi-info-circle icon-lg"></i
+            ></label>
+          </strong>
+          <textarea
+          formControlName="incluye"
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="4"
+        ></textarea>
+        </div>
+        
+        
+   
+        <div class="d-grid gap-2 col-12 mx-auto">
+          <button
+            class="btn btn-primary mt-3 mb-3"
+            type="submit"
+            name=""
+            value="Ingresar"
+            [disabled]="btnBlock"
+          >
+            @if (btnEnviar){
+            <span>Enviar</span>
+            } @else{
+            <div class="loader"></div>
+            }
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-toast />
+  

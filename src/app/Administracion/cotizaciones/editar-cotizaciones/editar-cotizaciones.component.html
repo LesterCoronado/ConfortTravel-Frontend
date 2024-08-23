@@ -12,25 +12,7 @@
         <strong>EDITAR COTIZACIÓN</strong>
       </h5>
       <br />
-      <div class="col-md-6">
-        <strong>
-          <label for="validationCustom01" class="form-label">
-            Cliente
-            <span class="text-danger">*</span>
-            <i class="bi bi-info-circle icon-lg"></i
-          ></label>
-        </strong>
-        <select
-          formControlName="idUsuario"
-          class="form-select"
-          aria-label="Default select example"
-        >
-          <option selected disabled value="">Seleccione</option>
-          <option *ngFor="let usuario of Usuarios" [value]="usuario.idUsuario">
-            {{ usuario.nombre }}
-          </option>
-        </select>
-      </div>
+      
       <div class="col-md-6">
         <strong>
           <label for="validationCustom01" class="form-label">
@@ -40,38 +22,17 @@
           ></label>
         </strong>
         <select
-          formControlName="idDestino"
+          formControlName="idPaqueteViaje"
           class="form-select"
           aria-label="Default select example"
         >
           <option selected disabled value="">Seleccione</option>
-          <option *ngFor="let destino of Destinos" [value]="destino.idDestino">
-            {{ destino.nombre }}
+          <option *ngFor="let paquete of Paquetes" [value]="paquete.idPaquete">
+            {{ paquete.titulo }}
           </option>
         </select>
       </div>
-      <div class="col-md-6">
-        <strong>
-          <label for="validationCustom01" class="form-label">
-            Saliendo desde
-            <span class="text-danger">*</span>
-            <i class="bi bi-info-circle icon-lg"></i
-          ></label>
-        </strong>
-        <select
-          formControlName="idSalidaDestino"
-          class="form-select"
-          aria-label="Default select example"
-        >
-          <option selected disabled value="">Seleccione</option>
-          <option
-            *ngFor="let salida of Salidas"
-            [value]="salida.idSalidaDestino"
-          >
-            {{ salida.salida }}
-          </option>
-        </select>
-      </div>
+     
       <div class="col-md-6">
         <strong>
           <label for="validationCustom01" class="form-label">
@@ -82,20 +43,7 @@
         </strong>
         <input type="date" formControlName="fechaSalida" class="form-control" />
       </div>
-      <div class="col-md-6">
-        <strong>
-          <label for="validationCustom01" class="form-label">
-            Fecha de Retorno
-            <span class="text-danger">*</span>
-            <i class="bi bi-info-circle icon-lg"></i
-          ></label>
-        </strong>
-        <input
-          type="date"
-          formControlName="fechaRetorno"
-          class="form-control"
-        />
-      </div>
+      
       <div class="col-md-6">
         <strong>
           <label for="validationCustom01" class="form-label">
@@ -123,6 +71,18 @@
           formControlName="totalNinos"
           class="form-control"
         />
+      </div>
+      <div class="col-md-12">
+        <strong>
+          <label for="validationCustom01" class="form-label"> Nota </label>
+        </strong>
+        <textarea
+        [value]="crearFormulario.value.comentario"
+          formControlName="comentario"
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="4"
+        ></textarea>
       </div>
       <div class="col-md-6">
         <strong>

@@ -13,6 +13,10 @@ import { ListarSalidasComponent } from './Administracion/salidas/listar-salidas/
 import { ListaPaquetesComponent } from './paquetes/lista-paquetes/lista-paquetes.component';
 import { InfoPaqueteComponent } from './paquetes/info-paquete/info-paquete.component';
 import { CotizarComponent } from './cotiza/cotizaciones/cotizar/cotizar.component';
+import { ListarPaquetesComponent } from './Administracion/paquetes/listar-paquetes/listar-paquetes.component';
+import { ListarItinerarioComponent } from './Administracion/paquetes/itinerario/listar-itinerario/listar-itinerario.component';
+import { ListarIncluyeComponent } from './Administracion/paquetes/incluye/listar-incluye/listar-incluye.component';
+import { ListarNoIncluyeComponent } from './Administracion/paquetes/noIncluye/listar-no-incluye/listar-no-incluye.component';
 
 export const routes: Routes = [
     {
@@ -49,9 +53,26 @@ export const routes: Routes = [
         path: 'paquete/:id', component: InfoPaqueteComponent
        
     },
+    {
+        path: 'itinerario/:id', component: ListarItinerarioComponent
+       
+    },
+    {
+        path: 'incluye/:id', component: ListarIncluyeComponent
+       
+    },
+    {
+        path: 'no-incluye/:id', component: ListarNoIncluyeComponent
+       
+    },
 
     {
         path: 'cotizacion/:id', component: CotizarComponent
+       
+    },
+
+    {
+        path: 'listar-paquetes', component: ListarPaquetesComponent
        
     },
 

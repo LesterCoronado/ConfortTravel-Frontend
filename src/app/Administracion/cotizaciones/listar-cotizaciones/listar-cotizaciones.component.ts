@@ -19,9 +19,6 @@ import { NotificacionesService } from '../../../services/notificaciones.service'
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
-   
-  
-
   ],
   templateUrl: './listar-cotizaciones.component.html',
   styleUrl: './listar-cotizaciones.component.css'
@@ -61,8 +58,6 @@ export class ListarCotizacionesComponent {
       this.getCotizaciones();
     });
     this.getCotizaciones(); 
-
-   
 
   }
 
