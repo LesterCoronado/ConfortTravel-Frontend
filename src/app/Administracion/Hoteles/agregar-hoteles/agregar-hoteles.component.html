@@ -1,0 +1,102 @@
+<div class="parallax">
+  <form
+    [formGroup]="crearFormulario"
+    (ngSubmit)="formulario()"
+    class="formulario"
+  >
+    <div class="row g-3 login shadow">
+      <h5 class="text-center mt-5">
+        <strong>{{ tituloModal }}</strong>
+      </h5>
+      <br />
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Nombre del Hotel
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="text" formControlName="nombre" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Teléfono
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="number" formControlName="telefono" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            País
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="pais"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option
+            *ngFor="let pais of paisesConDepartamentos"
+            [value]="pais.pais"
+          >
+            {{ pais.pais }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Departamento
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="depto"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option *ngFor="let depto of departamentos" [value]="depto">
+            {{ depto }}
+          </option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Direccion
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="text" formControlName="direccion" class="form-control" />
+      </div>
+
+      <div class="d-grid gap-2 col-12 mx-auto">
+        <button
+          class="btn btn-primary mt-3 mb-3"
+          type="submit"
+          name=""
+          value="Ingresar"
+          [disabled]="btnBlock"
+        >
+          @if (btnEnviar){
+          <span>Enviar</span>
+          } @else{
+          <div class="loader"></div>
+          }
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+<p-toast />

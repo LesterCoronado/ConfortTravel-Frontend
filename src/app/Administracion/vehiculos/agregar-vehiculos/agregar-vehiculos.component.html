@@ -1,0 +1,105 @@
+<div class="parallax">
+    <form
+      [formGroup]="crearFormulario"
+      (ngSubmit)="formulario()"
+      class="formulario"
+    >
+      <div class="row g-3 login shadow">
+        <h5 class="text-center mt-5">
+          <strong>{{ tituloModal }}</strong>
+        </h5>
+        <br />
+        <div class="col-md-6">
+          <strong>
+            <label for="validationCustom01" class="form-label">
+              Marca
+              <span class="text-danger">*</span>
+              <i class="bi bi-info-circle icon-lg"></i
+            ></label>
+          </strong>
+          <input type="text" formControlName="marca" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <strong>
+              <label for="validationCustom01" class="form-label">
+                Modelo
+                <span class="text-danger">*</span>
+                <i class="bi bi-info-circle icon-lg"></i
+              ></label>
+            </strong>
+            <input type="text" formControlName="modelo" class="form-control" />
+          </div>
+        <div class="col-md-6">
+          <strong>
+            <label for="validationCustom01" class="form-label">
+              Placa
+              <span class="text-danger">*</span>
+              <i class="bi bi-info-circle icon-lg"></i
+            ></label>
+          </strong>
+          <input type="text" formControlName="placa" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <strong>
+            <label for="validationCustom01" class="form-label">
+              Color
+              <span class="text-danger">*</span>
+              <i class="bi bi-info-circle icon-lg"></i
+            ></label>
+          </strong>
+          <input type="text" formControlName="color" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <strong>
+            <label for="validationCustom01" class="form-label">
+              Capacidad de Pasajeros
+              <span class="text-danger">*</span>
+              <i class="bi bi-info-circle icon-lg"></i
+            ></label>
+          </strong>
+          <input type="number" formControlName="capacidadPasajeros" class="form-control" />
+        </div>
+        <div class="col-md-6">
+          <strong>
+            <label for="validationCustom02" class="form-label"> Estado </label>
+          </strong>
+          @if(!editando){
+              <select
+              formControlName="X"
+              class="form-select"
+            
+            >
+              <option   *ngFor="let estado of estados" [value]="estado.valorId">{{ estado.nombre }}</option>
+            </select>
+          }
+         
+          @if(editando){
+              <select
+            formControlName="estado"
+            class="form-select"
+          
+          >
+            <option   *ngFor="let estado of estados" [value]="estado.estado">{{ estado.nombre }}</option>
+          </select>
+          }
+        </div>
+        <div class="d-grid gap-2 col-12 mx-auto">
+          <button
+            class="btn btn-primary mt-3 mb-3"
+            type="submit"
+            name=""
+            value="Ingresar"
+            [disabled]="btnBlock"
+          >
+            @if (btnEnviar){
+            <span>Enviar</span>
+            } @else{
+            <div class="loader"></div>
+            }
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <p-toast />
+  

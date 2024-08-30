@@ -17,6 +17,9 @@ import { ListarPaquetesComponent } from './Administracion/paquetes/listar-paquet
 import { ListarItinerarioComponent } from './Administracion/paquetes/itinerario/listar-itinerario/listar-itinerario.component';
 import { ListarIncluyeComponent } from './Administracion/paquetes/incluye/listar-incluye/listar-incluye.component';
 import { ListarNoIncluyeComponent } from './Administracion/paquetes/noIncluye/listar-no-incluye/listar-no-incluye.component';
+import { ListarReservasComponent } from './Administracion/Reservas/listar-reservas/listar-reservas.component';
+import { ListarVehiculosComponent } from './Administracion/vehiculos/listar-vehiculos/listar-vehiculos.component';
+import { ListarHotelesComponent } from './Administracion/Hoteles/listar-hoteles/listar-hoteles.component';
 
 export const routes: Routes = [
     {
@@ -75,8 +78,18 @@ export const routes: Routes = [
         path: 'listar-paquetes', component: ListarPaquetesComponent
        
     },
-
-
+    {
+        path: 'reservas', component: ListarReservasComponent
+       
+    },
+    {
+        path: 'vehiculos', component: ListarVehiculosComponent
+       
+    },
+    {
+        path: 'hoteles', component: ListarHotelesComponent
+       
+    },
 
     { 
         path: '', redirectTo: '/inicio', pathMatch: 'full' 

@@ -15,10 +15,8 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { relativeTimeThreshold } from 'moment';
-
 @Component({
-  selector: 'app-agregar-destinos',
+  selector: 'app-agregar-hoteles',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -31,21 +29,15 @@ import { relativeTimeThreshold } from 'moment';
     RippleModule,
   ],
   providers: [MessageService],
-  templateUrl: './agregar-destinos.component.html',
-  styleUrl: './agregar-destinos.component.css',
+  templateUrl: './agregar-hoteles.component.html',
+  styleUrl: './agregar-hoteles.component.css'
 })
-export class AgregarDestinosComponent {
+export class AgregarHotelesComponent {
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
   btnBlock: boolean = false;
-  tituloModal: string = 'AGREGAR DESTINO';
-  idDestino: any;
-  uploadedFiles: File[] = [];
-  previsualizacion: string = '';
-  public archivos: any = [];
-  cargandoImagen = false;
-  esFotoValida: boolean = true;
-  urlFoto: string = '';
+  tituloModal: string = 'AGREGAR HOTEL';
+  idHotel: any;
 
   estados = [
     {
@@ -58,7 +50,7 @@ export class AgregarDestinosComponent {
       valor: false,
       valorId: 0,
     },
-  ]; //estado del destino
+  ]; //estado del Hotel
 
   paisesConDepartamentos = [
     {
@@ -143,22 +135,24 @@ export class AgregarDestinosComponent {
     private routerprd: Router,
     private ngZone: NgZone,
     private DTO: DTOService,
-    public dialogRef: MatDialogRef<AgregarDestinosComponent>,
+    public dialogRef: MatDialogRef<AgregarHotelesComponent>,
     private notificaciones: NotificacionesService,
     private sanitizer: DomSanitizer,
     private messageService: MessageService
   ) {
     this.crearFormulario = this.fb.group({
-      idDestino: [0, Validators.required],
+      idHotel: [0, Validators.required],
       nombre: ['', Validators.required],
+      telefono: ['', Validators.required],
       pais: ['', Validators.required],
       depto: ['', Validators.required],
       direccion: ['', Validators.required],
-      imagen: ['', Validators.required],
+      estado: [true, Validators.required],
     });
   }
+
   ngOnInit(): void {
-    this.idDestino = this.DTO.getIdDestino();
+    this.idHotel = this.DTO.getIdHotel();
 
     this.esEditar();
     this.crearFormulario.get('pais')?.valueChanges.subscribe((pais) => {
@@ -166,21 +160,21 @@ export class AgregarDestinosComponent {
     });
   }
   esEditar() {
-    const id = this.idDestino.source._value;
+    const id = this.idHotel.source._value;
     if (id !== 0) {
-      this.tituloModal = 'EDITAR DESTINO';
-      this.backend.get(`${environment.api}/Destino/${id}`).subscribe({
+      this.tituloModal = 'EDITAR HOTEL';
+      this.backend.get(`${environment.api}/Hotel/${id}`).subscribe({
         next: (data: any) => {
           this.crearFormulario.setValue({
-            idDestino: data.idDestino,
+            idHotel: data.idHotel,
             nombre: data.nombre,
+            telefono: data.telefono,
             pais: data.pais,
-            depto: data.depto, 
+            depto: data.depto,
             direccion: data.direccion,
-            imagen: '', // No se establece el valor del campo de archivo
+            estado: data.estado,
           });
-          this.previsualizacion = data.imagen;
-          this.urlFoto = data.imagen;
+          
 
           // Actualizar los departamentos y selecciona el departamento correcto
           this.updateDepartamentos(data.pais);
@@ -203,27 +197,26 @@ export class AgregarDestinosComponent {
     this.crearFormulario.get('depto')?.setValue('');
     this.crearFormulario.get('depto')?.markAsPristine(); // Opcional: si deseas que se considere sin cambios
   }
-
   formulario() {
-    const id = this.idDestino.source._value;
+    const id = this.idHotel.source._value;
     if (id == 0) {
       console.log('añadiendo');
-      this.addDestino();
+      this.addHotel();
     } else {
       console.log('Editando');
-      this.editDestino(id);
+      this.editHotel(id);
     }
   }
-  addDestino() {
+
+  addHotel() {
     console.log(this.crearFormulario.value);
     if (this.crearFormulario.invalid) {
       this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Complete el formulario' });
     } else {
-      // Convertir idDestino e idSalida a enteros
       this.btnEnviar = false;
       this.btnBlock = true;
       this.backend
-        .post(`${environment.api}/Destino`, this.crearFormulario.value)
+        .post(`${environment.api}/Hotel`, this.crearFormulario.value)
         .subscribe({
           next: (data: any) => {
             this.ngZone.run(() => {
@@ -231,52 +224,48 @@ export class AgregarDestinosComponent {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Destino agregado correctamente',
+                detail: 'Hotel agregado correctamente',
               });
               this.btnBlock = false;
               this.btnEnviar = true;
               console.log(data);
               this.crearFormulario.reset();
-              this.notificaciones.notificarNuevoDestino();
+              this.notificaciones.notificarNuevoHotel();
             });
           },
           error: (error) => {
             this.btnBlock = false;
             this.btnEnviar = true;
 
-            if (error.error == 'El destino ya existe') {
+            if (error.error == 'Hotel repetido') {
               this.messageService.add({
                 severity: 'info',
                 summary: 'Info',
-                detail: 'Ya existe un destino con este nombre',
+                detail: 'Ya existe un Hotel con este nombre',
               });
             } else {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
                 detail:
-                  'ocurrion un error al crear el destino, intente nuevamente',
+                  'ocurrion un error al crear el Hotel, intente nuevamente',
               });
             }
           },
         });
     }
   }
-  editDestino(id: any) {
+  editHotel(id: any) {
     console.log(this.crearFormulario.value);
-    // if (this.crearFormulario.value.imagen == '') {
-    //   this.crearFormulario.value.imagen = this.urlFoto;
-    // }
-    this.crearFormulario.value.imagen = this.previsualizacion
     this.backend
-      .put(`${environment.api}/Destino/${id}`, this.crearFormulario.value)
+      .put(`${environment.api}/Hotel/${id}`, this.crearFormulario.value)
       .subscribe({
         next: (data: any) => {
           this.ngZone.run(() => {
             this.btnBlock = false;
             this.btnEnviar = true;
 
-            this.notificaciones.notificarNuevoDestino();
+            this.notificaciones.notificarNuevoHotel();
           });
           this.closeModal();
         },
@@ -286,7 +275,7 @@ export class AgregarDestinosComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error al editar el destino',
+            detail: 'Error al editar, intente nuevamente',
           });
         },
       });
@@ -294,68 +283,6 @@ export class AgregarDestinosComponent {
   closeModal() {
     this.dialogRef.close(true); // Cierra el modal
   }
-  capturarFile(event: any): any {
-    if (event.target.files && event.target.files[0]) {
-      let file = event.target.files[0];
 
-      if (
-        file.type == 'image/jpeg' ||
-        file.type == 'image/png' ||
-        file.type == 'image/jpeg'
-      ) {
-        this.previsualizacion = '';
-        this.esFotoValida = true;
-        this.cargandoImagen = true; // Mostrar el loader
-        const archivoCapturado = event.target.files[0];
-        this.extraerBase64(archivoCapturado).then((imagen: any) => {
-          this.previsualizacion = imagen.base;
-          this.cargandoImagen = false; // Ocultar el loader después de cargar la imagen
-          this.archivos.push(archivoCapturado);
-          this.crearFormulario.value.imagen = imagen.base;
-        });
-      } else {
-        this.previsualizacion = '';
-        this.cargandoImagen = false; // Ocultar el loader en caso de error
-        this.esFotoValida = false;
-      }
-    }
-  }
 
-  extraerBase64 = async ($event: any) => {
-    return new Promise((resolve: any) => {
-      try {
-        const unsafeImg = window.URL.createObjectURL($event);
-        const image = this.sanitizer.bypassSecurityTrustUrl(unsafeImg);
-        const reader = new FileReader();
-
-        reader.readAsDataURL($event);
-        reader.onload = () => {
-          // Resolvemos con la URL de la vista previa
-          resolve({
-            base: reader.result,
-          });
-
-          // Ocultamos el loader y mostramos la previsualización
-          this.previsualizacion = reader.result as string;
-        };
-
-        reader.onerror = (error) => {
-          // Manejar errores aquí (puedes mostrar un mensaje de error)
-          resolve({
-            base: null,
-          });
-        };
-      } catch (e) {
-        resolve({
-          base: null,
-        });
-      }
-    });
-  };
-  clearImage(): any {
-    this.crearFormulario.controls['imagen'].setValue('');
-    this.previsualizacion = '';
-    this.archivos = [];
-    this.esFotoValida = true;
-  }
 }

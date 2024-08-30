@@ -16,7 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 @Component({
-  selector: 'app-agregar-salidas',
+  selector: 'app-agregar-vehiculos',
   standalone: true,
   imports: [
     ReactiveFormsModule,
@@ -29,15 +29,15 @@ import { RippleModule } from 'primeng/ripple';
     RippleModule,
   ],
   providers: [MessageService],
-  templateUrl: './agregar-salidas.component.html',
-  styleUrl: './agregar-salidas.component.css',
+  templateUrl: './agregar-vehiculos.component.html',
+  styleUrl: './agregar-vehiculos.component.css'
 })
-export class AgregarSalidasComponent {
+export class AgregarVehiculosComponent {
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
   btnBlock: boolean = false;
-  tituloModal: string = 'AGREGAR SALIDA';
-  idSalida: any;
+  tituloModal: string = 'AGREGAR VEHICULO';
+  idVehiculo: any;
   editando: boolean = false;
   estados = [
     {
@@ -58,33 +58,41 @@ export class AgregarSalidasComponent {
     private routerprd: Router,
     private ngZone: NgZone,
     private DTO: DTOService,
-    public dialogRef: MatDialogRef<AgregarSalidasComponent>,
+    public dialogRef: MatDialogRef<AgregarVehiculosComponent>,
     private notificaciones: NotificacionesService,
     private sanitizer: DomSanitizer,
     private messageService: MessageService
   ) {
     this.crearFormulario = this.fb.group({
-      idSalida: [0, Validators.required],
-      direccion: ['', Validators.required],
+      idVehiculo: [0, Validators.required],
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required],
+      placa: ['', Validators.required],
+      color: ['', Validators.required],
+      capacidadPasajeros: [0, Validators.required],
       X: [true, Validators.required],
       estado: [true, Validators.required],
     });
   }
   ngOnInit(): void {
-    this.idSalida = this.DTO.getIdSalida();
+    this.idVehiculo = this.DTO.getIdVehiculo();
     this.esEditar();
   }
 
   esEditar() {
-    const id = this.idSalida.source._value;
+    const id = this.idVehiculo.source._value;
     if (id !== 0) {
       this.editando = true;
-      this.tituloModal = 'EDITAR SALIDA';
-      this.backend.get(`${environment.api}/Salida/${id}`).subscribe({
+      this.tituloModal = 'EDITAR VEHICULO';
+      this.backend.get(`${environment.api}/Vehiculo/${id}`).subscribe({
         next: (data: any) => {
           this.crearFormulario.setValue({
-            idSalida: data.idSalida,
-            direccion: data.direccion,
+            idVehiculo: data.idVehiculo,
+            marca: data.marca,
+            modelo: data.modelo,
+            placa: data.placa,
+            color: data.color,
+            capacidadPasajeros: data.capacidadPasajeros,
             estado: data.estado,
             X: '',
           });
@@ -95,28 +103,27 @@ export class AgregarSalidasComponent {
       });
     }
   }
-
   formulario() {
     const formValues = this.crearFormulario.value;
    
-    const id = this.idSalida.source._value;
+    const id = this.idVehiculo.source._value;
     if (id == 0) {
      
-      this.addSalida();
+      this.addVehiculo();
     } else {
- 
-      this.editSalida(id);
+      this.editVehiculo(id);
+      
     }
   }
 
-  addSalida() {
+  addVehiculo() {
     if(this.crearFormulario.value.X == 1){
       this.crearFormulario.value.estado = true;
     }
     else{
       this.crearFormulario.value.estado = false;
     }
-    // this.crearFormulario.removeControl('X');
+    console.log(this.crearFormulario.value);
 
     if (this.crearFormulario.invalid) {
       this.messageService.add({
@@ -129,7 +136,7 @@ export class AgregarSalidasComponent {
       this.btnEnviar = false;
       this.btnBlock = true;
       this.backend
-        .post(`${environment.api}/Salida`, this.crearFormulario.value)
+        .post(`${environment.api}/Vehiculo`, this.crearFormulario.value)
         .subscribe({
           next: (data: any) => {
             this.ngZone.run(() => {
@@ -137,37 +144,38 @@ export class AgregarSalidasComponent {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Salida agregada correctamente',
+                detail: 'Vehiculo agregado correctamente',
               });
               this.btnBlock = false;
               this.btnEnviar = true;
               this.crearFormulario.reset();
-              this.notificaciones.notificarNuevaSalida();
+              this.notificaciones.notificarNuevoVehiculo();
             });
           },
           error: (error) => {
+            console.log(error)
             this.btnBlock = false;
             this.btnEnviar = true;
 
-            if (error.error == 'La salida ya existe') {
+            if (error.error == 'Placa repetida') {
               this.messageService.add({
                 severity: 'info',
                 summary: 'Info',
-                detail: 'Ya existe una salida con este nombre',
+                detail: 'Ya existe un vehiculo con la misma placa',
               });
             } else {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
                 detail:
-                  'ocurrion un error al crear la salida, intente nuevamente',
+                  'ocurrion un error al crear, intente nuevamente',
               });
             }
           },
         });
     }
   }
-  editSalida(id: any) {
+  editVehiculo(id: any) {
     if (this.crearFormulario.value.estado == 'true') {
       this.crearFormulario.controls['estado'].setValue(true);
     }
@@ -175,17 +183,18 @@ export class AgregarSalidasComponent {
     if (this.crearFormulario.value.estado == 'false') {
       this.crearFormulario.controls['estado'].setValue(false);
     }
+
     this.crearFormulario.removeControl('X');
     console.log(this.crearFormulario.value);
     this.backend
-      .put(`${environment.api}/Salida/${id}`, this.crearFormulario.value)
+      .put(`${environment.api}/Vehiculo/${id}`, this.crearFormulario.value)
       .subscribe({
         next: (data: any) => {
           this.ngZone.run(() => {
             this.btnBlock = false;
             this.btnEnviar = true;
 
-            this.notificaciones.notificarNuevaSalida();
+            this.notificaciones.notificarNuevoVehiculo();
           });
           this.closeModal();
         },
@@ -195,12 +204,14 @@ export class AgregarSalidasComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error al editar la salida',
+            detail: 'Error al editar',
           });
         },
       });
   }
+
   closeModal() {
     this.dialogRef.close(true); // Cierra el modal
   }
+
 }

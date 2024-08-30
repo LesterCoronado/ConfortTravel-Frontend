@@ -59,7 +59,11 @@ export class LoginComponent implements OnInit {
 
   formulario() {
     if (this.crearFormulario.invalid) {
-      alert('Complete el formulario');
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Complete el formulario',
+      });
     } else {
       this.btnEnviar = false;
       this.btnBlock = true;
@@ -74,7 +78,6 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('cookie', data.idRol);
             this.cookie.set('cookie', data.idRol);
             this.cookie.set('idUser', data.idUsuario);
-            alert('Bienvenido ' + data.nombre );
 
             console.log(data.rol);
             if (data.rol == 'Administrador') {
@@ -90,17 +93,23 @@ export class LoginComponent implements OnInit {
             });
           },
           error: (error) => {
+            console.log(error);
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Uno o mas campos son incorrectos');
 
-            if (error.error == 'usuario no encontrado') {
-              alert('Usuario no encontrado');
+            if (error.error == 'Usuario no encontrado') {
+              this.messageService.add({
+                severity: 'info',
+                summary: 'Info',
+                detail: 'Correo o contraseña incorrectos',
+              });
             } else {
-              console.log(
-                'Error al tratar de establecer comunicacion con el servidor'
-              );
-              console.log(error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail:
+                  'Error al tratar de establecer comunicacion con el servidor',
+              });
             }
           },
         });

@@ -8,6 +8,7 @@
   }
 
   .lista{
+    
     background-color: rgba(255, 255, 255, 0.473);
     
     margin-top: 10px;
@@ -15,7 +16,7 @@
   }
 
   .tabla{
-    width: 99%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     border-radius: 15px;
@@ -37,3 +38,4 @@
     border-radius: 50px;
     padding: 5px;
   }
+

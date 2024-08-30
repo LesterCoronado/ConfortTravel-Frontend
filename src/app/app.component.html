@@ -1,3 +1,11 @@
 <app-navbar></app-navbar>
+<div class="contenedor">
+    @if(admin){
+      <app-navbar-aside></app-navbar-aside>
 
-<router-outlet />
+    }
+  
+  <div class="content">
+    <router-outlet />
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.aside {
+  width: 125px;
+  background-color: #0d0d0dea;
+  color: white;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+ul {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 6px;
+  width: 90%;
+  border-radius: 5px;
+}
+
+a:hover {
+  background-color: rgba(128, 128, 128, 0.58);
+  color: white;
+}
+
+.active {
+  background-color: rgba(128, 128, 128, 0.58);
+  color: white;
+}

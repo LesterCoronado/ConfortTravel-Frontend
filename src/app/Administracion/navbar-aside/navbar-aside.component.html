@@ -1,0 +1,41 @@
+<aside class="aside">
+  <ul class="navbar-nav me-auto bm-3 mb-lg-0">
+    <li class="nav-item mt-3">
+      <p class="text-center">MENÚ</p>
+      <hr class="divider" />
+      <a
+        [routerLink]="['/listar-cotizacion']"
+        [routerLinkActive]="['active']"
+        class="nav-link text-center"
+        aria-current="page"
+      >
+        <i class="bi bi-ui-checks-grid d-block"></i>
+        <span class="d-block mt-1">Cotizaciones</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        [routerLink]="['/listar-paquetes']"
+        routerLinkActive="active"
+        class="nav-link text-center"
+        aria-current="page"
+      >
+        <i class="bi bi-luggage d-block"></i>
+        <span class="d-block">Paquetes</span>
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a
+        [routerLink]="['/reservas']"
+        routerLinkActive="active"
+        class="nav-link text-center"
+        aria-current="page"
+      >
+        <i class="bi bi-calendar-check d-block"></i>
+        <span class="d-block">Reservas</span>
+      </a>
+    </li>
+  </ul>
+</aside>

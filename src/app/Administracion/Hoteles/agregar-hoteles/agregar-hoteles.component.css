@@ -68,9 +68,8 @@
     
    
 }
-::ng-deep .parallax {
-    overflow: auto;
-    max-height: 90vh;
-  }
-
   
+::ng-deep .parallax {
+  overflow: auto;
+  max-height: 90vh;
+}

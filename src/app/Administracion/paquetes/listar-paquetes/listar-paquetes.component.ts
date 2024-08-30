@@ -16,7 +16,7 @@ import { EditarPaqueteComponent } from '../editar-paquete/editar-paquete.compone
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -31,6 +31,7 @@ import { CookieService } from 'ngx-cookie-service';
     ImageModule,
     ToastModule,
     ButtonModule,
+    RouterLink
   ],
   providers: [MessageService, RippleModule],
   templateUrl: './listar-paquetes.component.html',

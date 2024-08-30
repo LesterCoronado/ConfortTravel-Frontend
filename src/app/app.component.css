@@ -1,0 +1,6 @@
+.contenedor {
+    display: flex;
+  }
+.content {
+    flex: 3; /* Esto permite que el contenido ocupe el espacio restante */
+  }

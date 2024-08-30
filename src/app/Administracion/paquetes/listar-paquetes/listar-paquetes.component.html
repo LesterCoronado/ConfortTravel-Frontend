@@ -8,8 +8,15 @@
       </h2></strong
     >
     <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
-      <button class="btn btn-dark" (click)="openAgregarDialog()">
+      <button class="btn btn-primary" (click)="openAgregarDialog()">
         <i class="bi bi-plus-lg"></i> Agregar
+      </button>
+      <button class="btn btn-dark"  [routerLink]="['/listar-destinos']">
+        <i class="bi bi-list-task"></i> Destinos
+      </button>
+      
+      <button class="btn btn-dark"  [routerLink]="['/listar-salidas']">
+        <i class="bi bi-list-task"></i> Salidas
       </button>
    
     </div>
