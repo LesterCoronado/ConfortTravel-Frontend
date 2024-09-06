@@ -166,7 +166,7 @@ export class ListarReservasComponent {
             this.messageService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Error al eliminar la Reserva, intente nuevamente',
+              detail: 'Error al eliminar la Reserva, compruebe que no tenga asignados pasajeros o alojamientos, e intente nuevamente',
             });
 
             console.error(error);

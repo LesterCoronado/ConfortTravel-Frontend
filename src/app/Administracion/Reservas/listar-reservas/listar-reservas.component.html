@@ -92,7 +92,10 @@
       <ng-container matColumnDef="placaVehiculo">
         <th mat-header-cell *matHeaderCellDef>Vehiculo</th>
         <td mat-cell *matCellDef="let element">
+          <span class="text-center">
+            {{element.marcaVehiculo}}
           {{ element.placaVehiculo }}
+          </span>
         </td>
       </ng-container>
       <ng-container matColumnDef="fechaSalida">

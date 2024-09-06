@@ -188,8 +188,8 @@ export class AgregarReservasComponent {
           error: (error) => {
             if(error.error == "El vehículo no está disponible en las fechas seleccionadas"){
               this.messageService.add({
-                severity: 'error',
-                summary: 'Error',
+                severity: 'info',
+                summary: 'Info',
                 detail:
                   'El vehículo no está disponible en las fechas seleccionadas',
               });
