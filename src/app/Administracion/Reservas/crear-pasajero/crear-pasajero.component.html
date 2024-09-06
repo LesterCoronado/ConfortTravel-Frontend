@@ -1,0 +1,109 @@
+<div class="parallax">
+  <form
+    [formGroup]="crearFormulario"
+    (ngSubmit)="formulario()"
+    class="formulario"
+  >
+    <div class="row g-3 login shadow">
+      <p-messages 
+      class="messages"
+      [(value)]="messages" 
+      [enableService]="false" 
+      [closable]="true" />
+      <h5 class="text-center mt-3">
+      
+        <strong>{{ tituloModal }}</strong>
+      </h5>
+      <br />
+      <div class="col-md-6 input-group-lg">
+        <label for="name">Nombre</label>
+
+        <input type="name" class="form-control" formControlName="nombre" />
+      </div>
+      <div class="col-md-6 input-group-lg">
+        <label for="Input">Apellido</label>
+
+        <input
+          type="name"
+          class="form-control"
+          id="floatingInput"
+          formControlName="apellido"
+        />
+      </div>
+      <div class="col-md-6 input-group-lg">
+        <label for="Input">Correo</label>
+
+        <input
+          type="name"
+          class="form-control"
+          formControlName="correo"
+          aria-describedby="inputGroup-sizing-sm"
+        />
+      </div>
+
+      <div class="col-md-6 input-group-lg">
+        <label for="text">Edad</label>
+
+        <input type="number" class="form-control" formControlName="edad" />
+      </div>
+      <div class="col-md-6 input-group-lg">
+        <label for="">Telefono</label>
+
+        <input type="number" class="form-control" formControlName="telefono" />
+      </div>
+      <div class="col-md-6 input-group-lg">
+        <label for="">DPI/Cedula</label>
+
+        <input type="number" class="form-control" formControlName="dpiCedula" />
+       
+      </div>
+     
+       
+  
+      <div class="col-md-6 input-group-lg">
+        <label for="text">Nacionalidad</label>
+
+        <input
+          type="name"
+          class="form-control"
+          formControlName="nacionalidad"
+        />
+      </div>
+      <div class="col-md-6 input-group-lg">
+        <label for="text">Dirección</label>
+
+        <input type="name" class="form-control" formControlName="direccion" />
+      </div>
+
+      <div class="col-md-6 input-group-lg">
+        <label for="text">Sexo</label>
+
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          formControlName="sexo"
+        >
+          <option selected disabled value="">Seleccione</option>
+          <option value="1">Hombre</option>
+          <option value="2">Mujer</option>
+        </select>
+      </div>
+
+      <div class="d-grid gap-2 col-12 mx-auto">
+        <button
+          class="btn btn-primary mt-3 mb-3"
+          type="submit"
+          name=""
+          value="Ingresar"
+          [disabled]="btnBlock"
+        >
+          @if (btnEnviar){
+          <span>Registrar</span>
+          } @else{
+          <div class="loader"></div>
+          }
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

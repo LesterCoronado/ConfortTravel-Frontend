@@ -4,7 +4,7 @@
     background-position: center;
     background-repeat:repeat;
     background-size: cover;
-    height: 100vh;
+    height: 100%;
   }
 
   .lista{
@@ -15,6 +15,7 @@
   }
 
   .tabla{
+    
     width: 99%;
     margin-left: auto;
     margin-right: auto;
@@ -22,7 +23,7 @@
   }
   .activo, .inactivo {
     display: inline-block; /* Asegúrate de que el elemento respete el ancho */
-    width: 100px; /* Ajusta el valor según sea necesario */
+    width: 60px; /* Ajusta el valor según sea necesario */
     text-align: center; /* Centra el texto dentro del span */
   }
 

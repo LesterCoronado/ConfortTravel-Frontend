@@ -10,6 +10,7 @@ export class DTOService {
   private idSalida = new BehaviorSubject<any>(null);
   private idVehiculo = new BehaviorSubject<any>(null);
   private idHotel = new BehaviorSubject<any>(null);
+  private idReserva = new BehaviorSubject<any>(null);
   private idPaquete = new BehaviorSubject<any>(null);
   private idIncluye = new BehaviorSubject<any>(null);
   private idNoIncluye = new BehaviorSubject<any>(null);
@@ -66,6 +67,14 @@ export class DTOService {
   }
   getIdHotel() {
     return this.idHotel.asObservable();
+  }
+
+  //Para Editar y Agregar Reservas
+  setIdReserva(id: any) {
+    this.idReserva.next(id);
+  }
+  getIdReserva() {
+    return this.idReserva.asObservable();
   }
 
 

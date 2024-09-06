@@ -16,10 +16,12 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-listar-hoteles',
   standalone: true,
   imports: [
+    RouterLink,
     CommonModule,
     MatTableModule,
     MatPaginatorModule,

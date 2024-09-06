@@ -20,6 +20,7 @@ import { ListarNoIncluyeComponent } from './Administracion/paquetes/noIncluye/li
 import { ListarReservasComponent } from './Administracion/Reservas/listar-reservas/listar-reservas.component';
 import { ListarVehiculosComponent } from './Administracion/vehiculos/listar-vehiculos/listar-vehiculos.component';
 import { ListarHotelesComponent } from './Administracion/Hoteles/listar-hoteles/listar-hoteles.component';
+import { CrearPasajeroComponent } from './Administracion/Reservas/crear-pasajero/crear-pasajero.component';
 
 export const routes: Routes = [
     {
@@ -70,7 +71,8 @@ export const routes: Routes = [
     },
 
     {
-        path: 'cotizacion/:id', component: CotizarComponent
+        path: 'cotizacion/:id', component: CotizarComponent,
+        canActivate:  [VigilanteGuard]
        
     },
 
@@ -88,6 +90,10 @@ export const routes: Routes = [
     },
     {
         path: 'hoteles', component: ListarHotelesComponent
+       
+    },
+    {
+        path: 'crear-pasajero', component: CrearPasajeroComponent
        
     },
 

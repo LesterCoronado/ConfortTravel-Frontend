@@ -1,24 +1,263 @@
 <div class="parallax">
-    <br>
-   
-    <div class="table-responsive mat-elevation-z8 tabla ">
-        <strong><h2 class="text-center text-primary">LISTA DE RESERVAS</h2></strong>
-        <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
-       
-            <button class="btn btn-dark"  [routerLink]="['/vehiculos']">
-                <i class="bi bi-bus-front"></i> Vehiculos
-            </button>
-            
-            <button class="btn btn-dark"  [routerLink]="['/hoteles']">
-                <i class="bi bi-building"></i> Hoteles
-            </button>
-         
-          </div>
-        <div class="under-construction">
-            <div class="loader"></div>
-            <br>
-            <br>
-            <p >Este módulo está en desarrollo. Por favor, vuelve más tarde.</p>
+  <br />
+
+  <div class="contenido table-responsive mat-elevation-z8 tabla mb-3">
+    <strong
+      ><h2 class="text-center text-primary mt-2">LISTA DE RESERVAS</h2></strong
+    >
+    <div class="menu d-grid gap-2 d-md-flex justify-content-md-end p-1">
+      <button class="btn btn-primary" (click)="openAgregarDialog()">
+        <i class="bi bi-plus-lg"></i> Agregar
+      </button>
+      <div class="dropdown">
+        <button
+          class="btn btn-dark dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Asignar Reserva
+        </button>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" (click)="openAsignarPasajeroDialog()"
+              ><i class="bi bi-person-add"></i> Asignar Pasajero</a
+            >
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="openAsignarHotelDialog()">
+              <i class="bi bi-building"></i> Asignar Alojamiento</a
+            >
+          </li>
+        </ul>
+      </div>
+      <!-- <button class="btn btn-dark" [routerLink]="['/vehiculos']">
+        <i class="bi bi-person-add"></i> Asignar Pasajeros
+      </button>
+  
+      <button class="btn btn-dark" [routerLink]="['/hoteles']">
+        <i class="bi bi-building"></i> Asignar Alojamiento
+      </button> -->
+    </div>
+    <div class="cintaOpciones">
+      <div class="row">
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex align-items-center justify-content-md-start p-3"
+        >
+          <p-tag
+            icon="pi pi-align-left"
+            severity="info"
+            value="Total de Reservas: {{ reservas.length }}"
+          />
+        </div>
+
+        <div class="col-md-4"></div>
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex align-items-center justify-content-md-end p-3"
+        >
+          <p-iconField iconPosition="right">
+            <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
+            <input
+              type="text"
+              pInputText
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Search"
+            />
+          </p-iconField>
         </div>
       </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="lista">
+      <ng-container matColumnDef="idReserva">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.idReserva }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombrePaqueteViaje">
+        <th mat-header-cell *matHeaderCellDef>Paquete</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.nombrePaqueteViaje }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="modalidadPaquete">
+        <th mat-header-cell *matHeaderCellDef>Modalidad</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.modalidadPaquete }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="placaVehiculo">
+        <th mat-header-cell *matHeaderCellDef>Vehiculo</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.placaVehiculo }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaSalida">
+        <th mat-header-cell *matHeaderCellDef>Fecha y Hora de Salida</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fechaSalida | date : "dd/MM/yyyy" }}
+          {{ element.horaSalida }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaRetorno">
+        <th mat-header-cell *matHeaderCellDef>Fecha y Hora de Retorno</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fechaRetorno | date : "dd/MM/yyyy" }}
+          {{ element.horaRetorno }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="totalDias">
+        <th mat-header-cell *matHeaderCellDef>totalDias</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.totalDias }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="observaciones">
+        <th mat-header-cell *matHeaderCellDef>Observaciones</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.observaciones }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          @if(element.estado == 1){
+          <span class="activo text-success">Activo</span> } @else{
+          <span class="inactivo text-danger">Inactivo </span> }
+        </td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            (click)="openEditarDialog(element.idReserva)"
+            mat-icon-button
+            matTooltip="Editar"
+            color="primary"
+            aria-label="Example icon button with a edit icon"
+          >
+            <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+              >edit</mat-icon
+            >
+          </button>
+          <button
+            (click)="deleteReserva(element.idReserva)"
+            mat-icon-button
+            matTooltip="Eliminar"
+            color="warn"
+            aria-label="Example icon button with a delete icon"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <!-- <button
+                          (click)="
+                            eliminarProductoCartilla(
+                              element.idCartillaProducto,
+                              element.idCartillaMedica
+                            )
+                          "
+                          mat-icon-button
+                          matTooltip="Eliminar"
+                          color="warn"
+                          aria-label="Example icon button with a delete icon"
+                        >
+                          <mat-icon>delete</mat-icon>
+                        </button> -->
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="listaDePasajeros">
+        <th mat-header-cell *matHeaderCellDef>Listado de Pasajeros</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="btn btn-secondary"
+            (click)="openListaPasajeros(element.idReserva)"
+          >
+            <i class="bi bi-arrows-angle-expand"></i>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="listaDeHoteles">
+        <th mat-header-cell *matHeaderCellDef>Listado de Alojamiento</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            class="btn btn-secondary"
+            (click)="openListaHoteles(element.idReserva)"
+          >
+            <i class="bi bi-arrows-angle-expand"></i>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+      class="mb-3"
+    >
+    </mat-paginator>
+  </div>
+
+  <p-toast />
+  
 </div>
+
+<!-- Lista de Pasajeros -->
+<p-dialog header="Pasajeros de la Reserva" [modal]="true" [(visible)]="visible1" [style]="{ width: '25rem' }">
+  <table class="table table-bordered border-primary">
+    <thead class="">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">DPI/Cédula</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pasajero of listaPasajeros; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{pasajero.pasajero}}</td>
+        <td>{{pasajero.dpiCedula}}</td>
+   
+      </tr>
+      
+    </tbody>
+  </table>
+  
+
+</p-dialog>
+
+
+<!-- Lista de Alojamiento -->
+<p-dialog header="Alojamientos de la Reserva" [modal]="true" [(visible)]="visible2" [style]="{ width: '30rem' }">
+  <table class="table table-bordered border-primary">
+    <thead class="">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Hotel</th>
+        <th scope="col">Fecha Inicio</th>
+        <th scope="col">Fecha Fin</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hotel of listaHoteles; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{hotel.hotel}}</td>
+        <td>{{hotel.fechaInicio | date : 'dd/MM/yyyy'}}</td>
+        <td>{{hotel.fechaFin | date : 'dd/MM/yyyy'}}</td>
+   
+      </tr>
+      
+    </tbody>
+  </table>
+  
+
+</p-dialog>
