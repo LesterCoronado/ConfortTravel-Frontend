@@ -4,13 +4,17 @@ a{
 .contenido{
    padding: 10px;
 }
+.same-height {
+   align-items: stretch; /* Hace que los elementos dentro del contenedor tengan la misma altura */
+ }
 .parallax{
-    background-image: url('https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat:repeat;
-    background-size: cover;
-    height: 100%;
+   background-image: url('https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg');
+   background-attachment: fixed;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   min-height: 100vh; /* Ocupa toda la altura del viewport */
+   height: auto;
   }
 
   .lista{
@@ -40,8 +44,11 @@ a{
     margin-right: auto;
     border-radius: 15px;
     background-color: rgba(255, 255, 255, 0.681);
+    overflow-x: auto; 
+   }
+   .table-responsive {
+      overflow-x: hidden; /* Evita que la tabla cree una barra de scroll innecesaria */
   }
-  
   .activo, .inactivo {
    display: inline-block; /* Asegúrate de que el elemento respete el ancho */
    width: 70px; /* Ajusta el valor según sea necesario */
