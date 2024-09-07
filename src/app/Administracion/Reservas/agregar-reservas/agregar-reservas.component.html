@@ -1,13 +1,20 @@
-<div class="parallax">
-  <form
-    [formGroup]="crearFormulario"
-    (ngSubmit)="formulario()"
-    class="formulario"
-  >
-    <div class="row g-3 login shadow">
-      <h5 class="text-center mt-2">
-        <strong>{{ tituloModal }}</strong>
-      </h5>
+<form
+  [formGroup]="crearFormulario"
+  (ngSubmit)="formulario()"
+  class="formulario"
+>
+  <div class="container-fluid p-0 mb-0 m-0">
+    <div class="row g-3 p-3">
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <h6 class="fw-medium">{{ tituloModal }}</h6>
+        </div>
+        <div class="col-md-6 d-md-flex justify-content-md-end">
+          <a class="btn m-0 p-0" (click)="ExitModal()"
+            ><i class="bi bi-x-lg text-dark"></i
+          ></a>
+        </div>
+      </div>
       <br />
       <div class="col-md-6">
         <strong>
@@ -111,7 +118,7 @@
           formControlName="observaciones"
           class="form-control"
           id="exampleFormControlTextarea1"
-          rows="4"
+          rows="3"
         ></textarea>
       </div>
 
@@ -131,6 +138,7 @@
         </button>
       </div>
     </div>
-  </form>
-</div>
+  </div>
+</form>
+
 <p-toast />

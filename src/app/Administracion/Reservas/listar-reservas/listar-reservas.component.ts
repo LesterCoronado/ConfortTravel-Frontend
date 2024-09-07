@@ -113,7 +113,9 @@ export class ListarReservasComponent {
   openAgregarDialog() {
     this.DTO.setIdReserva(0);
     const dialogRef = this.dialog.open(AgregarReservasComponent, {
-      width: '900px',
+      width: '100%', // Ajuste al 100% del ancho del viewport
+    maxWidth: '560px',
+     
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {

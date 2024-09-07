@@ -248,4 +248,8 @@ export class AgregarReservasComponent {
   closeModal() {
     this.dialogRef.close(true); // Cierra el modal
   }
+
+  ExitModal() {
+    this.dialogRef.close(); // Cierra el modal
+  }
 }

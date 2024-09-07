@@ -1,3 +1,4 @@
+
 .loader {
     font-weight: bold;
     font-family: sans-serif;
@@ -34,12 +35,7 @@
   }
   @keyframes l1 {to{opacity: 0}}
 
-  .imagenMascota {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; /* Esto hará que la imagen tenga bordes redondeados y parezca un círculo */
-    object-fit: cover; /* Esto ayuda a ajustar la imagen dentro del círculo */
-  }
+
 
   @media (max-width: 768px) {
     .imagenMascota {
@@ -61,16 +57,15 @@
   }
   .formulario{
    
-    width: 100%;
-    max-width: 600px;
-    padding: 15px;
-    margin: auto;
+   
+    overflow-x: hidden;
+    background-color: white;
     
    
 }
-::ng-deep .parallax {
-    overflow: auto;
-    max-height: 90vh;
-  }
+.mat-dialog-container {
+  overflow-x: hidden; /* Evita el scroll horizontal en el modal */
+}
+
 
   
