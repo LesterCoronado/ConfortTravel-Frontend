@@ -11,6 +11,7 @@ export class DTOService {
   private idVehiculo = new BehaviorSubject<any>(null);
   private idHotel = new BehaviorSubject<any>(null);
   private idReserva = new BehaviorSubject<any>(null);
+  private idEmpleado = new BehaviorSubject<any>(null);
   private idPaquete = new BehaviorSubject<any>(null);
   private idIncluye = new BehaviorSubject<any>(null);
   private idNoIncluye = new BehaviorSubject<any>(null);
@@ -75,6 +76,14 @@ export class DTOService {
   }
   getIdReserva() {
     return this.idReserva.asObservable();
+  }
+  
+  //Para Editar y Agregar Empleados
+  setIdEmpleado(id: any) {
+    this.idEmpleado.next(id);
+  }
+  getIdEmpleado() {
+    return this.idEmpleado.asObservable();
   }
 
 

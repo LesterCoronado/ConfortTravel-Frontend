@@ -1,0 +1,203 @@
+<form
+  [formGroup]="crearFormulario"
+  (ngSubmit)="formulario()"
+  class="formulario"
+>
+  <div class="container-fluid p-0 mb-0 m-0">
+    <div class="row g-3 p-3">
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <h6 class="fw-medium">{{ tituloModal }}</h6>
+        </div>
+        <div class="col-md-6 d-md-flex justify-content-md-end">
+          <a class="btn m-0 p-0" (click)="ExitModal()"
+            ><i class="bi bi-x-lg text-dark"></i
+          ></a>
+        </div>
+      </div>
+      <br />
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Nombre
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+        type="test"
+        formControlName="nombre"
+        class="form-control"
+      />
+       
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Apellido
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+        type="text"
+        formControlName="apellido"
+        class="form-control"
+      />
+       
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Edad
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="number" formControlName="edad" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Estado Civil
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="text" formControlName="estadoCivil" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Fecha Nacimiento
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="date" formControlName="fechaNac" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Direccion
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input type="text" formControlName="direccion" class="form-control" />
+      </div>
+
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Telefono
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <input
+          type="number"
+          formControlName="telefono"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Sexo
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="sexo"
+          class="form-select"
+          aria-label="Default select example"
+        >
+            <option selected>Seleccione una opcion</option>
+            <option value=1>Masculino</option>
+            <option value=0>Femenino</option>
+        </select>
+      </div>
+      
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Correo
+          </label>
+        </strong>
+        <input
+          type="email"
+          formControlName="correo"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Formación Académica
+          </label>
+        </strong>
+        <input
+          type="email"
+          formControlName="formacionAcademica"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Dpi
+          </label>
+        </strong>
+        <input
+          type="number"
+          formControlName="dpi"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Altura en cm
+          </label>
+        </strong>
+        <input
+          type="number"
+          formControlName="altura"
+          class="form-control"
+        />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Peso en libras
+          </label>
+        </strong>
+        <input
+          type="number"
+          formControlName="peso"
+          class="form-control"
+        />
+      </div>
+
+      <div class="d-grid gap-2 col-12 mx-auto">
+        <button
+          class="btn btn-primary mt-3 mb-3"
+          type="submit"
+          name=""
+          value="Ingresar"
+          [disabled]="btnBlock"
+        >
+          @if (btnEnviar){
+          <span>Enviar</span>
+          } @else{
+          <div class="loader"></div>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<p-toast />

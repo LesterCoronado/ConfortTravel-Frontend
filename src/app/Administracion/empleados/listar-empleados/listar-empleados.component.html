@@ -1,0 +1,182 @@
+<div class="parallax">
+    <div class="contenido table-responsive mat-elevation-z8 mb-3">
+      <div class="cintaOpciones">
+        <div class="row">
+          <div
+            class="col-md-4 d-grid gap-2 d-md-flex flex-column align-items-start justify-content-md-start p-3"
+          >
+            <div class="container">
+              <h6 class="mb-0 p-0 fw-semibold">LISTA DE EMPLEADOS</h6>
+              <p-tag
+                class="mt-0"
+                icon="pi pi-align-left"
+                severity="secondary"
+                value="Total: {{ listaEmpleados.length }}"
+              />
+            </div>
+          </div>
+  
+          <div
+            class="col-md-4 d-grid gap-2 d-md-flex align-items-start justify-content-md-center p-3"
+          >
+            <p-iconField iconPosition="right">
+              <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
+              <input
+                type="text"
+                pInputText
+                matInput
+                (keyup)="applyFilter($event)"
+                placeholder="Search"
+              />
+            </p-iconField>
+          </div>
+  
+          <div class="col-md-4 p-3">
+            <div class="container">
+              <div
+                class="d-grid gap-2 d-md-flex align-items-center justify-content-md-end"
+              >
+                <button
+                  class="btn btn-primary d-block"
+                  (click)="openAgregarDialog()"
+                >
+                  <i class="bi bi-plus-lg"></i> Agregar
+                </button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table mat-table [dataSource]="dataSource" class="lista table table-striped table-hover mb-0">
+      
+  
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef>Nombre</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.nombre }}
+          </td>
+        </ng-container>
+  
+        <ng-container matColumnDef="fechaNac">
+          <th mat-header-cell *matHeaderCellDef>Fecha Nacimiento</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.fechaNac | date : "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="dpi">
+          <th mat-header-cell *matHeaderCellDef>Dpi</th>
+          <td mat-cell *matCellDef="let element">
+            
+              {{ element.dpi }}
+             
+           
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="telefono">
+          <th mat-header-cell *matHeaderCellDef>Telefono</th>
+          <td mat-cell *matCellDef="let element">
+            
+            +502 {{ element.telefono }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="correo">
+          <th mat-header-cell *matHeaderCellDef>Correo</th>
+          <td mat-cell *matCellDef="let element">
+           
+            {{ element.correo }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="sexo">
+          <th mat-header-cell *matHeaderCellDef>Sexo</th>
+          <td mat-cell *matCellDef="let element">
+            @if (element.sexo == 1) {
+                {{ "Masculino" }}
+            }  
+             @else {
+                {{ "Femenino" }}
+            }
+            
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="formacionAcademica">
+          <th mat-header-cell *matHeaderCellDef>Formacion Académica</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.formacionAcademica }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="direccion">
+          <th mat-header-cell *matHeaderCellDef>Direccion</th>
+          <td mat-cell *matCellDef="let element">
+            {{ element.direccion }}
+          </td>
+        </ng-container>
+  
+        <!-- <ng-container matColumnDef="estado">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element">
+            @if(element.estado == 1){
+            <span class="activo text-success">Activo</span> } @else{
+            <span class="inactivo text-danger">Inactivo </span> }
+          </td>
+        </ng-container> -->
+  
+        <!-- Acciones Column -->
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef>Acciones</th>
+          <td mat-cell *matCellDef="let element">
+            <button
+              (click)="openEditarDialog(element.idEmpleado)"
+              mat-icon-button
+              matTooltip="Editar"
+              color="primary"
+              aria-label="Example icon button with a edit icon"
+            >
+              <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+                >edit</mat-icon
+              >
+            </button>
+            <button
+              (click)="deleteEmpleado(element.idEmpleado)"
+              mat-icon-button
+              matTooltip="Eliminar"
+              color="warn"
+              aria-label="Example icon button with a delete icon"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <!-- <button
+                            (click)="
+                              eliminarProductoCartilla(
+                                element.idCartillaProducto,
+                                element.idCartillaMedica
+                              )
+                            "
+                            mat-icon-button
+                            matTooltip="Eliminar"
+                            color="warn"
+                            aria-label="Example icon button with a delete icon"
+                          >
+                            <mat-icon>delete</mat-icon>
+                          </button> -->
+          </td>
+        </ng-container>
+       
+  
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+  
+      <mat-paginator
+        [pageSizeOptions]="[5, 10, 20, 50]"
+        showFirstLastButtons
+        aria-label="Select page of periodic elements"
+        class="mb-3"
+      >
+      </mat-paginator>
+    </div>
+  
+    <p-toast />
+  </div>
+
+  

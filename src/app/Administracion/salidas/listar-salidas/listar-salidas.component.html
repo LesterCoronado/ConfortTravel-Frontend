@@ -2,7 +2,10 @@
   <br />
 
   <div class="table-responsive mat-elevation-z8 tabla">
-    <strong><h2 class="text-center text-primary mt-3">LISTA DE SALIDAS</h2></strong>
+    <strong><h2 class="text-center text-primary mt-3">
+              <button class="btn btn-light rounded" [routerLink]="['/listar-paquetes']"><i class="bi bi-arrow-left-circle-fill lg"></i></button>
+LISTA DE SALIDAS
+</h2></strong>
     <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
       <button class="btn btn-dark" (click)="openAgregarDialog()">
         <i class="bi bi-plus-lg"></i> Agregar

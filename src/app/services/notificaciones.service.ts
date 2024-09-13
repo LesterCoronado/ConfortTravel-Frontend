@@ -10,6 +10,7 @@ export class NotificacionesService {
   private nuevoVehiculoSubject = new Subject<void>();
   private nuevoHotelSubject = new Subject<void>();
   private nuevaReservaSubject = new Subject<void>();
+  private nuevoEmpleadoSubject = new Subject<void>();
   private nuevoPaqueteSubject = new Subject<void>();
   private nuevoIncluyeSubject = new Subject<void>();
   private nuevoNoIncluyeSubject = new Subject<void>();
@@ -24,6 +25,7 @@ export class NotificacionesService {
   nuevoVehiculo$ = this.nuevoVehiculoSubject.asObservable();
   nuevoHotel$ = this.nuevoHotelSubject.asObservable();
   nuevaReserva$ = this.nuevaReservaSubject.asObservable();
+  nuevoEmpleado$ = this.nuevoEmpleadoSubject.asObservable();
   nuevoPaquete$ = this.nuevoPaqueteSubject.asObservable();
   nuevoIncluye$ = this.nuevoIncluyeSubject.asObservable();
   nuevoNoIncluye$ = this.nuevoNoIncluyeSubject.asObservable();
@@ -62,6 +64,9 @@ export class NotificacionesService {
   }
   notificarNuevoItinerario() {
     this.nuevoItinerarioSubject.next();
+  }
+  notificarNuevoEmpleado() {
+    this.nuevoEmpleadoSubject.next();
   }
   notificarNuevoAdmin() {
     this.nuevoAdmibnSubject.next();

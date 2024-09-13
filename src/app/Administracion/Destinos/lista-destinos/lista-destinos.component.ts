@@ -16,6 +16,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-lista-destinos',
   standalone: true,
@@ -28,7 +29,8 @@ import { RippleModule } from 'primeng/ripple';
     ImageModule,
     ToastModule, 
     ButtonModule, 
-    RippleModule
+    RippleModule,
+    RouterLink
   ],
   providers: [MessageService],
   templateUrl: './lista-destinos.component.html',

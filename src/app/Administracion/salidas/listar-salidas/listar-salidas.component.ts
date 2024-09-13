@@ -16,6 +16,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-listar-salidas',
   standalone: true,
@@ -29,6 +30,7 @@ import { RippleModule } from 'primeng/ripple';
     ToastModule,
     ButtonModule,
     RippleModule,
+    RouterLink
   ],
   providers: [MessageService],
   templateUrl: './listar-salidas.component.html',

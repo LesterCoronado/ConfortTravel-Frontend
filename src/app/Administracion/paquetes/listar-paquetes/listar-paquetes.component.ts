@@ -18,6 +18,10 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { Router, RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+import { TagModule } from 'primeng/tag';
 
 @Component({
   selector: 'app-listar-paquetes',
@@ -31,7 +35,11 @@ import { CookieService } from 'ngx-cookie-service';
     ImageModule,
     ToastModule,
     ButtonModule,
-    RouterLink
+    RouterLink,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
+    TagModule,
   ],
   providers: [MessageService, RippleModule],
   templateUrl: './listar-paquetes.component.html',
@@ -51,11 +59,12 @@ export class ListarPaquetesComponent {
     'MinPax',
     'MaxPax',
     'PoliticaCancelacion',
-    'Estado',
     'Acciones',
-    'Itinerario',
-    'Incluye',
-    'NoIncluye',
+    'Estado',
+   
+    // 'Itinerario',
+    // 'Incluye',
+    // 'NoIncluye',
   ];
   dataSource = new MatTableDataSource();
   constructor(
@@ -77,11 +86,20 @@ export class ListarPaquetesComponent {
     });
     this.getPaquetes();
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   getPaquetes() {
     this.backend.get(`${environment.api}/Paquete/admin`).subscribe({
       next: (data: any) => {
         this.dataSource.data = data;
+        this.paquetes = data;
         console.log(data);
         console.log(this.dataSource.data);
       },

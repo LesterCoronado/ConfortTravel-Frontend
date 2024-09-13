@@ -141,7 +141,7 @@ export class EditarCotizacionesComponent {
           this.ngZone.run(() => {
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Se Editó con Éxito!');
+            
             this.notificaciones.notificarNuevaCotizacion();
           });
           this.closeModal();
@@ -164,6 +164,6 @@ export class EditarCotizacionesComponent {
   }
 
   closeModal() {
-    this.dialogRef.close(); // Cierra el modal
+    this.dialogRef.close(true); // Cierra el modal
   }
 }

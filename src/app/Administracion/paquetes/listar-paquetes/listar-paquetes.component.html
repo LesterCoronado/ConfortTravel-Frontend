@@ -1,26 +1,60 @@
 <div class="parallax">
-  <br />
+ 
+  <div class="contenido table-responsive mat-elevation-z8 ">
+    <div class="cintaOpciones">
+      <div class="row">
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex flex-column align-items-start justify-content-md-start p-3"
+        >
+          <div class="container">
+            <h6 class="mb-0 p-0 fw-semibold">LISTA DE PAQUETES</h6>
+            <p-tag
+              class="mt-0"
+              icon="pi pi-align-left"
+              severity="secondary"
+              value="Total: {{ paquetes.length }}"
+            />
+          </div>
+        </div>
 
-  <div class="table-responsive mat-elevation-z8 tabla">
-    <strong
-      ><h2 class="text-center text-primary">
-        LISTA DE PAQUETES DE VIAJES
-      </h2></strong
-    >
-    <div class="menu d-grid gap-2 d-md-flex justify-content-md-start p-3">
-      <button class="btn btn-primary" (click)="openAgregarDialog()">
-        <i class="bi bi-plus-lg"></i> Agregar
-      </button>
-      <button class="btn btn-dark"  [routerLink]="['/listar-destinos']">
-        <i class="bi bi-list-task"></i> Destinos
-      </button>
-      
-      <button class="btn btn-dark"  [routerLink]="['/listar-salidas']">
-        <i class="bi bi-list-task"></i> Salidas
-      </button>
-   
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex align-items-start justify-content-md-center p-3"
+        >
+          <p-iconField iconPosition="right">
+            <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
+            <input
+              type="text"
+              pInputText
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Search"
+            />
+          </p-iconField>
+        </div>
+
+        <div class="col-md-4 p-3">
+          <div class="container">
+            <div
+              class="d-grid gap-2 d-md-flex align-items-center justify-content-md-end"
+            >
+            <button class="btn btn-primary" (click)="openAgregarDialog()">
+              <i class="bi bi-plus-lg"></i> Agregar
+            </button>
+            <button class="btn btn-dark"  [routerLink]="['/listar-destinos']">
+              <i class="bi bi-list-task"></i> Destinos
+            </button>
+            <button class="btn btn-dark"  [routerLink]="['/listar-salidas']">
+              <i class="bi bi-list-task"></i> Salidas
+            </button>
+             
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <table mat-table [dataSource]="dataSource" class="lista">
+  
+    <table mat-table [dataSource]="dataSource" class="lista table table-striped table-hover mb-0">
       <ng-container matColumnDef="Titulo">
         <th mat-header-cell *matHeaderCellDef>Titulo</th>
         <td mat-cell *matCellDef="let element">
@@ -33,9 +67,12 @@
         <td mat-cell *matCellDef="let element">
           <div class="container p-3">
             <p-image
+            class="img"
               [src]="element.portada"
               alt="Image"
-              width="80"
+              width="40"
+              
+              border-radious="true"
               [preview]="true"
               *ngIf="element.portada"
             />
@@ -96,8 +133,8 @@
         <th mat-header-cell *matHeaderCellDef>Estado</th>
         <td mat-cell *matCellDef="let element">
           @if(element.estado == 1){
-          <span class="activo text-success">Activo</span> } @else{
-          <span class="inactivo text-danger">Inactivo </span> }
+          <span class="activo text-success">Ok</span> } @else{
+          <span class="inactivo text-danger">False </span> }
         </td>
       </ng-container>
 
@@ -125,52 +162,46 @@
           >
             <mat-icon>delete</mat-icon>
           </button>
-          <!-- <button
-                (click)="
-                  eliminarProductoCartilla(
-                    element.idCartillaProducto,
-                    element.idCartillaMedica
-                  )
-                "
-                mat-icon-button
-                matTooltip="Eliminar"
-                color="warn"
-                aria-label="Example icon button with a delete icon"
-              >
-                <mat-icon>delete</mat-icon>
-              </button> -->
+          <div class="dropdown dropup ">
+            <button
+              class="btn btn-light dropdown-toggle btn-sm"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+            <!-- <i class="bi bi-plus"></i> -->
+            Más
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  class="dropdown-item"
+                  (click)="openItinerario(element.idPaquete)"
+                  >Itinerario</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="openIncluye(element.idPaquete)">
+                  Incluye</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" (click)="openNoIncluye(element.idPaquete)">
+                  No Incluye</a
+                >
+              </li>
+            </ul>
+          </div>
         </td>
-      </ng-container>
-      <ng-container matColumnDef="Itinerario">
-        <th mat-header-cell *matHeaderCellDef>Itinerario</th>
-        <td mat-cell *matCellDef="let element">
-          <button class="btn btn-dark" (click)="openItinerario(element.idPaquete)">
-            <i class="bi bi-arrows-angle-expand"></i>
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Incluye">
-        <th mat-header-cell *matHeaderCellDef>Incluye</th>
-        <td mat-cell *matCellDef="let element">
-          <button class="btn btn-dark" (click)="openIncluye(element.idPaquete)">
-            <i class="bi bi-arrows-angle-expand"></i>
-          </button>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="NoIncluye">
-        <th mat-header-cell *matHeaderCellDef>No Incluye</th>
-        <td mat-cell *matCellDef="let element">
-          <button class="btn btn-dark" (click)="openNoIncluye(element.idPaquete)">
-            <i class="bi bi-arrows-angle-expand"></i>
-          </button>
-        </td>
+        
       </ng-container>
      
+
+    
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
     <mat-paginator
       [pageSizeOptions]="[5, 10, 20, 50]"
       showFirstLastButtons
