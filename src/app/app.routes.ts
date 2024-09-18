@@ -22,6 +22,7 @@ import { ListarVehiculosComponent } from './Administracion/vehiculos/listar-vehi
 import { ListarHotelesComponent } from './Administracion/Hoteles/listar-hoteles/listar-hoteles.component';
 import { CrearPasajeroComponent } from './Administracion/Reservas/crear-pasajero/crear-pasajero.component';
 import { ListarEmpleadosComponent } from './Administracion/empleados/listar-empleados/listar-empleados.component';
+import { ListarPlanillaComponent } from './Administracion/planilla/listar-planilla/listar-planilla.component';
 
 export const routes: Routes = [
     {
@@ -99,6 +100,10 @@ export const routes: Routes = [
     },
     {
         path: 'empleados', component: ListarEmpleadosComponent
+       
+    },
+    {
+        path: 'planilla', component: ListarPlanillaComponent
        
     },
 
