@@ -5,6 +5,8 @@ import { Subject, BehaviorSubject } from 'rxjs';
 })
 export class NotificacionesService {
   private nuevaCotizacionSubject = new Subject<void>();
+  private nuevoBonoSubject = new Subject<void>();
+  private nuevoDescuentoSubject = new Subject<void>();
   private nuevoDestinoSubject = new Subject<void>();
   private nuevaSalidaSubject = new Subject<void>();
   private nuevoVehiculoSubject = new Subject<void>();
@@ -21,6 +23,8 @@ export class NotificacionesService {
 
 
   nuevaCotizacion$ = this.nuevaCotizacionSubject.asObservable();
+  nuevoBono$ = this.nuevoBonoSubject.asObservable();
+  nuevoDescuento$ = this.nuevoDescuentoSubject.asObservable();
   nuevoDestino$ = this.nuevoDestinoSubject.asObservable();
   nuevaSalida$ = this.nuevaSalidaSubject.asObservable();
   nuevoVehiculo$ = this.nuevoVehiculoSubject.asObservable();
@@ -39,6 +43,12 @@ export class NotificacionesService {
   constructor() { }
   notificarNuevaCotizacion() {
     this.nuevaCotizacionSubject.next();
+  }
+  notificarNuevoBono() {
+    this.nuevoBonoSubject.next();
+  }
+  notificarNuevoDescuento() {
+    this.nuevoDescuentoSubject.next();
   }
   notificarNuevoDestino() {
     this.nuevoDestinoSubject.next();
@@ -73,6 +83,7 @@ export class NotificacionesService {
   notificarNuevaPlanilla() {
     this.nuevaPlanillaSubject.next();
   }
+  
   notificarNuevoAdmin() {
     this.nuevoAdmibnSubject.next();
   }

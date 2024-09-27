@@ -19,12 +19,15 @@ import { RouterLink } from '@angular/router';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TagModule } from 'primeng/tag';
 import { MatInputModule } from '@angular/material/input';
 import { DialogModule } from 'primeng/dialog';
 import { AgregarPlanillaComponent } from '../agregar-planilla/agregar-planilla.component';
-
+import { BonosComponent } from '../bonos/bonos/bonos.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
+import { DescuentosComponent } from '../descuentos/descuentos/descuentos.component';
 @Component({
   selector: 'app-listar-planilla',
   standalone: true,
@@ -46,13 +49,24 @@ import { AgregarPlanillaComponent } from '../agregar-planilla/agregar-planilla.c
     ButtonModule,
     RippleModule,
     DialogModule,
+    ReactiveFormsModule,
+    FormsModule,
+   
   ],
-  providers: [MessageService],
+  providers: [ MessageService],
   templateUrl: './listar-planilla.component.html',
   styleUrl: './listar-planilla.component.css'
 })
 export class ListarPlanillaComponent {
+  crearBonoFormulario: FormGroup;
+  crearDescuentoFormulario: FormGroup;
+  btnEnviar: boolean = true;
+  btnBlock: boolean = false;
   listaPlanilla: any = [];
+  listaBonos: any = [];
+  totalBonos: number = 0;
+  listaDescuentos: any = [];
+  totalDescuentos: number = 0;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [
     'empleado',
@@ -64,6 +78,8 @@ export class ListarPlanillaComponent {
     'fechaDeBaja',
     'salarioBase',
     'noCuenta',
+    'bonos',
+    'descuentos',
     'estado',
     'acciones'
   ];
@@ -73,8 +89,26 @@ export class ListarPlanillaComponent {
     private DTO: DTOService,
     public dialog: MatDialog,
     private notificaciones: NotificacionesService,
-    private messageService: MessageService
-  ) {}
+    private messageService: MessageService,
+    public fb: FormBuilder,
+
+   
+   
+  ) {
+    this.crearBonoFormulario = this.fb.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      monto: [0, Validators.required],
+      frecuenciaPago: ['', Validators.required],
+    });
+    this.crearDescuentoFormulario = this.fb.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      monto: [0, Validators.required],
+      frecuenciaDescuento: ['', Validators.required],
+    });
+    
+  }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     // Llamamos a toggleDragOverClass en AfterViewInit para asegurarnos de que Angular haya inicializado las vistas.
@@ -177,5 +211,163 @@ export class ListarPlanillaComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  openBonosDialog(){
+    const dialogRef = this.dialog.open(BonosComponent, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Bono Asignado Correctamente',
+        });
+      }
+      if (result === false){
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al asignar el bono, intente nuevamente',
+        });
+      }
+    });
+
+  }
+  openDescuentosDialog(){
+    const dialogRef = this.dialog.open(DescuentosComponent, {
+      width: '450px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Descuento Asignado Correctamente',
+        });
+      }
+      if (result === false){
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Error al asignar el descuento, intente nuevamente',
+        });
+      }
+    });
+
+  }
+
+  BonoModal(id:any){
+    console.log(id);
+    this.backend.get(`${environment.api}/AsignarBono/${id}`).subscribe({
+      next: (data: any) => {
+        console.log(data);
+       this.listaBonos = data;
+        this.totalBonos = 0;
+        for(var i = 0; i < this.listaBonos.length; i++){
+          this.totalBonos += this.listaBonos[i].monto;
+        }
+
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+  DescuentoModal(id:any){
+    console.log(id);
+    this.backend.get(`${environment.api}/AsignarDescuento/${id}`).subscribe({
+      next: (data: any) => {
+        console.log(data);
+       this.listaDescuentos = data;
+        this.totalDescuentos = 0;
+        for(var i = 0; i < this.listaDescuentos.length; i++){
+          this.totalDescuentos += this.listaDescuentos[i].monto;
+        }
+
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  //funcion para crear un nuevo Bono
+  BonosFormulario(){
+    
+    console.log(this.crearBonoFormulario.value);
+    if(this.crearBonoFormulario.invalid){
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Complete todos los campos',
+      });
+    }
+    else{
+      this.backend.post(`${environment.api}/Bono`, this.crearBonoFormulario.value).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Bono creado correctamente',
+          });
+          this.crearBonoFormulario.reset();
+          this.notificaciones.notificarNuevoBono();
+         
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al crear el bono, intente nuevamente',
+          });
+        },
+      });
+    }
+
+  }
+
+   //funcion para crear un nuevo Descuento
+   DescuentosFormulario(){
+    
+    console.log(this.crearDescuentoFormulario.value);
+    if(this.crearDescuentoFormulario.invalid){
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Complete todos los campos',
+      });
+    }
+    else{
+      this.backend.post(`${environment.api}/Descuento`, this.crearDescuentoFormulario.value).subscribe({
+        next: (data: any) => {
+          console.log(data);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Descuento creado correctamente',
+          });
+          this.crearDescuentoFormulario.reset();
+          this.notificaciones.notificarNuevoDescuento();
+         
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al crear el bono, intente nuevamente',
+          });
+        },
+      });
+    }
+
+  }
+ 
+ 
+
+  
 
 }

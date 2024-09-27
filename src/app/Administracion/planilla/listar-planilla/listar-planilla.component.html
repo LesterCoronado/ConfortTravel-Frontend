@@ -1,155 +1,193 @@
 <div class="parallax">
-    <div class="contenido table-responsive mat-elevation-z8 mb-3">
-      <div class="cintaOpciones">
-        <div class="row">
-          <div
-            class="col-md-4 d-grid gap-2 d-md-flex flex-column align-items-start justify-content-md-start p-3"
-          >
-            <div class="container">
-              <h6 class="mb-0 p-0 fw-semibold">LISTA DE PLANILLA</h6>
-              <p-tag
-                class="mt-0"
-                icon="pi pi-align-left"
-                severity="secondary"
-                value="Total: {{ listaPlanilla.length }}"
-              />
-            </div>
+  <div class="contenido table-responsive mat-elevation-z8 mb-3">
+    <div class="cintaOpciones">
+      <div class="row">
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex flex-column align-items-start justify-content-md-start p-3"
+        >
+          <div class="container">
+            <h6 class="mb-0 p-0 fw-semibold">LISTA DE PLANILLA</h6>
+            <p-tag
+              class="mt-0"
+              icon="pi pi-align-left"
+              severity="secondary"
+              value="Total: {{ listaPlanilla.length }}"
+            />
           </div>
-  
-          <div
-            class="col-md-4 d-grid gap-2 d-md-flex align-items-start justify-content-md-center p-3"
-          >
-            <p-iconField iconPosition="right">
-              <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
-              <input
-                type="text"
-                pInputText
-                matInput
-                (keyup)="applyFilter($event)"
-                placeholder="Search"
-              />
-            </p-iconField>
-          </div>
-  
-          <div class="col-md-4 p-3">
-            <div class="container">
-              <div
-                class="d-grid gap-2 d-md-flex align-items-center justify-content-md-end"
+        </div>
+
+        <div
+          class="col-md-4 d-grid gap-2 d-md-flex align-items-start justify-content-md-center p-3"
+        >
+          <p-iconField iconPosition="right">
+            <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
+            <input
+              type="text"
+              pInputText
+              matInput
+              (keyup)="applyFilter($event)"
+              placeholder="Search"
+            />
+          </p-iconField>
+        </div>
+
+        <div class="col-md-4 p-3">
+          <div class="container">
+            <div
+              class="d-grid gap-2 d-md-flex align-items-center justify-content-md-end"
+            >
+              <button
+                class="btn btn-primary d-block"
+                (click)="openAgregarDialog()"
               >
+                <i class="bi bi-plus-lg"></i> Agregar
+              </button>
+              <div class="dropdown">
                 <button
-                  class="btn btn-primary d-block"
-                  (click)="openAgregarDialog()"
+                  class="btn btn-dark dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
                 >
-                  <i class="bi bi-plus-lg"></i> Agregar
+                  Asignar
                 </button>
-               
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" (click)="openBonosDialog()"
+                      ><i class="bi bi-bookmark-check"></i> Bonos</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" (click)="openDescuentosDialog()">
+                      <i class="bi bi-bookmark-dash"></i> Descuentos</a
+                    >
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <table mat-table [dataSource]="dataSource" class="lista table table-striped table-hover mb-0">
-      
-  
-        <ng-container matColumnDef="empleado">
-          <th mat-header-cell *matHeaderCellDef>Empleado</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.empleado }}
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="cargo">
-          <th mat-header-cell *matHeaderCellDef>Cargo</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.cargo  }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="deptoTrabajo">
-          <th mat-header-cell *matHeaderCellDef>Departamento de Trabajo</th>
-          <td mat-cell *matCellDef="let element">
-            
-              {{ element.deptoTrabajo }}
-             
-           
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="fechaContratacion">
-          <th mat-header-cell *matHeaderCellDef>Fecha de Contratación</th>
-          <td mat-cell *matCellDef="let element">
-            
-            {{ element.fechaContratacion | date : "dd/MM/yyyy" }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="tipoContrato">
-          <th mat-header-cell *matHeaderCellDef>Tipo de Contrato</th>
-          <td mat-cell *matCellDef="let element">
-           
-            {{ element.tipoContrato }}
-          </td>
-        </ng-container>
-        
-        <ng-container matColumnDef="tiempoContrato">
-          <th mat-header-cell *matHeaderCellDef>Tiempo de Contrato</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.tiempoContrato }} 
-            <span *ngIf="element.tiempoContrato >0">meses</span>
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="fechaDeBaja">
-          <th mat-header-cell *matHeaderCellDef>Fecha de Baja</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.fechaDeBaja | date : "dd/MM/yyyy" }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="salarioBase">
-          <th mat-header-cell *matHeaderCellDef>Salario Base</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.salarioBase | currency : "GTQ" }}
-          </td>
-        </ng-container>
-        <ng-container matColumnDef="noCuenta">
-          <th mat-header-cell *matHeaderCellDef>No. Cuenta</th>
-          <td mat-cell *matCellDef="let element">
-            {{ element.noCuenta }}
-          </td>
-        </ng-container>
-         <ng-container matColumnDef="estado">
-          <th mat-header-cell *matHeaderCellDef>Estado</th>
-          <td mat-cell *matCellDef="let element">
-            @if(element.estado == 1){
-            <span class="activo text-success">Activo</span> }
-            
-            @else{
-            <span class="inactivo text-danger">Inactivo </span> }
-          </td>
-        </ng-container>
-  
-          
-        <!-- Acciones Column -->
-        <ng-container matColumnDef="acciones">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let element">
-            <button
-              (click)="openEditarDialog(element.idEmpleado)"
-              mat-icon-button
-              matTooltip="Editar"
-              color="primary"
-              aria-label="Example icon button with a edit icon"
+    </div>
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="lista table table-striped table-hover mb-0"
+    >
+      <ng-container matColumnDef="empleado">
+        <th mat-header-cell *matHeaderCellDef>Empleado</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.empleado }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cargo">
+        <th mat-header-cell *matHeaderCellDef>Cargo</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.cargo }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="deptoTrabajo">
+        <th mat-header-cell *matHeaderCellDef>Departamento de Trabajo</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.deptoTrabajo }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaContratacion">
+        <th mat-header-cell *matHeaderCellDef>Fecha de Contratación</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fechaContratacion | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="tipoContrato">
+        <th mat-header-cell *matHeaderCellDef>Tipo de Contrato</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.tipoContrato }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tiempoContrato">
+        <th mat-header-cell *matHeaderCellDef>Tiempo de Contrato</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.tiempoContrato }}
+          <span *ngIf="element.tiempoContrato > 0">meses</span>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fechaDeBaja">
+        <th mat-header-cell *matHeaderCellDef>Fecha de Baja</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fechaDeBaja | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="salarioBase">
+        <th mat-header-cell *matHeaderCellDef>Salario Base</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.salarioBase | currency : "GTQ" }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="noCuenta">
+        <th mat-header-cell *matHeaderCellDef>No. Cuenta</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.noCuenta }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="bonos">
+        <th mat-header-cell *matHeaderCellDef>Bonos</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            (click)="BonoModal(element.idPlanilla)"
+            class="btn btn-light"
+            data-bs-toggle="modal"
+            data-bs-target="#BonoModal"
+          >
+            <i class="bi bi-eye"></i>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="descuentos">
+        <th mat-header-cell *matHeaderCellDef>Descuentos</th>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn btn-light"
+          (click)="DescuentoModal(element.idPlanilla)"
+          data-bs-toggle="modal"
+            data-bs-target="#DescuentoModal"
+          ><i class="bi bi-eye"></i></button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          @if(element.estado == 1){
+          <span class="activo text-success">Activo</span> } @else{
+          <span class="inactivo text-danger">Inactivo </span> }
+        </td>
+      </ng-container>
+
+      <!-- Acciones Column -->
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            (click)="openEditarDialog(element.idEmpleado)"
+            mat-icon-button
+            matTooltip="Editar"
+            color="primary"
+            aria-label="Example icon button with a edit icon"
+          >
+            <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
+              >edit</mat-icon
             >
-              <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
-                >edit</mat-icon
-              >
-            </button>
-            <button
-              (click)="deletePlanilla(element.idPlanilla)"
-              mat-icon-button
-              matTooltip="Eliminar"
-              color="warn"
-              aria-label="Example icon button with a delete icon"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-            <!-- <button
+          </button>
+          <button
+            (click)="deletePlanilla(element.idPlanilla)"
+            mat-icon-button
+            matTooltip="Eliminar"
+            color="warn"
+            aria-label="Example icon button with a delete icon"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <!-- <button
                             (click)="
                               eliminarProductoCartilla(
                                 element.idCartillaProducto,
@@ -163,24 +201,388 @@
                           >
                             <mat-icon>delete</mat-icon>
                           </button> -->
-          </td>
-        </ng-container>
-       
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-      </table>
-  
-      <mat-paginator
-        [pageSizeOptions]="[5, 10, 20, 50]"
-        showFirstLastButtons
-        aria-label="Select page of periodic elements"
-        class="mb-3"
-      >
-      </mat-paginator>
-    </div>
-  
-    <p-toast />
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 20, 50]"
+      showFirstLastButtons
+      aria-label="Select page of periodic elements"
+      class="mb-3"
+    >
+    </mat-paginator>
   </div>
 
-  
+  <p-toast />
+</div>
+
+<!-- BonoModal -->
+<div
+  class="modal fade"
+  id="BonoModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-medium" id="exampleModalLabel">
+          Lista de Bonos
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        @if(listaBonos.length == 0){
+        <div class="alert alert-warning" role="alert">Sin bonos asignados</div>
+        } @else { @for (bono of listaBonos; track $index) {
+
+        <ul>
+          <li>
+            <div class="row">
+              <div class="col-md-4">
+                <span class="text-primary">{{ bono.bono }}</span>
+              </div>
+              <div class="col-md-4">
+                {{ bono.frecuenciaPago }}
+              </div>
+              <div class="col-md-4">
+                <span class="fw-medium">{{
+                  bono.monto | currency : "GTQ"
+                }}</span>
+              </div>
+            </div>
+            <hr />
+          </li>
+        </ul>
+
+        }
+
+        <ul>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="fw-medium">Total </span>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <span class="fw-medium text-success">{{
+                totalBonos | currency : "GTQ"
+              }}</span>
+            </div>
+          </div>
+        </ul>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DescuentoModal -->
+<div
+  class="modal fade"
+  id="DescuentoModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-medium" id="exampleModalLabel">
+          Lista de Descuentos
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        @if(listaDescuentos.length == 0){
+        <div class="alert alert-warning" role="alert">Sin descuentos asignados</div>
+        } @else { @for (descuento of listaDescuentos; track $index) {
+
+        <ul>
+          <li>
+            <div class="row">
+              <div class="col-md-4">
+                <span class="text-primary">{{ descuento.descuento }}</span>
+              </div>
+              <div class="col-md-4">
+                {{ descuento.frecuenciaPago }}
+              </div>
+              <div class="col-md-4">
+                <span class="fw-medium">{{
+                  descuento.monto | currency : "GTQ"
+                }}</span>
+              </div>
+            </div>
+            <hr />
+          </li>
+        </ul>
+
+        }
+
+        <ul>
+          <div class="row">
+            <div class="col-md-4">
+              <span class="fw-medium">Total </span>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <span class="fw-medium text-success">{{
+                totalDescuentos | currency : "GTQ"
+              }}</span>
+            </div>
+          </div>
+        </ul>
+        }
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CrearBonoModal -->
+<div
+  class="modal fade"
+  id="CrearBonoModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-medium" id="exampleModalLabel">
+          Nuevo Bono
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="crearBonoFormulario"
+          (ngSubmit)="BonosFormulario()"
+          class="formulario"
+        >
+          <div class="container-fluid p-0 mb-0 m-0">
+            <div class="row g-3 p-3">
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label">
+                    Nombre
+                    <span class="text-danger">*</span>
+                  </label>
+                </strong>
+                <input
+                  formControlName="nombre"
+                  type="text"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Nombre"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Descripción
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <textarea
+                  formControlName="descripcion"
+                  rows="1"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Descripción"
+                  required
+                ></textarea>
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Monto
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <input
+                  formControlName="monto"
+                  type="number"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Monto"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Frecuencia de Pago
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <select
+                  formControlName="frecuenciaPago"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option disabled value="" [selected]>
+                    Seleccione una opcion
+                  </option>
+                  <option value="Mensual">Mensual</option>
+                  <option value="Quincenal">Quincenal</option>
+                  <option value="Semanal">Semanal</option>
+                </select>
+              </div>
+              <div class="col-md-12 d-grid align-items-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!crearBonoFormulario.valid">Enviar</button>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CrearDescuentoModal -->
+<div
+  class="modal fade"
+  id="CrearDescuentoModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-medium" id="exampleModalLabel">
+          Nuevo Descuento
+        </h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form
+          [formGroup]="crearDescuentoFormulario"
+          (ngSubmit)="DescuentosFormulario()"
+          class="formulario"
+        >
+          <div class="container-fluid p-0 mb-0 m-0">
+            <div class="row g-3 p-3">
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label">
+                    Nombre
+                    <span class="text-danger">*</span>
+                  </label>
+                </strong>
+                <input
+                  formControlName="nombre"
+                  type="text"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Nombre"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Descripción
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <textarea
+                  formControlName="descripcion"
+                  rows="1"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Descripción"
+                  required
+                ></textarea>
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Monto
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <input
+                  formControlName="monto"
+                  type="number"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Monto"
+                  required
+                />
+              </div>
+              <div class="col-md-6">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Frecuencia de Descuento
+                    <span class="text-danger">*</span>
+                   
+                  </label>
+                </strong>
+                <select
+                  formControlName="frecuenciaDescuento"
+                  class="form-select"
+                  aria-label="Default select example"
+                >
+                  <option disabled value="" [selected]>
+                    Seleccione una opcion
+                  </option>
+                  <option value="Mensual">Mensual</option>
+                  <option value="Quincenal">Quincenal</option>
+                  <option value="Semanal">Semanal</option>
+                </select>
+              </div>
+              <div class="col-md-12 d-grid align-items-center">
+                <button type="submit" class="btn btn-primary" [disabled]="!crearDescuentoFormulario.valid">Enviar</button>
+
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
