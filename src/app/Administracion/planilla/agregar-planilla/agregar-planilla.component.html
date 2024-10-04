@@ -29,7 +29,7 @@
           class="form-select"
           aria-label="Default select example"
         >
-          <option  disabled value=0 [selected]>Seleccione una opcion</option>
+          <option disabled value="0" [selected]>Seleccione una opcion</option>
           <option
             *ngFor="let empleado of listaEmpleados"
             [value]="empleado.idEmpleado"
@@ -51,7 +51,7 @@
           class="form-select"
           aria-label="Default select example"
         >
-          <option  disabled value=0 [selected]>Seleccione una opcion</option>
+          <option disabled value="0" [selected]>Seleccione una opcion</option>
           <option
             *ngFor="let cargo of listaCargoLaboral"
             [value]="cargo.idCargoLaboral"
@@ -78,9 +78,8 @@
         <strong>
           <label for="validationCustom01" class="form-label">
             Fecha de Baja
-            <span class="text-danger">*</span>
-            <i class="bi bi-info-circle icon-lg"></i
-          ></label>
+            
+          </label>
         </strong>
         <input type="date" formControlName="fechaDeBaja" class="form-control" />
       </div>
@@ -97,7 +96,7 @@
           class="form-select"
           aria-label="Default select example"
         >
-          <option disabled value=0 [selected]>Seleccione una opcion</option>
+          <option disabled value="" [selected]>Seleccione una opcion</option>
           <option value="Temporal">Temporal</option>
           <option value="Indefinido">Indefinido</option>
           <option value="Plaza Fija">Plaza Fija</option>
@@ -107,8 +106,6 @@
         <strong>
           <label for="validationCustom01" class="form-label">
             tiempo de Contrato (en meses)
-           
-            
           </label>
         </strong>
         <input
@@ -140,6 +137,41 @@
           ></label>
         </strong>
         <input type="number" formControlName="noCuenta" class="form-control" />
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Tipo Cuenta
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="tipoCuenta"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option value="" selected disabled>Seleccione una opcion</option>
+          <option value="A">Ahorro</option>
+          <option value="M">Monetaria</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <strong>
+          <label for="validationCustom01" class="form-label">
+            Moneda
+            <span class="text-danger">*</span>
+            <i class="bi bi-info-circle icon-lg"></i
+          ></label>
+        </strong>
+        <select
+          formControlName="moneda"
+          class="form-select"
+          aria-label="Default select example"
+        >
+          <option value="" selected disabled>Seleccione una opcion</option>
+          <option value="Q">Quetzales</option>
+        </select>
       </div>
 
       <div class="d-grid gap-2 col-12 mx-auto">

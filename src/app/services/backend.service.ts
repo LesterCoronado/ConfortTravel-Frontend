@@ -25,4 +25,9 @@ export class BackendService {
   public delete(url: string) {
     return this.http.delete(url); // DELETE
   }
+
+    // GET Para descargar archivo .csv 
+    public getCSV(url: string, options: any = {}) {
+      return this.http.get(url, { ...options, responseType: 'blob' });
+    }
 }

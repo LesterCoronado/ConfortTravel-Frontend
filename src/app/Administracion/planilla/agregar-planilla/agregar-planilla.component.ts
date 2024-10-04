@@ -61,8 +61,10 @@ export class AgregarPlanillaComponent {
       tipoContrato: ['', Validators.required],
       tiempoContrato: [, Validators.nullValidator],
       idCargo: [0, Validators.required],
-      salarioBase: [0, Validators.nullValidator],
-      noCuenta: [0, Validators.nullValidator],
+      salarioBase: [0, Validators.required],
+      noCuenta: [0, Validators.required],
+      tipoCuenta: ['', Validators.required],
+      moneda: ['', Validators.required],
       estado: [true, Validators.required],
     });
   }
@@ -97,7 +99,6 @@ export class AgregarPlanillaComponent {
   }
 
   esEditar() {
-  
     const id = this.idPlanilla.source._value;
     if (id !== 0) {
       this.tituloModal = 'EDITAR PLANILLA';
@@ -123,6 +124,8 @@ export class AgregarPlanillaComponent {
             idCargo: data.idCargo,
             salarioBase: data.salarioBase,
             noCuenta: data.noCuenta,
+            tipoCuenta: data.tipoCuenta,
+            moneda: data.moneda,
             estado: data.estado,
           });
         },
@@ -151,7 +154,15 @@ export class AgregarPlanillaComponent {
       });
     }
     console.log(this.crearFormulario.value);
-    if (this.crearFormulario.invalid) {
+    if (
+      this.crearFormulario.invalid ||
+      this.crearFormulario.value.CargoLaboral === 0 ||
+      this.crearFormulario.value.moneda === '' ||
+      this.crearFormulario.value.tipoCuenta === '' ||
+      this.crearFormulario.value.noCuenta=== 0 ||
+      this.crearFormulario.value.salarioBase === 0 
+
+    ) {
       this.messageService.add({
         severity: 'info',
         summary: 'Info',
@@ -212,28 +223,45 @@ export class AgregarPlanillaComponent {
     console.log(this.crearFormulario.value);
     this.btnBlock = true;
     this.btnEnviar = false;
-    this.backend
-      .put(`${environment.api}/Planilla/${id}`, this.crearFormulario.value)
-      .subscribe({
-        next: (data: any) => {
-          this.ngZone.run(() => {
+    if (
+      this.crearFormulario.invalid ||
+      this.crearFormulario.value.CargoLaboral === 0 ||
+      this.crearFormulario.value.moneda === '' ||
+      this.crearFormulario.value.tipoCuenta === '' ||
+      this.crearFormulario.value.noCuenta=== 0 ||
+      this.crearFormulario.value.salarioBase === 0
+    ) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'Complete el formulario',
+      });
+      this.btnBlock = false;
+      this.btnEnviar = true;
+    } else {
+      this.backend
+        .put(`${environment.api}/Planilla/${id}`, this.crearFormulario.value)
+        .subscribe({
+          next: (data: any) => {
+            this.ngZone.run(() => {
+              this.btnBlock = false;
+              this.btnEnviar = true;
+
+              this.notificaciones.notificarNuevaPlanilla();
+            });
+            this.closeModal();
+          },
+          error: (error) => {
             this.btnBlock = false;
             this.btnEnviar = true;
-
-            this.notificaciones.notificarNuevaPlanilla();
-          });
-          this.closeModal();
-        },
-        error: (error) => {
-          this.btnBlock = false;
-          this.btnEnviar = true;
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al editar, intente nuevamente',
-          });
-        },
-      });
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al editar, intente nuevamente',
+            });
+          },
+        });
+    }
   }
   closeModal() {
     this.dialogRef.close(true); // Cierra el modal

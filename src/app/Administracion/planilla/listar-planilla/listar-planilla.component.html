@@ -49,17 +49,22 @@
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Asignar
+                  Más
                 </button>
                 <ul class="dropdown-menu">
                   <li>
                     <a class="dropdown-item" (click)="openBonosDialog()"
-                      ><i class="bi bi-bookmark-check"></i> Bonos</a
+                      ><i class="bi bi-bookmark-check"></i> Asignar Bonos</a
                     >
                   </li>
                   <li>
                     <a class="dropdown-item" (click)="openDescuentosDialog()">
-                      <i class="bi bi-bookmark-dash"></i> Descuentos</a
+                      <i class="bi bi-bookmark-dash"></i> Asginar Descuentos</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" (click)="showPagoPlanillaDialog()">
+                      <i class="bi bi-bank"></i> Pagos a Planilla</a
                     >
                   </li>
                 </ul>
@@ -147,11 +152,14 @@
       <ng-container matColumnDef="descuentos">
         <th mat-header-cell *matHeaderCellDef>Descuentos</th>
         <td mat-cell *matCellDef="let element">
-          <button class="btn btn-light"
-          (click)="DescuentoModal(element.idPlanilla)"
-          data-bs-toggle="modal"
+          <button
+            class="btn btn-light"
+            (click)="DescuentoModal(element.idPlanilla)"
+            data-bs-toggle="modal"
             data-bs-target="#DescuentoModal"
-          ><i class="bi bi-eye"></i></button>
+          >
+            <i class="bi bi-eye"></i>
+          </button>
         </td>
       </ng-container>
       <ng-container matColumnDef="estado">
@@ -253,8 +261,11 @@
                 <span class="text-primary">{{ bono.bono }}</span>
               </div>
               <div class="col-md-4">
-                {{ bono.frecuenciaPago }}
+
               </div>
+              <!-- <div class="col-md-4">
+                {{ bono.frecuenciaPago }}
+              </div> -->
               <div class="col-md-4">
                 <span class="fw-medium">{{
                   bono.monto | currency : "GTQ"
@@ -314,7 +325,9 @@
       </div>
       <div class="modal-body">
         @if(listaDescuentos.length == 0){
-        <div class="alert alert-warning" role="alert">Sin descuentos asignados</div>
+        <div class="alert alert-warning" role="alert">
+          Sin descuentos asignados
+        </div>
         } @else { @for (descuento of listaDescuentos; track $index) {
 
         <ul>
@@ -324,8 +337,11 @@
                 <span class="text-primary">{{ descuento.descuento }}</span>
               </div>
               <div class="col-md-4">
-                {{ descuento.frecuenciaPago }}
+
               </div>
+              <!-- <div class="col-md-4">
+                {{ descuento.frecuenciaPago }}
+              </div> -->
               <div class="col-md-4">
                 <span class="fw-medium">{{
                   descuento.monto | currency : "GTQ"
@@ -407,29 +423,12 @@
                   required
                 />
               </div>
-              <div class="col-md-6">
-                <strong>
-                  <label for="validationCustom01" class="form-label"
-                    >Descripción
-                    <span class="text-danger">*</span>
-                   
-                  </label>
-                </strong>
-                <textarea
-                  formControlName="descripcion"
-                  rows="1"
-                  class="form-control"
-                  id="validationCustom01"
-                  placeholder="Descripción"
-                  required
-                ></textarea>
-              </div>
+              
               <div class="col-md-6">
                 <strong>
                   <label for="validationCustom01" class="form-label"
                     >Monto
                     <span class="text-danger">*</span>
-                   
                   </label>
                 </strong>
                 <input
@@ -441,12 +440,27 @@
                   required
                 />
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Descripción
+                    <span class="text-danger">*</span>
+                  </label>
+                </strong>
+                <textarea
+                  formControlName="descripcion"
+                  rows="3"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Descripción"
+                  required
+                ></textarea>
+              </div>
+              <!-- <div class="col-md-6">
                 <strong>
                   <label for="validationCustom01" class="form-label"
                     >Frecuencia de Pago
                     <span class="text-danger">*</span>
-                   
                   </label>
                 </strong>
                 <select
@@ -461,10 +475,15 @@
                   <option value="Quincenal">Quincenal</option>
                   <option value="Semanal">Semanal</option>
                 </select>
-              </div>
+              </div> -->
               <div class="col-md-12 d-grid align-items-center">
-                <button type="submit" class="btn btn-primary" [disabled]="!crearBonoFormulario.valid">Enviar</button>
-
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!crearBonoFormulario.valid"
+                >
+                  Enviar
+                </button>
               </div>
             </div>
           </div>
@@ -473,7 +492,6 @@
     </div>
   </div>
 </div>
-
 
 <!-- CrearDescuentoModal -->
 <div
@@ -520,29 +538,12 @@
                   required
                 />
               </div>
-              <div class="col-md-6">
-                <strong>
-                  <label for="validationCustom01" class="form-label"
-                    >Descripción
-                    <span class="text-danger">*</span>
-                   
-                  </label>
-                </strong>
-                <textarea
-                  formControlName="descripcion"
-                  rows="1"
-                  class="form-control"
-                  id="validationCustom01"
-                  placeholder="Descripción"
-                  required
-                ></textarea>
-              </div>
+              
               <div class="col-md-6">
                 <strong>
                   <label for="validationCustom01" class="form-label"
                     >Monto
                     <span class="text-danger">*</span>
-                   
                   </label>
                 </strong>
                 <input
@@ -554,12 +555,27 @@
                   required
                 />
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
+                <strong>
+                  <label for="validationCustom01" class="form-label"
+                    >Descripción
+                    <span class="text-danger">*</span>
+                  </label>
+                </strong>
+                <textarea
+                  formControlName="descripcion"
+                  rows="3"
+                  class="form-control"
+                  id="validationCustom01"
+                  placeholder="Descripción"
+                  required
+                ></textarea>
+              </div>
+              <!-- <div class="col-md-6">
                 <strong>
                   <label for="validationCustom01" class="form-label"
                     >Frecuencia de Descuento
                     <span class="text-danger">*</span>
-                   
                   </label>
                 </strong>
                 <select
@@ -574,10 +590,15 @@
                   <option value="Quincenal">Quincenal</option>
                   <option value="Semanal">Semanal</option>
                 </select>
-              </div>
+              </div> -->
               <div class="col-md-12 d-grid align-items-center">
-                <button type="submit" class="btn btn-primary" [disabled]="!crearDescuentoFormulario.valid">Enviar</button>
-
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!crearDescuentoFormulario.valid"
+                >
+                  Enviar
+                </button>
               </div>
             </div>
           </div>
@@ -585,4 +606,60 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Pagos a planilla Modal -->
+<div class="card flex justify-content-center">
+  <p-dialog
+    header="Pagos a Planilla"
+    [modal]="true"
+    [(visible)]="visible"
+    [style]="{ width: '25rem' }"
+  >
+    <span class="p-text-secondary block mb-5"
+      >Generar archivo .csv para pagos a planilla.</span
+    >
+
+    <div class="form-check form-switch mt-3">
+      <input
+        [(ngModel)]="bonosChecked"
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Incluir Bonos</label
+      >
+    </div>
+    <div class="form-check form-switch">
+      <input
+        [(ngModel)]="descuentosChecked"
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      />
+      <label class="form-check-label" for="flexSwitchCheckDefault"
+        >Incluir Descuentos</label
+      >
+    </div>
+    <div class="d-grid col-8 mx-auto mt-5">
+      <button
+        class="btn btn-primary"
+        (click)="PagoPlanilla()"
+        [disabled]="btnBlock"
+      >
+        @if (btnEnviar){
+        <span><i class="bi bi-download"></i> Descargar Archivo</span>
+
+        } @else{
+        <div style="display: flex; align-items: center">
+          <div class="loader"></div>
+          <span class="ms-1">Descargando archivo...</span>
+        </div>
+        }
+      </button>
+    </div>
+  </p-dialog>
 </div>

@@ -28,6 +28,9 @@ import { BonosComponent } from '../bonos/bonos/bonos.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { DescuentosComponent } from '../descuentos/descuentos/descuentos.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import moment from 'moment';
+
 @Component({
   selector: 'app-listar-planilla',
   standalone: true,
@@ -51,11 +54,11 @@ import { DescuentosComponent } from '../descuentos/descuentos/descuentos.compone
     DialogModule,
     ReactiveFormsModule,
     FormsModule,
-   
+    InputSwitchModule
   ],
-  providers: [ MessageService],
+  providers: [MessageService],
   templateUrl: './listar-planilla.component.html',
-  styleUrl: './listar-planilla.component.css'
+  styleUrl: './listar-planilla.component.css',
 })
 export class ListarPlanillaComponent {
   crearBonoFormulario: FormGroup;
@@ -67,6 +70,9 @@ export class ListarPlanillaComponent {
   totalBonos: number = 0;
   listaDescuentos: any = [];
   totalDescuentos: number = 0;
+  visible: boolean = false;
+  bonosChecked: boolean = false;
+  descuentosChecked: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns: string[] = [
     'empleado',
@@ -81,7 +87,7 @@ export class ListarPlanillaComponent {
     'bonos',
     'descuentos',
     'estado',
-    'acciones'
+    'acciones',
   ];
   dataSource = new MatTableDataSource();
   constructor(
@@ -90,24 +96,20 @@ export class ListarPlanillaComponent {
     public dialog: MatDialog,
     private notificaciones: NotificacionesService,
     private messageService: MessageService,
-    public fb: FormBuilder,
-
-   
-   
+    public fb: FormBuilder
   ) {
     this.crearBonoFormulario = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       monto: [0, Validators.required],
-      frecuenciaPago: ['', Validators.required],
+      // frecuenciaPago: ['', Validators.required],
     });
     this.crearDescuentoFormulario = this.fb.group({
       nombre: ['', Validators.required],
       descripcion: ['', Validators.required],
       monto: [0, Validators.required],
-      frecuenciaDescuento: ['', Validators.required],
+      // frecuenciaDescuento: ['', Validators.required],
     });
-    
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -138,8 +140,7 @@ export class ListarPlanillaComponent {
     this.DTO.setIdPlanilla(0);
     const dialogRef = this.dialog.open(AgregarPlanillaComponent, {
       width: '100%', // Ajuste al 100% del ancho del viewport
-    maxWidth: '560px',
-     
+      maxWidth: '560px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
@@ -189,7 +190,6 @@ export class ListarPlanillaComponent {
             });
           },
           error: (error) => {
-            
             console.log(error);
             this.messageService.add({
               severity: 'error',
@@ -212,7 +212,7 @@ export class ListarPlanillaComponent {
     }
   }
 
-  openBonosDialog(){
+  openBonosDialog() {
     const dialogRef = this.dialog.open(BonosComponent, {
       width: '450px',
     });
@@ -224,7 +224,7 @@ export class ListarPlanillaComponent {
           detail: 'Bono Asignado Correctamente',
         });
       }
-      if (result === false){
+      if (result === false) {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -232,9 +232,8 @@ export class ListarPlanillaComponent {
         });
       }
     });
-
   }
-  openDescuentosDialog(){
+  openDescuentosDialog() {
     const dialogRef = this.dialog.open(DescuentosComponent, {
       width: '450px',
     });
@@ -246,7 +245,7 @@ export class ListarPlanillaComponent {
           detail: 'Descuento Asignado Correctamente',
         });
       }
-      if (result === false){
+      if (result === false) {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -254,37 +253,34 @@ export class ListarPlanillaComponent {
         });
       }
     });
-
   }
 
-  BonoModal(id:any){
+  BonoModal(id: any) {
     console.log(id);
     this.backend.get(`${environment.api}/AsignarBono/${id}`).subscribe({
       next: (data: any) => {
         console.log(data);
-       this.listaBonos = data;
+        this.listaBonos = data;
         this.totalBonos = 0;
-        for(var i = 0; i < this.listaBonos.length; i++){
+        for (var i = 0; i < this.listaBonos.length; i++) {
           this.totalBonos += this.listaBonos[i].monto;
         }
-
       },
       error: (error) => {
         console.error(error);
       },
     });
   }
-  DescuentoModal(id:any){
+  DescuentoModal(id: any) {
     console.log(id);
     this.backend.get(`${environment.api}/AsignarDescuento/${id}`).subscribe({
       next: (data: any) => {
         console.log(data);
-       this.listaDescuentos = data;
+        this.listaDescuentos = data;
         this.totalDescuentos = 0;
-        for(var i = 0; i < this.listaDescuentos.length; i++){
+        for (var i = 0; i < this.listaDescuentos.length; i++) {
           this.totalDescuentos += this.listaDescuentos[i].monto;
         }
-
       },
       error: (error) => {
         console.error(error);
@@ -293,81 +289,120 @@ export class ListarPlanillaComponent {
   }
 
   //funcion para crear un nuevo Bono
-  BonosFormulario(){
-    
+  BonosFormulario() {
     console.log(this.crearBonoFormulario.value);
-    if(this.crearBonoFormulario.invalid){
+    if (this.crearBonoFormulario.invalid) {
       this.messageService.add({
         severity: 'info',
         summary: 'Info',
         detail: 'Complete todos los campos',
       });
+    } else {
+      this.backend
+        .post(`${environment.api}/Bono`, this.crearBonoFormulario.value)
+        .subscribe({
+          next: (data: any) => {
+            console.log(data);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Bono creado correctamente',
+            });
+            this.crearBonoFormulario.reset();
+            this.notificaciones.notificarNuevoBono();
+          },
+          error: (error) => {
+            console.error(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al crear el bono, intente nuevamente',
+            });
+          },
+        });
     }
-    else{
-      this.backend.post(`${environment.api}/Bono`, this.crearBonoFormulario.value).subscribe({
-        next: (data: any) => {
-          console.log(data);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Bono creado correctamente',
-          });
-          this.crearBonoFormulario.reset();
-          this.notificaciones.notificarNuevoBono();
-         
-        },
-        error: (error) => {
-          console.error(error);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Error al crear el bono, intente nuevamente',
-          });
-        },
-      });
-    }
-
   }
 
-   //funcion para crear un nuevo Descuento
-   DescuentosFormulario(){
-    
+  //funcion para crear un nuevo Descuento
+  DescuentosFormulario() {
     console.log(this.crearDescuentoFormulario.value);
-    if(this.crearDescuentoFormulario.invalid){
+    if (this.crearDescuentoFormulario.invalid) {
       this.messageService.add({
         severity: 'info',
         summary: 'Info',
         detail: 'Complete todos los campos',
       });
+    } else {
+      this.backend
+        .post(
+          `${environment.api}/Descuento`,
+          this.crearDescuentoFormulario.value
+        )
+        .subscribe({
+          next: (data: any) => {
+            console.log(data);
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Descuento creado correctamente',
+            });
+            this.crearDescuentoFormulario.reset();
+            this.notificaciones.notificarNuevoDescuento();
+          },
+          error: (error) => {
+            console.error(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al crear el bono, intente nuevamente',
+            });
+          },
+        });
     }
-    else{
-      this.backend.post(`${environment.api}/Descuento`, this.crearDescuentoFormulario.value).subscribe({
+  }
+  showPagoPlanillaDialog() {
+    this.visible = true;
+  }
+
+  PagoPlanilla() {
+    this.btnBlock = true;
+    this.btnEnviar = false;
+    this.backend
+      .getCSV(`${environment.api}/PagoPlanilla/export-csv?incluirBonos=${this.bonosChecked}&incluirDescuentos=${this.descuentosChecked}`)
+      .subscribe({
         next: (data: any) => {
-          console.log(data);
+          const a = document.createElement('a');
+          const objectUrl = URL.createObjectURL(data);
+          
+          // Usar moment.js para obtener la fecha y hora actual
+          const fechaHora = moment().format('DD-MM-YYYY_HHmmss'); // Formato deseado
+          a.href = objectUrl;
+          a.download = `CT_pagos_planilla_${fechaHora}.csv`; // Nombre del archivo con fecha y hora
+          a.click();
+          URL.revokeObjectURL(objectUrl); // Limpiar el objeto URL
+ 
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Descuento creado correctamente',
+            detail: 'Archivo descargado correctamente',
           });
-          this.crearDescuentoFormulario.reset();
-          this.notificaciones.notificarNuevoDescuento();
-         
+          this.btnBlock = false;
+          this.btnEnviar = true;
         },
         error: (error) => {
+          this.btnBlock = false;
+          this.btnEnviar = true;
           console.error(error);
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error al crear el bono, intente nuevamente',
+            detail: 'Error al generar archivo, intente nuevamente',
           });
         },
       });
-    }
-
-  }
- 
- 
+}
 
   
-
+  
+  
 }
