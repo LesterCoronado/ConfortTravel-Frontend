@@ -1,0 +1,22 @@
+.contenido{
+
+    display: grid;
+    place-items: center;
+}
+
+
+
+a{
+    text-decoration: none;
+}
+.content{
+    background-color: var(--surface-ground)!important;
+    border-style: dashed !important;
+    border-radius: var(--border-radius)!important;
+    border-width: 2px;
+    border-color: var(--surface-border)!important;
+}
+/* body{
+    margin-top: 0px;
+    background-color: var(--surface-ground)!important;
+} */

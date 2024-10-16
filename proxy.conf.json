@@ -1,0 +1,9 @@
+{
+    "/gt.com.apinuc": {
+      "target": "https://felgtaws.digifact.com.gt",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  

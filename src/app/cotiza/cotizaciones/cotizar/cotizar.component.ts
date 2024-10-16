@@ -6,20 +6,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DTOService } from '../../../services/dto.service';
 import { CookieService } from 'ngx-cookie-service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 
 @Component({
   selector: 'app-cotizar',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule, FormsModule,ToastModule,],
+  providers: [MessageService],
   templateUrl: './cotizar.component.html',
   styleUrl: './cotizar.component.css',
+
 })
 export class CotizarComponent {
   idPaquete: any;
   crearFormulario: FormGroup;
   btnEnviar: boolean = true;
   btnBlock: boolean = false;
-  constructor(private route: ActivatedRoute, private backend: BackendService, public fb: FormBuilder,  private ngZone: NgZone, private DTO: DTOService, private cookie: CookieService) {
+  constructor(
+    private route: ActivatedRoute, 
+    private backend: BackendService, 
+    public fb: FormBuilder,  
+    private ngZone: NgZone, 
+    private DTO: DTOService, 
+    private cookie: CookieService,
+    private messageService: MessageService
+   ) {
     this.route.params.subscribe((params) => {
       console.log(params['id']);
       this.getPaquete(params['id']);
@@ -60,7 +73,11 @@ export class CotizarComponent {
     });
 
     if (this.crearFormulario.invalid) {
-      alert('Complete el formulario');
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Info',
+        detail: 'complete el formulario',
+      });
     } else {
       
       this.btnEnviar = false;
@@ -74,22 +91,22 @@ export class CotizarComponent {
               this.btnEnviar = true;
               console.log(data);
               this.crearFormulario.reset();
-              alert('Cotización creada con éxito');
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Success',
+                detail: 'Cotizacion realizada con éxito',
+              });
             });
           },
           error: (error) => {
             this.btnBlock = false;
             this.btnEnviar = true;
-            alert('Uno o mas campos son incorrectos');
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Error al realizar la cotización, intente nuevamente',
+            });
 
-            if (error.error == 'usuario no encontrado') {
-              alert('Usuario no encontrado');
-            } else {
-              console.log(
-                'Error al tratar de establecer comunicacion con el servidor'
-              );
-              console.log(error);
-            }
           },
         });
     }

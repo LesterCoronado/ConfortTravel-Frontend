@@ -1,8 +1,8 @@
 <aside class="aside">
-  <ul class="navbar-nav me-auto bm-3 mb-lg-0">
+  <ul class="navbar-nav me-auto  mb-lg-0">
     <li class="nav-item mt-3">
-      <p class="text-center">MENÚ</p>
-      <hr class="divider" />
+      <!-- <p class="text-center">MENÚ</p>
+      <hr class="divider" /> -->
       <a
         [routerLink]="['/listar-cotizacion']"
         [routerLinkActive]="['active']"
@@ -80,6 +80,17 @@
       >
       <i class="bi bi-person-vcard"></i>
         <span class="d-block">Planilla</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a
+        [routerLink]="['/pagos']"
+        routerLinkActive="active"
+        class="nav-link text-center"
+        aria-current="page"
+      >
+      <i class="bi bi-credit-card"></i>
+        <span class="d-block">Pagos</span>
       </a>
     </li>
   </ul>

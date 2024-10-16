@@ -22,11 +22,13 @@ import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-listar-paquetes',
   standalone: true,
   imports: [
+    TableModule,
     CommonModule,
     MatTableModule,
     MatPaginatorModule,

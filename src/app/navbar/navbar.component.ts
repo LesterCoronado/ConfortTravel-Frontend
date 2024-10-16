@@ -10,6 +10,8 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
+  userId: any;
+  client?: boolean;
   admin?: boolean;
   login?: boolean;
 
@@ -20,15 +22,25 @@ export class NavbarComponent {
   ) {}
 
   ngOnInit(): void {
+    
     let token: any = this.cookie.get('cookie');
+    this.userId = this.cookie.get('idUser');
     if (token == '1') {
       this.admin = true;
+    }
+    if (token == '2') {
+      this.client = true;
     }
     if (token) {
       this.login = true;
     }
     console.log();
-    console.log(JSON.stringify(token));
+
+    this.notificaciones.nuevoCliente$.subscribe(() => {
+      this.client = true;
+      this.userId = this.cookie.get('idUser');
+
+    });
 
     this.notificaciones.nuevoAdmin$.subscribe(() => {
       this.admin = true;
@@ -38,9 +50,11 @@ export class NavbarComponent {
       this.login = true;
     });
   }
-  logOut()
-  {
+  logOut() {
+    this.client = false;
+    this.admin = false;
     this.cookie.deleteAll();
+
     this.routerprd.navigate(['/', 'login']);
   }
 }

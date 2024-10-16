@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 
 
 @Injectable({
@@ -30,4 +30,17 @@ export class BackendService {
     public getCSV(url: string, options: any = {}) {
       return this.http.get(url, { ...options, responseType: 'blob' });
     }
+
+     //Pagos en línea
+  public postPago(url: string, body: any, headers:any= HttpHeaders) {
+    return this.http.post(url, body, headers); //Post
+  }
+
+  public getPago(url: string, headers:any= HttpHeaders) {
+    return this.http.get(url, headers); //GET
+  }
+  public consultaNit(url: string, headers: any = new HttpHeaders(), params: any = {}) {
+    return this.http.get(url, { headers, params });
+}
+
 }

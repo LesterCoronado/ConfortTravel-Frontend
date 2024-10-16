@@ -1,0 +1,14 @@
+/* Estilo para las celdas de la tabla */
+.card p-table th,
+.card p-table td {
+    border: 1px solid #ddd; /* Línea gris clara para las celdas */
+}
+
+h3 {
+    color: #007bff; 
+}
+
+.tag-custom-width {
+    min-width: 100px; /* Ajusta este valor según el ancho deseado */
+    display: inline-block; /* Asegura que el ancho se aplique correctamente */
+}

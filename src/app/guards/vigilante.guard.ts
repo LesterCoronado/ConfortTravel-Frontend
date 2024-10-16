@@ -23,7 +23,7 @@ export class VigilanteGuard implements CanActivate {
     let data: any;
    
     let token: any = this.cookie.get('cookie');
-    if (token == '2') {
+    if (token == '2' || token == '1') {
       return true;
     
     

@@ -35,7 +35,17 @@
       </div>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="lista table table-striped table-hover mb-0">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      class="lista table table-striped table-hover mb-0"
+    >
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.idCotizacion }}
+      </td>
+    </ng-container>
       <ng-container matColumnDef="Cliente">
         <th mat-header-cell *matHeaderCellDef>Cliente</th>
         <td mat-cell *matCellDef="let element">
@@ -109,18 +119,27 @@
       <!-- Acciones Column -->
       <ng-container matColumnDef="Acciones">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element">
+        <td mat-cell *matCellDef="let element" >
+         
           <button
-            (click)="openDialog(element.idCotizacion)"
-            mat-icon-button
-            matTooltip="Editar"
-            color="primary"
-            aria-label="Example icon button with a edit icon"
+          (click)="openDialog(element.idCotizacion)"
+            pButton
+            pRipple
+            pTooltip="Editar"
+            class="p-button-primary  rounded"
           >
-            <mat-icon data-bs-toggle="modal" data-bs-target="#AgregarMascota"
-              >edit</mat-icon
-            >
+            <i class="bi bi-pencil-square"></i>
           </button>
+          <button
+          pButton
+          pRipple
+          pTooltip="Generar Orden de Pago"
+          class="p-button-help rounded  mt-2"
+          (click)="showDialog(element.idCotizacion)"
+        >
+        <i class="bi bi-bank"></i>
+        </button>
+          
           <!-- <button
                 (click)="
                   eliminarProductoCartilla(
@@ -151,3 +170,34 @@
   </div>
 </div>
 <p-toast />
+<p-dialog header="Generar Orden de Pago" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+  <span class="p-text-secondary block mb-5 mt-5">Seleccione la   fecha límite de pago</span>
+  <br>
+  <input  [(ngModel)]="fechaLimitePago"  type="date" class="form-control mt-2">
+  <div class="d-flex justify-content-end gap-1 mt-5">
+    <button
+      (click)="visible = false"
+      label="Cancelar"
+      pButton
+      pRipple
+      class="p-button-secondary  rounded"
+    >
+    </button>
+     <button
+     [disabled]="!fechaLimitePago || !btnEnviar"
+     (click)="generarOrdenPago()"
+      label="Generar"
+      pButton
+      pRipple
+      class="p-button-primary  rounded"
+    >
+    @if (!btnEnviar){
+     
+      <div style="display: flex; align-items: center">
+        <div class="loader me-1"></div>
+      </div>
+      }
+    </button>
+  </div>
+</p-dialog>
+

@@ -40,8 +40,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "10mb",
+                  "maximumError": "5MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -67,6 +67,9 @@
             },
             "development": {
               "buildTarget": "pg1_agencia_viajes:build:development"
+            },
+            "options": {
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

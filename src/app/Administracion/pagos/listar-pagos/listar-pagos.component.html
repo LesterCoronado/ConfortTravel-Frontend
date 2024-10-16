@@ -1,0 +1,77 @@
+<div class="card p-3 m-2 mt-2">
+  <h6 class="mb-0 p-0 fw-semibold">LISTA DE PAGOS DE COTIZACIONES</h6>
+  <p-tag
+    class="mt-0"
+    icon="pi pi-align-left"
+    severity="secondary"
+    value="Total: {{ pagos.length }}"
+  />
+
+  <hr />
+  <p-table
+    [paginator]="true"
+    [rows]="5"
+    [rowsPerPageOptions]="[5, 10, 20]"
+    [value]="pagos"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    styleClass="p-datatable-gridlines"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID Cotizacion</th>
+        <th>Fecha Generado</th>
+        <th>Fecha Vencimiento</th>
+        <th>Estado</th>
+        <th>Factura</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-pago>
+      <tr>
+        <td>{{ pago.idCotizacion }}</td>
+        <td>{{ pago.fechaGenerado | date : "dd/MM/yyyy" }}</td>
+        <td>{{ pago.fechaVencimiento | date : "dd/MM/yyyy" }}</td>
+        <td>
+          @if (pago.estado == true) {
+          <p-tag
+            severity="secondary"
+            value="Pendiente"
+            class="tag-custom-width"
+          />
+          } @else {
+          <p-tag severity="success" value="Pagado" class="tag-custom-width" />
+          }
+        </td>
+        <td>
+          <button
+            [disabled]="pago.estado == true"
+            (click)="detallesPago(pago.idOrdenDePago)"
+            label="Ver Detalles"
+            pButton
+            pRipple
+            class="p-button-primary rounded"
+          >
+            <i class="bi bi-box-arrow-up-right me-2"></i>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [maximizable]="true"
+  header="Factura - Serie: {{detallePago.serie}} No.{{detallePago.numeroFactura}}"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '50rem'}"
+>
+  <!-- <p>No.{{detallePago.numeroFactura}}</p>
+  <p>Serie: {{detallePago.serie}}</p>
+  <p>Nit: {{detallePago.nit}} </p>
+  <p>Total: {{detallePago.subtotal | currency: 'GTQ'}} </p>
+  <p>Fecha: {{detallePago.fecha  | date :'dd/MM/yyyy'}} </p> -->
+  <div *ngIf="downloadLink" class="pdf-preview mt-4">
+    <iframe [src]="downloadLink" width="100%" height="500px" type="application/pdf"></iframe>
+  </div>
+
+</p-dialog>

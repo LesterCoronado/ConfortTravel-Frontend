@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
         )
         .subscribe({
           next: (data: any) => {
+            sessionStorage.setItem('email', data.correo);
             this.SendUserDTO(data.idUsuario);
             this.notificaciones.notificarNuevoLogin();
             sessionStorage.setItem('cookie', data.idRol);
@@ -82,6 +83,10 @@ export class LoginComponent implements OnInit {
             console.log(data.rol);
             if (data.rol == 'Administrador') {
               this.notificaciones.notificarNuevoAdmin();
+              console.log('si es admin');
+            }
+            if (data.rol == 'Cliente') {
+              this.notificaciones.notificarNuevoCliente();
               console.log('si es admin');
             }
 

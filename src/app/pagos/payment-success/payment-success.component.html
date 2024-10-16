@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h1 class="font-bold">Pago realizado con éxito!</h1>
+  <p class="mb-6 lg:mb-8 text-lg" style="max-width: 1024px">
+    Gracias por tu compra. Tu pago ha sido procesado con éxito y se ha generado
+    tu factura electrónica.
+  </p>
+
+  <!-- Botón de descarga solo se muestra si existe el enlace -->
+  <a
+    
+    [href]="downloadLink"
+    download="factura.pdf"
+    class="btn btn-primary"
+    [class.disabled]="!downloadLink" 
+    [attr.disabled]="!downloadLink ? true : null"
+  >
+    @if (downloadLink) {
+      <i class="bi bi-download"></i>
+      Descargar factura electrónica (FEL)
+    }
+    @else{
+      <div class="d-flex align-items-center">
+        <div class="loader me-2"></div>
+        <span>Cargando factura electrónica...</span>
+      </div>
+    }
+  </a>
+    <!-- Previsualización del PDF usando iframe -->
+    <div *ngIf="downloadLink" class="pdf-preview mt-4">
+      <iframe [src]="downloadLink" width="100%" height="600px" type="application/pdf"></iframe>
+    </div>
+
+  <p class="mt-4 text-lg" style="max-width: 1024px">
+    Recibirás un correo electrónico con los detalles de tu reserva y el
+    itinerario. Si tienes alguna pregunta o necesitas asistencia, no dudes en
+    contactarnos. ¡Estamos aquí para ayudarte a disfrutar de tu viaje!
+  </p>
+</div>

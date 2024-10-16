@@ -3,6 +3,7 @@ import { BackendService } from '../../services/backend.service';
 import { environment } from '../../environments/environments.prod';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-lista-paquetes',
   standalone: true,

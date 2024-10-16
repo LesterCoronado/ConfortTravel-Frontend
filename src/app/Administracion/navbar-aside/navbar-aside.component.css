@@ -4,6 +4,8 @@
   color: white;
   height: 100%;
   box-sizing: border-box;
+  overflow-y: auto; /* Habilita el scroll vertical */
+
 }
 
 ul {

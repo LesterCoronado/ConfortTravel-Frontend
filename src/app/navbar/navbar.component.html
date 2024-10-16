@@ -106,8 +106,36 @@
           </li>
        
         } -->
+        @if(client){
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pagos
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a
+                  [routerLink]="['/pagos-pendientes',userId]"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Pagos Pendientes</a
+                >
+                
+              </li>
+              <!-- <li>
+                <a
+                  [routerLink]="['/pagos-pendientes']"
+                  class="nav-link active"
+                  aria-current="page"
+                  >Historial de Pagos</a
+                >
+                
+              </li> -->
+              
+            </ul>
+          </li>
+        }
       </ul>
-   
+     
 
       <form class="d-flex" role="search">
         <!-- @if(admin){ -->

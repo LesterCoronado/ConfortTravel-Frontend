@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Root>
+    <Version>1.00</Version>
+    <CountryCode>GT</CountryCode>
+    <Header>
+        <DocType>FACT</DocType> <!-- DatosGenerales@Tipo-->
+        <IssuedDateTime>2024-10-16T11:32:00-06:00</IssuedDateTime> <!-- DatosGenerales@FechaHoraEmision --> 
+        <Currency>GTQ</Currency> <!-- DatosGenerales@CodigoMoneda  -->  
+    </Header>
+    
+    <Seller>
+        <TaxID>44653948</TaxID> <!-- Emisor@NITEmisor -->
+        <TaxIDAdditionalInfo>
+            <Info Name="AfiliacionIVA" Value="GEN"/> <!-- Emisor@AfiliacionIVA -->
+        </TaxIDAdditionalInfo>
+        <Name>COMFORT TRAVEL</Name> <!-- Emisor@NombreEmisor -->
+        <AdditionlInfo> <!-- FRASES -->
+            <Info Name="TipoFrase" Data="1" Value="1"/>
+            <Info Name="Escenario" Data="1" Value="1"/>
+        </AdditionlInfo>
+        <BranchInfo>
+            <Code>1</Code> <!-- Emisor@CodigoEstablecimiento -->
+            <Name>COMFORT TRAVEL</Name> <!-- Emisor@NombreComercial -->
+            <AddressInfo> <!-- DireccionEmisor -->
+                <Address>Poptún, Petén</Address> <!-- Direccion -->
+                <City>1701</City>      <!-- CodigoPostal -->
+                <District>Poptún</District>  <!-- Municipio -->
+                <State>Petén</State>   <!-- Departamento -->
+                <Country>GT</Country>       <!-- Pais -->
+            </AddressInfo>
+        </BranchInfo>
+    </Seller>
+    
+    <Buyer>
+        <TaxID>103966838</TaxID> <!-- Receptor@IDReceptor -->
+        
+        <!-- si la casilla IDReceptor contiene el NIT, debe contener el nombre asociado al NIT, caso contrario puede ser cualquier cosa -->
+        <Name>Lester Coronado</Name> <!-- Receptor@NombreReceptor -->
+        <AddressInfo>   <!-- DireccionReceptor -->
+            <Address>CIUDAD</Address>        <!-- Direccion -->
+            <City>1701</City>          <!-- CodigoPostal -->
+            <District>Flores</District>  <!-- Municipio -->
+            <State>Petén</State>        <!-- Departamento -->
+            <Country>GT</Country>    <!-- Pais -->
+        </AddressInfo>
+    </Buyer>
+
+
+    <Items>
+        <Item> 
+            <Type>servicio</Type> <!-- Item@BienOServicio -->
+            <Description>1 Tour Tikal</Description> <!-- Descripcion -->
+            <Qty>1.000000</Qty> <!-- Cantidad -->
+            <UnitOfMeasure>UNO</UnitOfMeasure> <!-- UnidadMedida -->
+            <Price>190.000000</Price> <!-- PrecioUnitario | precio sin impuesto -->
+            <Taxes> <!-- Impuestos -->
+                <Tax> <!-- Impuesto -->
+                    <Code>1</Code>  <!-- CodigoUnidadGravable -->
+                    <Description>IVA</Description> <!-- NombreCorto -->
+                    <TaxableAmount>169.642857</TaxableAmount> <!-- MontoGravable -->
+                    <!-- <ChargableAmount>22</ChargableAmount> -->   <!-- CantidadUnidadesGravables -->
+                    <Amount>20.357143</Amount> <!-- MontoImpuesto -->
+                </Tax>
+            </Taxes>
+            <Totals> <!-- Total -->
+                <TotalItem>190.000000</TotalItem> <!-- Total -->
+            </Totals>
+        </Item>
+    </Items>
+    
+    <Totals> <!-- Totales -->
+        <TotalTaxes> <!-- TotalImpuestos -->
+            <TotalTax>  <!-- TotalImpuesto -->
+                <Description>IVA</Description>  <!-- TotalImpuesto@NombreCorto -->
+                <Amount>20.357143</Amount>      <!-- TotalImpuesto@TotalMontoImpuesto -->
+            </TotalTax>
+        </TotalTaxes>
+        <GrandTotal>
+            <InvoiceTotal>190.000000</InvoiceTotal> <!-- GranTotal -->
+        </GrandTotal>
+        <!-- <InWords></InWords> -->
+    </Totals>
+    
+    <AdditionalDocumentInfo>
+        <!-- ADENDA -->
+        <AdditionalInfo>
+            <Code>FRONT-263C-444B-89BA-6F87EC1330C0</Code> <!-- REFERENCIA_INTERNA -->
+            <Type>ADENDA</Type>
+            <AditionalData>
+                <!-- INFORMACION_ADICIONAL -->
+                <Data Name="INFORMACION_ADICIONAL">
+                    <Info Name="OBSERVACIONES" Value="-"/>
+                    <Info Name="CANTIDAD_LETRAS" Value="CIENTO NOVENTA QUETZALES CON 00/100"/>
+                </Data>
+                <!-- Detalles_Auxiliares, pueden venir muchos DetallesAux_Detalle-->
+                <Data Name="DetallesAux_Detalle">
+                    <Info Name="NumeroLinea" Value="1"/>
+                    <Info Name="Descripcion_Adicional" Value="-"/>
+                    <Info Name="CodigoEAN" Value="00015"/>
+                    <Info Name="CategoriaAdicional" Value="-"/>
+                </Data>
+            </AditionalData>
+            <AditionalInfo>
+                <Info Name="VALIDAR_REFERENCIA_INTERNA" Value="NO_VALIDAR"/>
+            </AditionalInfo>
+        </AdditionalInfo>
+    </AdditionalDocumentInfo>
+</Root>

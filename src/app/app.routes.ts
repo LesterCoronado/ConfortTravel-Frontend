@@ -23,6 +23,10 @@ import { ListarHotelesComponent } from './Administracion/Hoteles/listar-hoteles/
 import { CrearPasajeroComponent } from './Administracion/Reservas/crear-pasajero/crear-pasajero.component';
 import { ListarEmpleadosComponent } from './Administracion/empleados/listar-empleados/listar-empleados.component';
 import { ListarPlanillaComponent } from './Administracion/planilla/listar-planilla/listar-planilla.component';
+import { ListarPagosComponent } from './Administracion/pagos/listar-pagos/listar-pagos.component';
+import { PagosPendientesComponent } from './pagos/pagos-pendientes/pagos-pendientes.component';
+import { HistorialPagosComponent } from './pagos/historial-pagos/historial-pagos.component';
+import { PaymentSuccessComponent } from './pagos/payment-success/payment-success.component';
 
 export const routes: Routes = [
     {
@@ -106,9 +110,29 @@ export const routes: Routes = [
         path: 'planilla', component: ListarPlanillaComponent
        
     },
+    //lista de pagos de cotizaciones para el area de administracion
+    {
+        path: 'pagos', component: ListarPagosComponent
+       
+    },
+    //lista de mis pagos pendientes para el area de usuario
+    {
+        path: 'pagos-pendientes/:id', component: PagosPendientesComponent
+       
+    },
+    //historial de pagos para el area de usuario
+    {
+        path: 'historial-pagos:/id', component: HistorialPagosComponent
+       
+    },
 
     { 
         path: '', redirectTo: '/inicio', pathMatch: 'full' 
+    },
+
+    {
+        path: 'payment-success', component: PaymentSuccessComponent
+       
     },
 
 ];

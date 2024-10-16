@@ -1,0 +1,193 @@
+<body>
+  <div class="container mt-0">
+    <p-messages
+      [(value)]="messages"
+      [enableService]="false"
+      [closable]="false"
+    />
+    <div class="card flex justify-content-center">
+      <p-stepper>
+        <p-stepperPanel header="Validar Datos">
+          <ng-template
+            pTemplate="content"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div class="flex flex-column h-12rem">
+              <div
+                class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+              >
+                Proporcione el nit al cual se extenderá la factura electrónica.
+              </div>
+            </div>
+            <div class="flex pt-4 justify-content-end">
+              <div class="container content p-5">
+                <label for="withoutgrouping" class="d-block"
+                  ><strong>Ingrese su NIT</strong></label
+                >
+
+                <p-inputNumber
+                  class="mt-2"
+                  [(ngModel)]="nit"
+                  (ngModelChange)="consultarNit()"
+                  mode="decimal"
+                  inputId="withoutgrouping"
+                  [useGrouping]="false"
+                />
+                
+
+                <Button
+                  pButton
+                  class="rounded ms-3"
+                  label="Consultar"
+                  icon="pi pi-search"
+                  iconPos="right"
+                  (click)="consultarNit()"
+                >
+                </Button>
+                <br />
+                <br />
+                @if(nitValido){
+                <p-messages
+                  [(value)]="messajesNit"
+                  [enableService]="false"
+                  [closable]="false"
+                />
+                } @if(nitNotFound){
+                <p-messages
+                  [(value)]="messajesNitNotFound"
+                  [enableService]="false"
+                  [closable]="false"
+                />
+                }
+
+                <!-- <span class="mt-5">Nombre: <strong>{{nombre()}}</strong></span> -->
+              </div>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-3">
+                <Button
+                  [disabled]="!nitValido"
+                  pButton
+                  class="rounded"
+                  label="Next"
+                  icon="pi pi-arrow-right"
+                  iconPos="right"
+                  (click)="nextCallback.emit()"
+                >
+                </Button>
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+        <p-stepperPanel header="realizar Pagos">
+          <ng-template
+            pTemplate="content"
+            let-prevCallback="prevCallback"
+            let-nextCallback="nextCallback"
+            let-index="index"
+          >
+            <div class="flex flex-column h-12rem">
+              <div
+                class="border-2 border-dashed surface-border border-round surface-ground flex-auto flex justify-content-center align-items-center font-medium"
+              >
+                Seleccione el pago que desea realizar
+              </div>
+            </div>
+            <div class="flex pt-4 justify-content-between">
+              <div class="container content p-5">
+                <div class="destacado mb-5">
+                  <div class="row">
+                    @for(pago of pagosPendientes ; track pago.idOrdenPago){
+
+                    <div
+                      class="card col-md-4 g-0 m-2 d-block"
+                      [style]="{ width: '360px' }"
+                    >
+                      <p-card
+                        [header]="pago.paqueteViaje"
+                        [subheader]="pago.modalidad"
+                        [style]="{ width: '360px' }"
+                      >
+                        <ng-template pTemplate="header">
+                          <!-- <img
+                                  alt="Card"
+                                  src="https://primefaces.org/cdn/primeng/images/card-ng.jpg"
+                                /> -->
+                        </ng-template>
+
+                        <ng-template pTemplate="content">
+                          <div class="flex flex-col gap-2">
+                            <p>Lugar de Salida: {{ pago.salida }}</p>
+                            <p>
+                              Fecha del viaje:
+                              {{ pago.fechaSalida | date : "dd/MM/yyyy" }}
+                            </p>
+                            <p>Adultos: {{ pago.totalAdultos }}</p>
+                            <p>Niños: {{ pago.totalNinos }}</p>
+                            <p>
+                              Valor:
+                              {{
+                                pago.precioCotizacion
+                                  | currency : "GTQ" : "symbol" : "1.2-2"
+                              }}
+                            </p>
+                            <p>
+                              Fecha Límite de Pago:
+                              {{ pago.validoHasta | date : "dd/MM/yyyy" }}
+                            </p>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                          <div
+                            class="d-grid gap-2 d-md-flex justify-content-md-start"
+                          >
+                            <a
+                              (click)="setCurrentData(pago.idCotizacion, pago.idOrdenPago)"
+                              [href]="pago.checkout"
+                              label="Pagar"
+                              pButton
+                              pRipple
+                              class="w-50 p-button-primary rounded text-white"
+                            >
+                              <i class="bi bi-credit-card me-2"></i>
+                            </a>
+                          </div>
+                        </ng-template>
+                      </p-card>
+                    </div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="row g-3 mt-1">
+                <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start ">
+                  <Button
+                    pButton
+                    class="rounded"
+                    label="Back"
+                    icon="pi pi-arrow-left"
+                    iconPos="right"
+                    (click)="prevCallback.emit()"
+                  >
+                  </Button>
+                  
+                </div>
+                <!-- <div class="col-md-6 d-grid  d-md-flex justify-content-md-end  ">
+                
+                  <Button
+                    pButton
+                    class="rounded ms-3"
+                    label="Next"
+                    icon="pi pi-arrow-right"
+                    iconPos="right"
+                    (click)="nextCallback.emit()"
+                  >
+                  </Button>
+                </div> -->
+              </div>
+            </div>
+          </ng-template>
+        </p-stepperPanel>
+      </p-stepper>
+    </div>
+  </div>
+</body>
