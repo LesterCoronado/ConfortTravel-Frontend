@@ -32,8 +32,8 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ],
   providers: [MessageService, DatePipe],
-  templateUrl: './Descuentos.component.html',
-  styleUrl: './Descuentos.component.css',
+  templateUrl: './descuentos.component.html',
+  styleUrl: './descuentos.component.css',
 })
 export class DescuentosComponent {
   listaPlanillas: any = [];
