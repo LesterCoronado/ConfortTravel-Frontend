@@ -22,7 +22,7 @@ export class VigilanteGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let data: any;
    
-    let token: any = this.cookie.get('cookie');
+    let token: any = sessionStorage.getItem('cookie');
     if (token == '2' || token == '1') {
       return true;
     

@@ -177,7 +177,7 @@ export class ListarCotizacionesComponent {
           card_payments_enabled: 'true',
           bank_transfer_payments_enabled: 'true',
           available_installments: [],
-          success_url: 'http://localhost:4200/payment-success', 
+          success_url: 'https://conforttravelgt.com/payment-success', 
           prices_attributes: [
             {
               amount_as_decimal: stringNumero,

@@ -23,8 +23,8 @@ export class NavbarComponent {
 
   ngOnInit(): void {
     
-    let token: any = this.cookie.get('cookie');
-    this.userId = this.cookie.get('idUser');
+    let token: any = sessionStorage.getItem('cookie');
+    this.userId = sessionStorage.getItem('idUser');
     if (token == '1') {
       this.admin = true;
     }
@@ -38,13 +38,13 @@ export class NavbarComponent {
 
     this.notificaciones.nuevoCliente$.subscribe(() => {
       this.client = true;
-      this.userId = this.cookie.get('idUser');
+      this.userId = sessionStorage.getItem('idUser');
 
     });
 
     this.notificaciones.nuevoAdmin$.subscribe(() => {
       this.admin = true;
-      console.log('Desde la cookie' + this.cookie.get('cookie'));
+      console.log('Desde la cookie' + sessionStorage.getItem('cookie'));
     });
     this.notificaciones.nuevoLogin$.subscribe(() => {
       this.login = true;
@@ -54,7 +54,7 @@ export class NavbarComponent {
     this.client = false;
     this.admin = false;
     this.cookie.deleteAll();
-
+    sessionStorage.clear();
     this.routerprd.navigate(['/', 'login']);
   }
 }

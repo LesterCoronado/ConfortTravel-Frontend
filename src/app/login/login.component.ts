@@ -77,8 +77,10 @@ export class LoginComponent implements OnInit {
             this.SendUserDTO(data.idUsuario);
             this.notificaciones.notificarNuevoLogin();
             sessionStorage.setItem('cookie', data.idRol);
-            this.cookie.set('cookie', data.idRol);
-            this.cookie.set('idUser', data.idUsuario);
+            // this.cookie.set('cookie', data.idRol);
+            // this.cookie.set('idUser', data.idUsuario);
+            sessionStorage.setItem('cookie', data.idRol);
+            sessionStorage.setItem('idUser', data.idUsuario);
 
             console.log(data.rol);
             if (data.rol == 'Administrador') {

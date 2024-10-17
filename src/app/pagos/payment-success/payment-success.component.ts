@@ -70,7 +70,7 @@ export class PaymentSuccessComponent implements OnInit {
       sessionStorage.getItem('idOrdenDePago') || '0',
       10
     );
-    const idUsuario = parseInt(this.cookies.get('idUser') || '0', 10);
+    const idUsuario = parseInt(sessionStorage.getItem('idUser') || '0', 10);
     const numeroFactura = parseInt(noFact, 10);
     const subtotal = parseInt(total, 10);
 

@@ -25,7 +25,7 @@ export class AdminGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     let cookie = sessionStorage.getItem('cookie')
 
-    let token: any = this.cookie.get('cookie');
+    let token: any = sessionStorage.getItem('cookie');
     if (token == '1') {
       return true;
     
