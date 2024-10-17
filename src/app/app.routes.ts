@@ -117,7 +117,8 @@ export const routes: Routes = [
     },
     //lista de mis pagos pendientes para el area de usuario
     {
-        path: 'pagos-pendientes/:id', component: PagosPendientesComponent
+        path: 'pagos-pendientes/:id', component: PagosPendientesComponent,
+        canActivate:  [VigilanteGuard]
        
     },
     //historial de pagos para el area de usuario
