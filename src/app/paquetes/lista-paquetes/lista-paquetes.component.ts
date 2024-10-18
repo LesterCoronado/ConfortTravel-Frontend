@@ -3,11 +3,11 @@ import { BackendService } from '../../services/backend.service';
 import { environment } from '../../environments/environments.prod';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
+import { SkeletonModule } from 'primeng/skeleton';
 @Component({
   selector: 'app-lista-paquetes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SkeletonModule],
   templateUrl: './lista-paquetes.component.html',
   styleUrl: './lista-paquetes.component.css'
 })

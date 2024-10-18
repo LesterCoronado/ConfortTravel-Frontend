@@ -1,20 +1,94 @@
-<div class="tours">
-  <h1>PAQUETES DE VIAJE</h1>
+<div class="parallax">
+  <br />
+  <br />
+  <br />
+  <!-- <h6 class="mb-0 p-0 fw-semibold">PAQUETES DE VIAJE</h6> -->
+
   <div class="container">
+    @if(paquetes.length == 0){
+    <div class="row">
+      <div class="col-md-4">
+        <div class="w-full xl:w-6 p-3">
+          <!-- Imagen o encabezado de la tarjeta -->
+          <p-skeleton
+            shape="rectangle"
+            width="100%"
+            height="200px"
+            styleClass="mb-3"
+          />
+
+          <!-- Título de la tarjeta -->
+          <p-skeleton width="75%" height="1.5rem" styleClass="mb-2" />
+
+          <!-- Descripción o contenido de la tarjeta -->
+          <p-skeleton width="90%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="85%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="80%" height="1rem" styleClass="mb-3" />
+
+          <!-- Botón o enlace simulado -->
+          <p-skeleton shape="rectangle" width="50%" height="2rem" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="w-full xl:w-6 p-3">
+          <!-- Imagen o encabezado de la tarjeta -->
+          <p-skeleton
+            shape="rectangle"
+            width="100%"
+            height="200px"
+            styleClass="mb-3"
+          />
+
+          <!-- Título de la tarjeta -->
+          <p-skeleton width="75%" height="1.5rem" styleClass="mb-2" />
+
+          <!-- Descripción o contenido de la tarjeta -->
+          <p-skeleton width="90%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="85%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="80%" height="1rem" styleClass="mb-3" />
+
+          <!-- Botón o enlace simulado -->
+          <p-skeleton shape="rectangle" width="50%" height="2rem" />
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="w-full xl:w-6 p-3">
+          <!-- Imagen o encabezado de la tarjeta -->
+          <p-skeleton
+            shape="rectangle"
+            width="100%"
+            height="200px"
+            styleClass="mb-3"
+          />
+
+          <!-- Título de la tarjeta -->
+          <p-skeleton width="75%" height="1.5rem" styleClass="mb-2" />
+
+          <!-- Descripción o contenido de la tarjeta -->
+          <p-skeleton width="90%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="85%" height="1rem" styleClass="mb-1" />
+          <p-skeleton width="80%" height="1rem" styleClass="mb-3" />
+
+          <!-- Botón o enlace simulado -->
+          <p-skeleton shape="rectangle" width="50%" height="2rem" />
+        </div>
+      </div>
+    </div>
+    }
     <div class="destacado mb-5">
       <div class="row mt-3">
-        
-        <div class="col-md-6 p-3" *ngFor="let paquete of paquetes">
+        <div class="col-md-4" *ngFor="let paquete of paquetes">
           <div
-            class="card shadow"
+            class="card  mt-3"
             style="
-              max-width: 350px;
+              max-width: 300px;
               position: relative;
               margin-left: auto;
               margin-right: auto;
+             
             "
           >
-            <div class="card-body p-1">
+            <div class="card-body p-2">
               <img
                 [src]="paquete.portada"
                 class="img-fluid"

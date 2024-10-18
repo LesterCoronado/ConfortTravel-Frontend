@@ -1,173 +1,356 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Comfort Travel</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
-        </li>
-
-        <!-- <li class="nav-item dropdown">
-          <a
-            class="nav-link dropdown-toggle active"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            Paquetes
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Tours desde Guatemala</a></li>
-            <li><a class="dropdown-item" href="#">Tours desde Petén</a></li>
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Paquetes de viajes</a></li>
-          </ul>
-        </li> -->
-        <li class="nav-item">
-          <a
-            [routerLink]="['/paquetes']"
-            class="nav-link active"
-            aria-current="page"
-            >Paquetes</a
-          >
-        </li>
-        <!-- @if(!admin){
+@if(!admin){
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid">
+      <img src="https://firebasestorage.googleapis.com/v0/b/peten-adventure.appspot.com/o/Logo%20(1).png?alt=media&token=165d4375-6aec-4ad3-8112-139df32b9db9" alt="">
+      <a class="navbar-brand" href="#">Confort Travel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" [routerLink]="['/inicio']">Inicio</a>
+          </li>
+  
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle active"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Paquetes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Tours desde Guatemala</a></li>
+              <li><a class="dropdown-item" href="#">Tours desde Petén</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Paquetes de viajes</a></li>
+            </ul>
+          </li> -->
           <li class="nav-item">
             <a
-              [routerLink]="['/cotizacion']"
+              [routerLink]="['/paquetes']"
               class="nav-link active"
               aria-current="page"
-              >Cotizacion</a
+              >Paquetes</a
             >
           </li>
-        } -->
-       
-      
-       
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Contacto</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#"
-            >Sobre nosotros</a
-          >
-        </li>
-        <!-- @if(admin){
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Administración
-            </a>
-            <ul class="dropdown-menu">
-              <li class="nav-item">
-                <a
-                  [routerLink]="['/listar-cotizacion']"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Cotizaciones</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  [routerLink]="['/listar-destinos']"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Destinos</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  [routerLink]="['/listar-paquetes']"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Paquetes</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  [routerLink]="['/listar-salidas']"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Salidas</a
-                >
-              </li>
-            </ul>
-          </li>
-       
-        } -->
-        @if(client){
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Pagos
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a
-                  [routerLink]="['/pagos-pendientes',userId]"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Pagos Pendientes</a
-                >
-                
-              </li>
-              <!-- <li>
-                <a
-                  [routerLink]="['/pagos-pendientes']"
-                  class="nav-link active"
-                  aria-current="page"
-                  >Historial de Pagos</a
-                >
-                
-              </li> -->
-              
-            </ul>
-          </li>
-        }
-      </ul>
-     
-
-      <form class="d-flex" role="search">
-        <!-- @if(admin){ -->
-          <!-- <span class="text text-secondary">Admin</span> -->
-
-        <!-- } -->
-        @if(!login){
-          <button
-          class="btn btn-outline-dark"
-          type="submit"
-          [routerLink]="['/login']"
-        >
-          Sign In
-        </button>
-        }
+          <!-- @if(!admin){
+            <li class="nav-item">
+              <a
+                [routerLink]="['/cotizacion']"
+                class="nav-link active"
+                aria-current="page"
+                >Cotizacion</a
+              >
+            </li>
+          } -->
+         
         
-      
-        @if(login){
-          <button
-          class="btn btn-dark"
-          type="submit"
-          (click)="logOut()"
-        >
-        <i class="bi bi-box-arrow-right"></i> Log Out
-        </button>
-        }
-
-      </form>
-      <!-- <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form> -->
+         
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Contacto</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" 
+            [routerLink]="['/sobre-nosotros']"
+  
+              >Sobre nosotros</a
+            >
+          </li>
+          <!-- @if(admin){
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Administración
+              </a>
+              <ul class="dropdown-menu">
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-cotizacion']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Cotizaciones</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-destinos']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Destinos</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-paquetes']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Paquetes</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-salidas']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Salidas</a
+                  >
+                </li>
+              </ul>
+            </li>
+         
+          } -->
+          @if(client){
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Pagos
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    [routerLink]="['/pagos-pendientes',userId]"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Pagos Pendientes</a
+                  >
+                  
+                </li>
+                <!-- <li>
+                  <a
+                    [routerLink]="['/pagos-pendientes']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Historial de Pagos</a
+                  >
+                  
+                </li> -->
+                
+              </ul>
+            </li>
+          }
+        </ul>
+       
+  
+        <form class="d-flex" role="search">
+          <!-- @if(admin){ -->
+            <!-- <span class="text text-secondary">Admin</span> -->
+  
+          <!-- } -->
+          @if(!login){
+            <button
+            class="btn btn-outline-dark"
+            type="submit"
+            [routerLink]="['/login']"
+          >
+            Sign In
+          </button>
+          }
+          
+        
+          @if(login){
+            <button
+            class="btn btn-dark"
+            type="submit"
+            (click)="logOut()"
+          >
+          <i class="bi bi-box-arrow-right"></i> Log Out
+          </button>
+          }
+  
+        </form>
+        <!-- <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+}
+@else{
+  <nav class="navbar navbar-expand-lg ">
+    <div class="container-fluid">
+      <img src="https://firebasestorage.googleapis.com/v0/b/peten-adventure.appspot.com/o/LOGO.jpg?alt=media&token=6e7de99a-ff67-4c25-9ba9-92988ec64946" alt="">
+      <a class="navbar-brand" href="#">Confort Travel</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page"   [routerLink]="['/inicio']">Inicio</a>
+          </li>
+  
+          <!-- <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle active"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Paquetes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Tours desde Guatemala</a></li>
+              <li><a class="dropdown-item" href="#">Tours desde Petén</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Paquetes de viajes</a></li>
+            </ul>
+          </li> -->
+          <li class="nav-item">
+            <a
+              [routerLink]="['/paquetes']"
+              class="nav-link active"
+              aria-current="page"
+              >Paquetes</a
+            >
+          </li>
+          <!-- @if(!admin){
+            <li class="nav-item">
+              <a
+                [routerLink]="['/cotizacion']"
+                class="nav-link active"
+                aria-current="page"
+                >Cotizacion</a
+              >
+            </li>
+          } -->
+         
+        
+         
+          <!-- <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Contacto</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" 
+            [routerLink]="['/sobre-nosotros']"
+  
+              >Sobre nosotros</a
+            >
+          </li>
+          <!-- @if(admin){
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Administración
+              </a>
+              <ul class="dropdown-menu">
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-cotizacion']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Cotizaciones</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-destinos']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Destinos</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-paquetes']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Paquetes</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a
+                    [routerLink]="['/listar-salidas']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Salidas</a
+                  >
+                </li>
+              </ul>
+            </li>
+         
+          } -->
+          @if(client){
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Pagos
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    [routerLink]="['/pagos-pendientes',userId]"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Pagos Pendientes</a
+                  >
+                  
+                </li>
+                <!-- <li>
+                  <a
+                    [routerLink]="['/pagos-pendientes']"
+                    class="nav-link active"
+                    aria-current="page"
+                    >Historial de Pagos</a
+                  >
+                  
+                </li> -->
+                
+              </ul>
+            </li>
+          }
+        </ul>
+       
+  
+        <form class="d-flex" role="search">
+          <!-- @if(admin){ -->
+            <!-- <span class="text text-secondary">Admin</span> -->
+  
+          <!-- } -->
+          @if(!login){
+            <button
+            class="btn btn-outline-dark"
+            type="submit"
+            [routerLink]="['/login']"
+          >
+            Sign In
+          </button>
+          }
+          
+        
+          @if(login){
+            <button
+            class="btn btn-dark"
+            type="submit"
+            (click)="logOut()"
+          >
+          <i class="bi bi-box-arrow-right"></i> Log Out
+          </button>
+          }
+  
+        </form>
+        <!-- <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form> -->
+      </div>
+    </div>
+  </nav>
+}

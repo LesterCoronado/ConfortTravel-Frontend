@@ -1,5 +1,14 @@
 .tours{
     display: grid;
     place-items: center;
+    background: url('https://media.tacdn.com/media/attractions-splice-spp-674x446/0b/f6/3f/f7.jpg');
+}
+.parallax{
+    background-image: url('https://guatediario.com/wp-content/uploads/2022/04/antigua_guatemala.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
 }
 

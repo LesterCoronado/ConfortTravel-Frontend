@@ -1,11 +1,159 @@
-<div class="parallax">
-  <p-toast />
-    <div class="alert alert-primary" role="alert">
-        <h1 class="text-center mt-5">Bienvenido al sistema Comfort Travel</h1>
-    
+<div class="paralla">
+  <div class="m-0">
+    <p-galleria
+      [value]="images"
+      [showItemNavigators]="true"
+      [showThumbnails]="false"
+      [showIndicators]="true"
+      [showIndicatorsOnItem]="true"
+      [responsiveOptions]="responsiveOptions"
+      [autoPlay]="true"
+      [circular]="true"
+      [containerStyle]="{ 'max-width': '100%',  }"
+    >
+      <ng-template pTemplate="item" let-item>
+        <img
+          [src]="item.itemImageSrc"
+          style="width: 100%; display: block; margin: 0px; height: 600px"
+        />
+      </ng-template>
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img
+            [src]="item.thumbnailImageSrc"
+            style="display: block; border-radius: 100%"
+          />
+        </div>
+      </ng-template>
+    </p-galleria>
+  </div>
+
+  <div class="contenido mb-5">
+    <div class="section-1">
+      <div class="container mt-1">
+        <br />
+        <h1 class="fw-semibold fst-italic">Excursiones</h1>
+        <div class="row">
+          <div class="col-md-6">
+            <p>
+              En Confort Travel, nos apasiona llevarte a descubrir los tesoros
+              naturales y culturales de Guatemala. Nuestras excursiones están
+              diseñadas para ofrecerte una experiencia única y enriquecedora a
+              través de algunos de los destinos más fascinantes del país. Desde
+              la imponente presencia de los volcanes como el Pacaya y el
+              Tajumulco, hasta la serenidad de las aguas cristalinas del Lago
+              Atitlán, cada aventura te sumerge en paisajes espectaculares y
+              encuentros culturales inolvidables.
+              <br /><br />
+              Confort Travel se compromete a ofrecerte un servicio personalizado
+              y memorable. Descubre Guatemala con nosotros y déjate cautivar por
+              la diversidad y la belleza de este maravilloso país.
+            </p>
+            <p-button
+              class="p-button-light p-button-text p-text-primary"
+              icon="pi pi-whatsapp"
+              label="Contactar"
+              (click)="openWhatsAppExcursiones()"
+            ></p-button>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div
+                class="col-md-4"
+                *ngFor="let image of excursiones; let index = index"
+                key="index"
+              >
+                <img
+                  [src]="image.thumbnailImageSrc"
+                  [alt]="image.alt"
+                  style="
+                    cursor: pointer;
+                    width: 150px;
+                    padding: 10px;
+                    min-width: 170px;
+                  "
+                  (click)="imageClick(index)"
+                />
+              </div>
+              <p-galleria
+                [value]="images"
+                [(visible)]="displayCustom"
+                [(activeIndex)]="activeIndex"
+                [responsiveOptions]="responsiveOptions"
+                [containerStyle]="{ width: '850px' }"
+                [numVisible]="7"
+                [circular]="true"
+                [fullScreen]="true"
+                [showItemNavigators]="true"
+                [showThumbnails]="false"
+              >
+                <ng-template pTemplate="item" let-item>
+                  <img
+                    [src]="item.itemImageSrc"
+                    style="width: 100%; display: block"
+                  />
+                </ng-template>
+              </p-galleria>
+            </div>
+          </div>
+        </div>
+
+        <br />
+        <br />
       </div>
+    </div>
+    <div class="section-2">
+      <br />
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <h1 class="fw-semibold fst-italic">Traslados</h1>
+          </div>
+          <div class="col-md-6">
+            <p-galleria
+              [value]="traslados"
+              [numVisible]="5"
+              [circular]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="false"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '640px' }"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img
+                  [src]="item.itemImageSrc"
+                  style="width: 100%; display: block; height: 300px"
+                />
+              </ng-template>
+            </p-galleria>
+          </div>
+          <div class="col-md-6">
+            <p>
+              En Confort Travel, entendemos la importancia de cada detalle en tu
+              viaje. Nuestro servicio de traslados está diseñado para ofrecerte
+              comodidad y tranquilidad desde el momento en que llegas a
+              Guatemala. Ya sea que necesites transporte desde el aeropuerto al
+              hotel, o desees explorar diferentes puntos de interés con
+              seguridad y eficiencia, estamos aquí para hacer que cada traslado
+              sea una experiencia sin complicaciones.
 
-   
+              <br />
+              <br />
+              Con Confort Travel, cada traslado se convierte en una oportunidad
+              para comenzar tu aventura en Guatemala de la mejor manera posible.
+            </p>
+            <p-button
+              class="p-button-light p-button-text p-text-primary"
+              icon="pi pi-whatsapp"
+              label="Contactar"
+              (click)="openWhatsApp()"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+      <br />
+      <br />
+    </div>
+  </div>
 </div>
-
-

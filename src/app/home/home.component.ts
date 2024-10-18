@@ -6,25 +6,64 @@ import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { BackendService } from '../services/backend.service';
 import { environment } from '../environments/environments.prod';
+import { GalleriaModule } from 'primeng/galleria';
+import { PhotoService } from '../services/photo.service';
 @Component({
-  selector: 'app-home',
+  selector: 'app-home', 
   standalone: true,
-  imports: [ToastModule, ButtonModule, RippleModule],
-  providers: [MessageService],
+  imports: [ToastModule, ButtonModule, RippleModule, GalleriaModule],
+  providers: [MessageService, PhotoService],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
-  constructor(private messageService: MessageService, private backend: BackendService) {}
+  images: any[] | undefined;
+  excursiones: any[] | undefined;
+  traslados: any[] | undefined;
+  displayCustom: boolean = false;
+    activeIndex: number = 0;
+  responsiveOptions: any[] = [
+    {
+        breakpoint: '1024px',
+        numVisible: 5
+    },
+    {
+        breakpoint: '768px',
+        numVisible: 3
+    },
+    {
+        breakpoint: '560px',
+        numVisible: 1
+    }
+];
+
+  constructor(
+    private messageService: MessageService,
+    private backend: BackendService,
+    private photoService: PhotoService
+  ) {}
 
   ngOnInit(): void {
+    this.photoService.getImages().then((images:any) => (this.images = images));
+    this.photoService.getExcursiones().then((images:any) => (this.excursiones = images));
+    this.photoService.getTraslados().then((images:any) => (this.traslados = images));
     this.backend.get(`${environment.api}/Empleado`).subscribe({
       next: (data: any) => {
-        console.log("hurray");
+        console.log('hurray');
       },
       error: (error) => {
         console.error(error);
       },
     });
   }
+  imageClick(index: number) {
+    this.activeIndex = index;
+    this.displayCustom = true;
+}
+openWhatsApp() {
+  window.location.href = 'https://wa.me/48396880/?text=%C2%A1Hola%2C%20quiero%20m%C3%A1s%20informacion%20de%20los%20traslados%21';
+}
+openWhatsAppExcursiones() {
+  window.location.href = 'https://wa.me/48396880/?text=%C2%A1Hola%2C%20quiero%20m%C3%A1s%20informacion%20de%20las%20excursiones%21';
+}
 }

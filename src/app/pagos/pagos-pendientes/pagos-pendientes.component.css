@@ -1,9 +1,17 @@
+body{
+    background-color: var(--surface-ground)!important;
+
+}
 .contenido{
 
     display: grid;
     place-items: center;
 }
+.container{
+    background-color: var(--surface-ground)!important;
 
+    margin-top: 30px;
+}
 
 
 a{

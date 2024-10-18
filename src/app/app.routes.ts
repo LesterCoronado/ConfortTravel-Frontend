@@ -27,7 +27,8 @@ import { ListarPagosComponent } from './Administracion/pagos/listar-pagos/listar
 import { PagosPendientesComponent } from './pagos/pagos-pendientes/pagos-pendientes.component';
 import { HistorialPagosComponent } from './pagos/historial-pagos/historial-pagos.component';
 import { PaymentSuccessComponent } from './pagos/payment-success/payment-success.component';
-
+import { SobreNosotrosComponent } from './sobre-nosotros/sobre-nosotros.component';
+import { FooterComponent } from './footer/footer.component';
 export const routes: Routes = [
     {
         path: 'login', component: LoginComponent
@@ -124,6 +125,11 @@ export const routes: Routes = [
     //historial de pagos para el area de usuario
     {
         path: 'historial-pagos:/id', component: HistorialPagosComponent
+       
+    },
+
+    {
+        path: 'sobre-nosotros', component: SobreNosotrosComponent
        
     },
 
