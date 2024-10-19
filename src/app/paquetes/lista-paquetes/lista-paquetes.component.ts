@@ -4,6 +4,7 @@ import { environment } from '../../environments/environments.prod';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { SkeletonModule } from 'primeng/skeleton';
+import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-lista-paquetes',
   standalone: true,
@@ -11,11 +12,19 @@ import { SkeletonModule } from 'primeng/skeleton';
   templateUrl: './lista-paquetes.component.html',
   styleUrl: './lista-paquetes.component.css'
 })
+
 export class ListaPaquetesComponent {
   paquetes: any = [];
-  constructor(private backend: BackendService, private router: Router) {}
+  constructor(private backend: BackendService, private router: Router, private dataService: DataService) {
+   
+  }
   ngOnInit(): void {
-    this.getPaquetes();
+    this.loadPaquetes();
+  }
+  private loadPaquetes(): void {
+    this.dataService.getData().subscribe(data => {
+      this.paquetes = data;
+    });
   }
   getPaquetes() {
     this.backend.get(`${environment.api}/Paquete`).subscribe(

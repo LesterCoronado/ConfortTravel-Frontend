@@ -138,6 +138,8 @@ export class EditarPaqueteComponent {
   }
 
   addPaquete() {
+    this.btnBlock = true;
+    this.btnEnviar = false;
     if (this.crearFormulario.value.X == 1) {
       this.crearFormulario.value.estado = true;
     } else {
@@ -152,7 +154,6 @@ export class EditarPaqueteComponent {
         detail: 'Complete el formulario',
       });
     } else {
-      // Convertir idDestino e idSalida a enteros
       this.btnEnviar = false;
       this.btnBlock = true;
       this.crearFormulario.value.portada = this.previsualizacion;
@@ -165,7 +166,7 @@ export class EditarPaqueteComponent {
               this.messageService.add({
                 severity: 'success',
                 summary: 'Success',
-                detail: 'Salida agregada correctamente',
+                detail: 'Paquete agregado correctamente',
               });
               this.btnBlock = false;
               this.btnEnviar = true;
@@ -177,18 +178,18 @@ export class EditarPaqueteComponent {
             this.btnBlock = false;
             this.btnEnviar = true;
 
-            if (error.error == 'La salida ya existe') {
+            if (error.error == 'El paquete ya existe') {
               this.messageService.add({
                 severity: 'info',
                 summary: 'Info',
-                detail: 'Ya existe una salida con este nombre',
+                detail: 'Ya existe un paquete con este nombre',
               });
             } else {
               this.messageService.add({
                 severity: 'error',
                 summary: 'Error',
                 detail:
-                  'ocurrion un error al crear la salida, intente nuevamente',
+                  'ocurrion un error al crear el paquete, intente nuevamente',
               });
             }
           },
@@ -196,6 +197,8 @@ export class EditarPaqueteComponent {
     }
   }
   editPaquete(id: any) {
+    this.btnBlock = true;
+    this.btnEnviar = false;
     if (this.crearFormulario.value.estado == 'true') {
       this.crearFormulario.controls['estado'].setValue(true);
     }
@@ -225,7 +228,7 @@ export class EditarPaqueteComponent {
           this.messageService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Error al editar la salida',
+            detail: 'Error al editar el paquete, intente de nuevo',
           });
         },
       });

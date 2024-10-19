@@ -4,8 +4,8 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { BackendService } from '../../../services/backend.service';
 import { environment } from '../../../environments/environments.prod';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { DTOService } from '../../../services/dto.service';
 import { MatDialog } from '@angular/material/dialog';
 import { EditarCotizacionesComponent } from '../editar-cotizaciones/editar-cotizaciones.component';
@@ -21,17 +21,17 @@ import { RippleModule } from 'primeng/ripple';
 import { TooltipModule } from 'primeng/tooltip';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-listar-cotizaciones',
   standalone: true,
   imports: [
     FormsModule,
-    CalendarModule ,
+    CalendarModule,
     TooltipModule,
     CommonModule,
-    MatTableModule, 
+    MatTableModule,
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,
@@ -42,12 +42,11 @@ import { HttpHeaders } from '@angular/common/http';
     ToastModule,
     ButtonModule,
     RippleModule,
-    DialogModule
-
+    DialogModule,
   ],
   providers: [MessageService],
   templateUrl: './listar-cotizaciones.component.html',
-  styleUrl: './listar-cotizaciones.component.css'
+  styleUrl: './listar-cotizaciones.component.css',
 })
 export class ListarCotizacionesComponent {
   btnEnviar: boolean = true;
@@ -74,7 +73,7 @@ export class ListarCotizacionesComponent {
   dataSource = new MatTableDataSource();
 
   constructor(
-    private backend : BackendService,
+    private backend: BackendService,
     private DTO: DTOService,
     public dialog: MatDialog,
     private notificaciones: NotificacionesService,
@@ -89,8 +88,7 @@ export class ListarCotizacionesComponent {
     this.notificaciones.nuevaCotizacion$.subscribe(() => {
       this.getCotizaciones();
     });
-    this.getCotizaciones(); 
-
+    this.getCotizaciones();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -100,26 +98,23 @@ export class ListarCotizacionesComponent {
       this.dataSource.paginator.firstPage();
     }
   }
-  getCotizaciones(){
-    this.backend.get(`${environment.api}/Cotizacion`).subscribe(
-      {
-        next: (data : any) => {
-          this.dataSource.data = data;
-          this.cotizaciones = data;
-          console.log(data);
-          console.log( this.dataSource.data);
-        },
-        error: (error) => {
-          console.error(error);
-      }
-    }
-    )
-      
+  getCotizaciones() {
+    this.backend.get(`${environment.api}/Cotizacion`).subscribe({
+      next: (data: any) => {
+        this.dataSource.data = data;
+        this.cotizaciones = data;
+        console.log(data);
+        console.log(this.dataSource.data);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   openDialog(id: any) {
     this.DTO.setIdCotizacion(id);
-    console.log("guardando.." + id);
+    console.log('guardando..' + id);
 
     const dialogRef = this.dialog.open(EditarCotizacionesComponent, {
       width: '900px',
@@ -131,8 +126,7 @@ export class ListarCotizacionesComponent {
           summary: 'Success',
           detail: 'Cotizacion editada con éxito',
         });
-      }
-      else{
+      } else {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
@@ -145,106 +139,116 @@ export class ListarCotizacionesComponent {
   showDialog(id: any) {
     this.visible = true;
     this.IdCotizacion = id;
-}
+  }
 
-  generarOrdenPago(){
+  generarOrdenPago() {
     this.btnEnviar = false;
-
-    let cotizacion: any= {};
-    this.backend.get(`${environment.api}/Cotizacion/${this.IdCotizacion}`).subscribe(
-      {
-        next: (data : any) => {
+    let cotizacion: any = {};
+    this.backend
+      .get(`${environment.api}/Cotizacion/${this.IdCotizacion}`)
+      .subscribe({
+        next: (data: any) => {
           cotizacion = data;
           console.log(cotizacion);
           let numero = data[0].precioCotizacion.toFixed(2);
           let stringNumero = numero.toString();
 
-           // Crear los headers
-    const headers = new HttpHeaders({
-      'X-PUBLIC-KEY': environment.X_PUBLIC_KEY,
-      'X-SECRET-KEY': environment.X_SECRET_KEY
-    });
+          // Crear los headers
+          const headers = new HttpHeaders({
+            'X-PUBLIC-KEY': environment.X_PUBLIC_KEY,
+            'X-SECRET-KEY': environment.X_SECRET_KEY,
+          });
 
-    // Realizar la petición POST
-    this.backend.postPago(
-      `https://app.recurrente.com/api/products`,
-      {
-        product: {
-          name: cotizacion[0].paqueteViaje, 
-          description: cotizacion[0].paqueteViaje,
-          custom_payment_method_settings: 'true',
-          adjustable_quantity: 'false',
-          card_payments_enabled: 'true',
-          bank_transfer_payments_enabled: 'true',
-          available_installments: [],
-          success_url: 'https://conforttravelgt.com/payment-success', 
-          prices_attributes: [
-            {
-              amount_as_decimal: stringNumero,
-              currency: 'GTQ',
-              charge_type: 'one_time',
-            },
-          ],
-        },  
-      },
-      {
-        headers: headers,
-      }
-    ).subscribe({
-      next: (data: any) => {
-        this.crearCheckOut(data.id);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
-  
+          // Realizar la petición POST
+          this.backend
+            .postPago(
+              `https://app.recurrente.com/api/products`,
+              {
+                product: {
+                  name: cotizacion[0].paqueteViaje,
+                  description: cotizacion[0].paqueteViaje,
+                  custom_payment_method_settings: 'true',
+                  adjustable_quantity: 'false',
+                  card_payments_enabled: 'true',
+                  bank_transfer_payments_enabled: 'true',
+                  available_installments: [],
+                  success_url: 'https://conforttravelgt.com/payment-success',
+                  prices_attributes: [
+                    {
+                      amount_as_decimal: stringNumero,
+                      currency: 'GTQ',
+                      charge_type: 'one_time',
+                    },
+                  ],
+                },
+              },
+              {
+                headers: headers,
+              }
+            )
+            .subscribe({
+              next: (data: any) => {
+                this.crearCheckOut(data.id);
+              },
+              error: (error) => {
+                this.btnEnviar = true;
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Error',
+                  detail: 'Error al generar orden de pago, intente de nuevo',
+                });
+              },
+            });
         },
         error: (error) => {
-          console.error(error);
-      }
-    }
-    )
-   
+          this.btnEnviar = true;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al generar orden de pago, intente de nuevo',
+          });
+        },
+      });
   }
   crearCheckOut(id: any) {
     const headers = new HttpHeaders({
       'X-PUBLIC-KEY': environment.X_PUBLIC_KEY,
-      'X-SECRET-KEY': environment.X_SECRET_KEY
+      'X-SECRET-KEY': environment.X_SECRET_KEY,
     });
-    this.backend.postPago(
-      `https://app.recurrente.com/api/checkouts`,
-      {
-        items: [{ price_id: id }],
-      },
-      {
-        headers: headers,
-      }
-    ).subscribe({
+    this.backend
+      .postPago(
+        `https://app.recurrente.com/api/checkouts`,
+        {
+          items: [{ price_id: id }],
+        },
+        {
+          headers: headers,
+        }
+      )
+      .subscribe({
+        next: (data: any) => {
+          this.asignarPago(data.checkout_url, data.id);
+        },
+        error: (error) => {
+          this.btnEnviar = true;
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Error al generar orden de pago, intente de nuevo',
+          });
+        },
+      });
+  }
+
+  asignarPago(checkout: any, id: any) {
+    let json = {
+      idCotizacion: this.IdCotizacion,
+      fechaVencimiento: this.fechaLimitePago,
+      checkout: checkout,
+    };
+    console.log(json);
+    this.backend.post(`${environment.api}/OrdenPago`, json).subscribe({
       next: (data: any) => {
-        
-        this.asignarPago(data.checkout_url, data.id);
-      },
-      error: (error) => {
-        this.btnEnviar = false;
-      },
-    });
-  }
-
-    
-
-  
-asignarPago(checkout: any, id: any) {
-  
-  let json ={
-    "idCotizacion": this.IdCotizacion,
-    "fechaVencimiento": this.fechaLimitePago,
-    "checkout": checkout
-  }
-  console.log(json)
-  this.backend.post(`${environment.api}/OrdenPago`, json).subscribe(
-    {
-      next: (data : any) => {
         this.btnEnviar = true;
         this.visible = false;
         this.messageService.add({
@@ -260,11 +264,10 @@ asignarPago(checkout: any, id: any) {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Error al generar orden de pago',
+          detail: 'Error al generar orden de pago, intente de nuevo',
         });
         console.error(error);
-    }
+      },
+    });
   }
-  )
-}
 }
