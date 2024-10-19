@@ -67,7 +67,7 @@ export class CotizarComponent {
     console.log(this.crearFormulario.value);
     let data: any;
     data = this.DTO.getUser();
-    let tokenId: any = this.cookie.get('idUser');
+    let tokenId: any = sessionStorage.getItem('idUser');
     this.crearFormulario.patchValue({
       idUsuario: tokenId,
     });
