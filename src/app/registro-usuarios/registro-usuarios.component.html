@@ -1,4 +1,7 @@
 <div class="parallax">
+  <br/>
+  <br/>
+  
   <form
     [formGroup]="crearFormulario"
     (ngSubmit)="formulario()"
@@ -41,12 +44,10 @@
           [(ngModel)]="value"
           [toggleMask]="true"
         >
-          <ng-template pTemplate="header">
-            <h6>Introduzca una contraseña</h6>
-          </ng-template>
+          
           <ng-template pTemplate="footer">
             <p-divider />
-            <p class="mt-2">Sugerencias</p>
+            <p class="">Sugerencias</p>
             <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
               <li>Al menos una minuscula</li>
               <li>Al menos una mayúscula</li>
