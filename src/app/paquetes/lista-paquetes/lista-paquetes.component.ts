@@ -14,6 +14,7 @@ import { DataService } from '../../services/data.service';
 })
 
 export class ListaPaquetesComponent {
+  loading = true;
   paquetes: any = [];
   constructor(private backend: BackendService, private router: Router, private dataService: DataService) {
    
@@ -21,11 +22,11 @@ export class ListaPaquetesComponent {
   ngOnInit(): void {
     this.loadPaquetes();
   }
-  private loadPaquetes(): void {
-    this.dataService.getData().subscribe(data => {
-      this.paquetes = data;
-    });
+  private async loadPaquetes(): Promise<void> {
+    this.paquetes = await this.dataService.getData();
+    this.loading = false; // Desactiva el indicador de carga cuando los datos están listos
   }
+
   getPaquetes() {
     this.backend.get(`${environment.api}/Paquete`).subscribe(
       {

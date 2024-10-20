@@ -9,6 +9,10 @@ import { LucideAngularModule, SquareArrowOutUpRight } from 'lucide-angular';
 import { NotificacionesService } from '../../../services/notificaciones.service';
 import { DialogModule } from 'primeng/dialog';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { InputIconModule } from 'primeng/inputicon';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputTextModule } from 'primeng/inputtext';
+
 
 @Component({
   selector: 'app-listar-pagos',
@@ -20,6 +24,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
     ButtonModule,
     LucideAngularModule,
     DialogModule,
+    InputIconModule,
+    IconFieldModule,
+    InputTextModule,
   ],
   templateUrl: './listar-pagos.component.html',
   styleUrl: './listar-pagos.component.css',
@@ -86,5 +93,8 @@ export class ListarPagosComponent {
     const unsafeUrl = URL.createObjectURL(blob);
     this.downloadLink =
       this.sanitizer.bypassSecurityTrustResourceUrl(unsafeUrl);
+  }
+  applyFilter(event: Event) {
+    
   }
 }

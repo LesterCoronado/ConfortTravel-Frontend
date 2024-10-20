@@ -1,69 +1,103 @@
-<div class="card p-3 m-2 mt-2">
-  <h6 class="mb-0 p-0 fw-semibold">LISTA DE PAGOS DE COTIZACIONES</h6>
-  <p-tag
-    class="mt-0"
-    icon="pi pi-align-left"
-    severity="secondary"
-    value="Total: {{ pagos.length }}"
-  />
-
-  <hr />
-  <p-table
-    [paginator]="true"
-    [rows]="5"
-    [rowsPerPageOptions]="[5, 10, 20]"
-    [value]="pagos"
-    [tableStyle]="{ 'min-width': '50rem' }"
-    styleClass="p-datatable-gridlines"
-  >
-    <ng-template pTemplate="header">
-      <tr>
-        <th>ID Cotizacion</th>
-        <th>Fecha Generado</th>
-        <th>Fecha Vencimiento</th>
-        <th>Estado</th>
-        <th>Factura</th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-pago>
-      <tr>
-        <td>{{ pago.idCotizacion }}</td>
-        <td>{{ pago.fechaGenerado | date : "dd/MM/yyyy" }}</td>
-        <td>{{ pago.fechaVencimiento | date : "dd/MM/yyyy" }}</td>
-        <td>
-          @if (pago.estado == true) {
-          <p-tag
-            severity="secondary"
-            value="Pendiente"
-            class="tag-custom-width"
-          />
-          } @else {
-          <p-tag severity="success" value="Pagado" class="tag-custom-width" />
-          }
-        </td>
-        <td>
-          <button
-            [disabled]="pago.estado == true"
-            (click)="detallesPago(pago.idOrdenDePago)"
-            label="Ver Detalles"
-            pButton
-            pRipple
-            class="p-button-primary rounded"
+<div class="parallax">
+  <div class="p-2">
+    <div class="card cintaOpciones">
+      <div class="cintaOpciones">
+        <div class="row">
+          <div
+            class="col-md-6 d-grid gap-2 d-md-flex flex-column align-items-start justify-content-md-start p-3"
           >
-            <i class="bi bi-box-arrow-up-right me-2"></i>
-          </button>
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-</div>
+            <div class="container">
+              <h6 class="mb-0 p-0 fw-semibold">LISTA DE PAGOS</h6>
+              <p-tag
+                class="mt-0"
+                icon="pi pi-align-left"
+                severity="secondary"
+                value="Total: {{ pagos.length }}"
+              />
+            </div>
+          </div>
 
+          <div class="col-md-6">
+            <div
+              class="container d-grid gap-2 d-md-flex align-items-start justify-content-md-end p-3"
+            >
+              <p-iconField iconPosition="right">
+                <p-inputIcon styleClass="pi pi-search"></p-inputIcon>
+                <input
+                  type="text"
+                  pInputText
+                  matInput
+                  (keyup)="applyFilter($event)"
+                  placeholder="Search"
+                />
+              </p-iconField>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p-table
+        [paginator]="true"
+        [rows]="5"
+        [rowsPerPageOptions]="[5, 10, 20]"
+        [value]="pagos"
+        [tableStyle]="{ 'min-width': '50rem' }"
+        styleClass="p-datatable-gridlines"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ID Cotizacion</th>
+            <th>Fecha Generado</th>
+            <th>Fecha Vencimiento</th>
+            <th>Estado</th>
+            <th>Factura</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-pago>
+          <tr>
+            <td>{{ pago.idCotizacion }}</td>
+            <td>{{ pago.fechaGenerado | date : "dd/MM/yyyy" }}</td>
+            <td>{{ pago.fechaVencimiento | date : "dd/MM/yyyy" }}</td>
+            <td>
+              @if (pago.estado == true) {
+              <p-tag
+                severity="secondary"
+                value="Pendiente"
+                class="tag-custom-width"
+              />
+              } @else {
+              <p-tag
+                severity="success"
+                value="Pagado"
+                class="tag-custom-width"
+              />
+              }
+            </td>
+            <td>
+              <button
+                [disabled]="pago.estado == true"
+                (click)="detallesPago(pago.idOrdenDePago)"
+                label="Ver Detalles"
+                pButton
+                pRipple
+                class="p-button-primary rounded"
+              >
+                <i class="bi bi-box-arrow-up-right me-2"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
 <p-dialog
   [maximizable]="true"
-  header="Factura - Serie: {{detallePago.serie}} No.{{detallePago.numeroFactura}}"
+  header="Factura - Serie: {{ detallePago.serie }} No.{{
+    detallePago.numeroFactura
+  }}"
   [modal]="true"
   [(visible)]="visible"
-  [style]="{ width: '50rem'}"
+  [style]="{ width: '50rem' }"
 >
   <!-- <p>No.{{detallePago.numeroFactura}}</p>
   <p>Serie: {{detallePago.serie}}</p>
@@ -71,7 +105,11 @@
   <p>Total: {{detallePago.subtotal | currency: 'GTQ'}} </p>
   <p>Fecha: {{detallePago.fecha  | date :'dd/MM/yyyy'}} </p> -->
   <div *ngIf="downloadLink" class="pdf-preview mt-4">
-    <iframe [src]="downloadLink" width="100%" height="500px" type="application/pdf"></iframe>
+    <iframe
+      [src]="downloadLink"
+      width="100%"
+      height="500px"
+      type="application/pdf"
+    ></iframe>
   </div>
-
 </p-dialog>

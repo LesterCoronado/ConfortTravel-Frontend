@@ -50,18 +50,18 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.dataService.getData().subscribe(data => {
+    this.dataService.getData();
+    // this.dataService.getData().subscribe(data => {
       
-    });
+    // });
     this.photoService.getImages().then((images:any) => (this.images = images));
     this.photoService.getExcursiones().then((images:any) => (this.excursiones = images));
     this.photoService.getTraslados().then((images:any) => (this.traslados = images));
     this.backend.get(`${environment.api}/Empleado`).subscribe({
       next: (data: any) => {
-        console.log('hurray');
+        
       },
       error: (error) => {
-        console.error(error);
       },
     });
   }

@@ -101,8 +101,7 @@ export class RegistroUsuariosComponent {
                }
  
                else {
-                 console.log("Error al tratar de establecer comunicacion con el servidor")
-                 console.log(error)
+              
                }
            
              

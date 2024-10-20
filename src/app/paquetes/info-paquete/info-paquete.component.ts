@@ -50,23 +50,19 @@ export class InfoPaqueteComponent {
     this.backend.get(`${environment.api}/Paquete/${id}`).subscribe({
       next: (data: any) => {
         this.paquete = data[0];
-        console.log(data);
-      },
+              },
       error: (error: any) => {
-        console.log(error);
-      },
+              },
     });
   }
   getItinerario(id: any) {
     this.backend.get(`${environment.api}/Itinerario/${id}`).subscribe({
       next: (data: any) => {
-        console.log(data);
-        this.itinerario = data;
+                this.itinerario = data;
        
       },
       error: (error: any) => {
-        console.log(error);
-      },
+              },
     });
   }
 
@@ -78,22 +74,18 @@ export class InfoPaqueteComponent {
     this.backend.get(`${environment.api}/PaqueteIncluye/${id}`).subscribe({
       next: (data: any) => {
         this.lista_incluye = data;
-        console.log(data);
-      },
+              },
       error: (error: any) => {
-        console.log(error);
-      },
+              },
     });
    }
    getNoIncluye(id: any){
     this.backend.get(`${environment.api}/PaqueteNoIncluye/${id}`).subscribe({
       next: (data: any) => {
         this.lista_noIncluye = data;
-        console.log(data);
-      },
+              },
       error: (error: any) => {
-        console.log(error);
-      },
+              },
     });
    }
 }

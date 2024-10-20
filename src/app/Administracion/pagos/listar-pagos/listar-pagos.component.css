@@ -1,14 +1,113 @@
+a {
+  cursor: pointer;
+}
+.contenido {
+  padding: 10px;
+}
+.same-height {
+  align-items: stretch; /* Hace que los elementos dentro del contenedor tengan la misma altura */
+}
+.parallax {
+  background-image: url("https://a.travel-assets.com/findyours-php/viewfinder/images/res60/69000/69981-Lake-Atitlan.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh; /* Ocupa toda la altura del viewport */
+  height: auto;
+}
+
+.contenedor {
+  background-color: rgb(249, 249, 249);
+
+  border-radius: 15px;
+}
+
+.titulo {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.701);
+}
+
+.cintaOpciones {
+  border-radius: 5px;
+  margin-top: 5px;
+  background-color: rgb(249, 249, 249);
+}
+.parallax p-table th,
+.parallax p-table td {
+  border: 1px solid #ddd; /* Línea gris clara para las celdas */
+}
+
+.tabla {
+  width: 98%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.681);
+  overflow-x: auto;
+}
+.table-responsive {
+  overflow-x: hidden; /* Evita que la tabla cree una barra de scroll innecesaria */
+}
+.activo,
+.inactivo {
+  display: inline-block; /* Asegúrate de que el elemento respete el ancho */
+  width: 70px; /* Ajusta el valor según sea necesario */
+  text-align: center; /* Centra el texto dentro del span */
+}
+
+.activo {
+  background-color: #41f50a69;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.inactivo {
+  background-color: #f5350a69;
+  border-radius: 50px;
+  padding: 5px;
+}
+
+.under-construction {
+  border-radius: 5px;
+  margin: 5px;
+  text-align: center;
+  padding: 50px;
+  border: 2px dashed #151515b0;
+}
+.under-construction img {
+  max-width: 100%;
+  height: auto;
+}
+
+.loader {
+  width: 25px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #f9f7f8) content-box;
+  -webkit-mask: repeating-conic-gradient(
+      #0000 0deg,
+      #000 1deg 20deg,
+      #0000 21deg 36deg
+    ),
+    radial-gradient(
+      farthest-side,
+      #0000 calc(100% - var(--b) - 1px),
+      #000 calc(100% - var(--b))
+    );
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l4 1s infinite steps(10);
+}
+@keyframes l4 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 /* Estilo para las celdas de la tabla */
-.card p-table th,
-.card p-table td {
-    border: 1px solid #ddd; /* Línea gris clara para las celdas */
-}
-
-h3 {
-    color: #007bff; 
-}
-
-.tag-custom-width {
-    min-width: 100px; /* Ajusta este valor según el ancho deseado */
-    display: inline-block; /* Asegura que el ancho se aplique correctamente */
-}

@@ -23,6 +23,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
 import { FormsModule } from '@angular/forms';
 import { HttpHeaders } from '@angular/common/http';
+import { TableModule } from 'primeng/table';
 @Component({
   selector: 'app-listar-cotizaciones',
   standalone: true,
@@ -32,6 +33,7 @@ import { HttpHeaders } from '@angular/common/http';
     TooltipModule,
     CommonModule,
     MatTableModule,
+    TableModule,
     MatPaginatorModule,
     MatIconModule,
     MatButtonModule,

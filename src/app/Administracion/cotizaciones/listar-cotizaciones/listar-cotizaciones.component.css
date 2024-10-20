@@ -37,6 +37,14 @@ a{
      margin-top: 10px;
      background-color: rgb(249, 249, 249);
  }
+.tabla{
+  min-width: '75rem' 
+ }
+ .parallax p-table th,
+.parallax p-table td {
+    border: 1px solid #ddd; /* Línea gris clara para las celdas */
+}
+
 
  .tabla{
    width: 98%;
@@ -97,3 +105,5 @@ a{
   animation:l4 1s infinite steps(10);
 }
 @keyframes l4 {to{transform: rotate(1turn)}}
+
+/* Estilo para las celdas de la tabla */

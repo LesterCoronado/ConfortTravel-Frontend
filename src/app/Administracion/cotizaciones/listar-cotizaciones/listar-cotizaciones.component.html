@@ -35,164 +35,106 @@
       </div>
     </div>
 
-    <table
-      mat-table
-      [dataSource]="dataSource"
-      class="lista table table-striped table-hover mb-0"
+    <p-table
+      [paginator]="true"
+      [rows]="5"
+      [rowsPerPageOptions]="[5, 10, 20]"
+      [value]="cotizaciones"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      styleClass="p-datatable-gridlines"
     >
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef>Id</th>
-      <td mat-cell *matCellDef="let element">
-        {{ element.idCotizacion }}
-      </td>
-    </ng-container>
-      <ng-container matColumnDef="Cliente">
-        <th mat-header-cell *matHeaderCellDef>Cliente</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.usuario }}
-        </td>
-      </ng-container>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Cliente</th>
+          <th>Paquete</th>
+          <!-- <th>Salida</th> -->
+          <th>Fecha Salida</th>
+          <th>Modalidad</th>
+          <th>Comentarios</th>
+          <th>Niños</th>
+          <th>Adultos</th>
+          <th>Precio Cotizacion</th>
+          <th>Valido Hasta</th>
+        
+          <th>Acciones</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-cotizacion>
+        <tr>
+          <td>{{ cotizacion.idCotizacion }}</td>
+          <td>{{ cotizacion.usuario }}</td>
+          <td>{{ cotizacion.paqueteViaje }}</td>
+          <!-- <td>{{ cotizacion.salida }}</td> -->
+          <td>{{ cotizacion.fechaSalida | date : "dd/MM/yyyy" }}</td>
+          <td>{{ cotizacion.modalidad }}</td>
+          <td>{{ cotizacion.comentario }}</td>
+          <td>{{ cotizacion.totalNinos }}</td>
+          <td>{{ cotizacion.totalAdultos }}</td>
+          <td>{{ cotizacion.precioCotizacion | currency : "GTQ" }}</td>
+          <td>{{ cotizacion.validoHasta | date : "dd/MM/yyyy" }}</td>
+        
 
-      <ng-container matColumnDef="Destino">
-        <th mat-header-cell *matHeaderCellDef>Destino</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.paqueteViaje }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="LugarSalida">
-        <th mat-header-cell *matHeaderCellDef>Lugar de Salida</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.salida }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="FechaSalida">
-        <th mat-header-cell *matHeaderCellDef>Fecha Salida</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.fechaSalida | date : "dd/MM/yyyy" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Modalidad">
-        <th mat-header-cell *matHeaderCellDef>Modalidad</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.modalidad }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Comentario">
-        <th mat-header-cell *matHeaderCellDef>Comentarios</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.comentario }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Adultos">
-        <th mat-header-cell *matHeaderCellDef>Adultos</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.totalAdultos }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Ninos">
-        <th mat-header-cell *matHeaderCellDef>Niños</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.totalNinos }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="PrecioCotizacion">
-        <th mat-header-cell *matHeaderCellDef>Precio Cotizacion</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.precioCotizacion | currency : "Q" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="ValidoHasta">
-        <th mat-header-cell *matHeaderCellDef>Valido Hasta</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.validoHasta | date : "dd/MM/yyyy" }}
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="Estado">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.estado }}
-        </td>
-      </ng-container>
-
-      <!-- Acciones Column -->
-      <ng-container matColumnDef="Acciones">
-        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-        <td mat-cell *matCellDef="let element" >
+          <td>
          
-          <button
-          (click)="openDialog(element.idCotizacion)"
+         
+            <button
+            (click)="openDialog(cotizacion.idCotizacion)"
+              pButton
+              pRipple
+              pTooltip="Editar"
+              class="p-button-primary  rounded"
+            >
+              <i class="bi bi-pencil-square"></i>
+            </button>
+            <button
             pButton
             pRipple
-            pTooltip="Editar"
-            class="p-button-primary  rounded"
+            pTooltip="Generar Orden de Pago"
+            class="p-button-help rounded  mt-2"
+            (click)="showDialog(cotizacion.idCotizacion)"
           >
-            <i class="bi bi-pencil-square"></i>
-          </button>
-          <button
-          pButton
-          pRipple
-          pTooltip="Generar Orden de Pago"
-          class="p-button-help rounded  mt-2"
-          (click)="showDialog(element.idCotizacion)"
-        >
-        <i class="bi bi-bank"></i>
-        </button>
           
-          <!-- <button
-                (click)="
-                  eliminarProductoCartilla(
-                    element.idCartillaProducto,
-                    element.idCartillaMedica
-                  )
-                "
-                mat-icon-button
-                matTooltip="Eliminar"
-                color="warn"
-                aria-label="Example icon button with a delete icon"
-              >
-                <mat-icon>delete</mat-icon>
-              </button> -->
-        </td>
-      </ng-container>
+        <i class="bi bi-bank"></i>
+      </button>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
 
-    <mat-paginator
-      [pageSizeOptions]="[5, 10, 20, 50]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements"
-    >
-    </mat-paginator>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>
 <p-toast />
-<p-dialog header="Generar Orden de Pago" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-  <span class="p-text-secondary block mb-5 mt-5">Seleccione la   fecha límite de pago</span>
-  <br>
-  <input  [(ngModel)]="fechaLimitePago"  type="date" class="form-control mt-2">
+<p-dialog
+  header="Generar Orden de Pago"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }"
+>
+  <span class="p-text-secondary block mb-5 mt-5"
+    >Seleccione la fecha límite de pago</span
+  >
+  <br />
+  <input [(ngModel)]="fechaLimitePago" type="date" class="form-control mt-2" />
   <div class="d-flex justify-content-end gap-1 mt-5">
     <button
       (click)="visible = false"
       label="Cancelar"
       pButton
       pRipple
-      class="p-button-secondary  rounded"
-    >
-    </button>
-     <button
-     [disabled]="!fechaLimitePago || !btnEnviar"
-     (click)="generarOrdenPago()"
+      class="p-button-secondary rounded"
+    ></button>
+    <button
+      [disabled]="!fechaLimitePago || !btnEnviar"
+      (click)="generarOrdenPago()"
       label="Generar"
       pButton
       pRipple
-      class="p-button-primary  rounded"
+      class="p-button-primary rounded"
     >
-    @if (!btnEnviar){
-     
+      @if (!btnEnviar){
+
       <div style="display: flex; align-items: center">
         <div class="loader me-1"></div>
       </div>
@@ -200,4 +142,3 @@
     </button>
   </div>
 </p-dialog>
-
